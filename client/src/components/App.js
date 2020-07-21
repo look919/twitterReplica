@@ -5,7 +5,7 @@ import store from '../store';
 
 // import { loadUser } from '../actions/auth';
 
-// import setAuthToken from './../utils/setAuthToken';
+import setAuthToken from '../utils/setAuthToken';
 import Alert from './layout/Alert';
 import MainPage from './MainPage.jsx';
 
