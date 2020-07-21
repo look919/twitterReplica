@@ -1,12 +1,13 @@
-.btn-inline{
-  
-    &:link,
-    &:visited{
-        color: $color-primary;
+.btn-inline {
+  font-size: 1.4rem;
+  margin: 0.7rem 0;
+  &:link,
+  &:visited {
+    color: $color-primary;
 
-        text-decoration: none;
-    }
-    &:hover{
-        color: $color-primary-dark;
-    }
+    text-decoration: none;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
 }

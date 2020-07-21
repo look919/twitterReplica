@@ -12,9 +12,13 @@
   transition: all 0.4s;
   margin: 0 0.5rem;
 
-  &__dark {
+  &--dark {
     background-color: $color-background;
     color: $color-primary;
+  }
+  &--wide {
+    width: 100%;
+    text-align: center;
   }
 
   &:link,
