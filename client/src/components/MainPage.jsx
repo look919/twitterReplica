@@ -1,11 +1,10 @@
 import React from 'react';
-
-import { TwitterLogo } from '../img/Svgs.jsx';
+import ExploreNonAuth from './nonAuth/ExploreNonAuth';
 
 const MainPage = () => {
   return (
-    <div>
-      <TwitterLogo className='logo' />
+    <div className='container'>
+      <ExploreNonAuth />
     </div>
   );
 };

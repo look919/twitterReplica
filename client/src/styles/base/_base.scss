@@ -12,10 +12,14 @@ html {
 
 body {
   box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  background-color: $color-background;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
-  width: 100%;
 }
 .devinfo {
   color: $color-white;
@@ -29,7 +33,8 @@ body {
   }
 }
 .logo {
-  fill: rgb(29, 161, 242);
-  height: 4rem;
-  width: 4rem;
+  fill: $color-white;
+  height: 2.5rem;
+  width: 3.5rem;
+  margin-right: 3rem;
 }
