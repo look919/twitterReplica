@@ -1,5 +1,4 @@
 %heading {
-  font-family: $font-display;
   font-weight: 300;
   line-height: 1;
   color: $color-primary-dark;
@@ -23,21 +22,6 @@ body {
   font-size: 7rem;
   margin-bottom: 2.5rem;
   color: $color-white;
-
-  @media only screen and (max-width: $bp-1300) {
-    font-size: 5.5rem;
-  }
-  @media only screen and (max-width: $bp-900) {
-    margin-bottom: 1.2rem;
-  }
-
-  background-image: linear-gradient(
-    to right top,
-    rgba($color-secondary-dark, 0.9),
-    rgba($color-secondary, 1)
-  );
-  -webkit-background-clip: text;
-  color: transparent;
 }
 
 .heading-2 {
@@ -47,17 +31,6 @@ body {
   margin-bottom: 8rem;
   margin-top: 2rem;
   text-align: center;
-
-  @media only screen and (max-width: $bp-1300) {
-    font-size: 3.2rem;
-    margin-bottom: 5rem;
-  }
-
-  @media only screen and (max-width: $bp-1100) {
-    font-size: 3rem;
-    margin-bottom: 5rem;
-    margin-top: 1rem;
-  }
 
   background-image: linear-gradient(
     to right top,
@@ -82,22 +55,12 @@ body {
   @extend %heading;
   font-size: 3rem;
 
-  @media only screen and (max-width: $bp-1300) {
-    font-size: 2.2rem;
-  }
-  @media only screen and (max-width: $bp-1100) {
-    font-size: 1.6rem;
-  }
   color: $color-white;
 }
 .heading-4 {
   @extend %heading;
   font-size: 2.3rem;
   text-transform: uppercase;
-
-  @media only screen and (max-width: $bp-1300) {
-    font-size: 1.6rem;
-  }
 }
 .alert {
   position: absolute;

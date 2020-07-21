@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl';
-import English from './languages/en.json';
-import Polish from './languages/pl.json';
+import English from '../languages/en.json';
+import Polish from '../languages/pl.json';
 
 export const Context = React.createContext();
 let local = localStorage.getItem('lang') || 'pl';

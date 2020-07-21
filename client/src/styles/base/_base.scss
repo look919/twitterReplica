@@ -8,19 +8,6 @@
 
 html {
   font-size: 62.5%;
-
-  @media only screen and (max-width: $bp-900) {
-    font-size: 45%;
-  }
-  @media only screen and (max-width: $bp-600) {
-    font-size: 40%;
-  }
-  @media only screen and (max-width: $bp-500) {
-    font-size: 37.5%;
-  }
-  @media only screen and (max-width: $bp-400) {
-    font-size: 30%;
-  }
 }
 
 body {
@@ -28,101 +15,6 @@ body {
 }
 
 .container {
-  display: grid;
-  position: relative;
-
-  grid-template-rows:
-    [header-start nav-start] 100vh [header-end nav-end description-start] min-content
-    [description-end locations-start] min-content [locations-end features-start] min-content[features-end rooms-start]
-    min-content [rooms-end reviews-start] min-content [reviews-end contact-start] min-content [contact-end gallery-start]
-    max-content [gallery-end footer-start] 12rem [footer-end];
-  grid-template-columns:
-    [full-start] 8rem [center-start] 14rem repeat(5, 1fr)
-    14rem [center-end] 8rem [full-end nav-start] 8rem [nav-end];
-  grid-row-gap: 8rem;
-
-  @media only screen and (max-width: $bp-900) {
-    grid-row-gap: 5rem;
-  }
-  @media only screen and (max-width: $bp-700) {
-    grid-row-gap: 3rem;
-
-    grid-template-rows:
-      [nav-start] 7rem [nav-end header-start] calc(100vh - 10rem)
-      [header-end description-start] min-content
-      [description-end locations-start] min-content [locations-end features-start] min-content[features-end rooms-start]
-      min-content [rooms-end reviews-start] min-content [reviews-end contact-start] min-content [contact-end gallery-start]
-      max-content [gallery-end footer-start] 12rem [footer-end];
-    grid-template-columns:
-      [full-start nav-start] 8rem [center-start] 14rem repeat(5, 1fr)
-      14rem [center-end] 8rem [full-end nav-end];
-  }
-
-  &--bookPage {
-    display: grid;
-    grid-template-rows: 7rem min-content 100vh;
-    grid-template-columns: [full-start] 1fr [full-end]; //functionality for rooms
-
-    @media only screen and (max-width: $bp-900) {
-      grid-template-rows: 7rem min-content 100vh;
-    }
-    @media only screen and (max-width: $bp-700) {
-      grid-template-rows: 7rem min-content min-content;
-    }
-
-    background-image: linear-gradient(
-      to right bottom,
-      $color-white,
-      rgba($color-grey-light-2, 0.7)
-    );
-  }
-
-  &--loginPage {
-    height: 100vh;
-    min-width: 100vw;
-
-    overflow: hidden;
-    background-image: linear-gradient(
-        105deg,
-        rgba($color-primary, 0.7) 0%,
-        rgba($color-primary-dark, 0.7) 50%,
-        transparent 30%
-      ),
-      url('../img/form.jpg');
-    background-size: cover;
-    background-position: center;
-    border: 1px solid $color-grey-light-2;
-    border-radius: 0.5rem;
-
-    @media only screen and (max-width: $bp-700) {
-      background-image: linear-gradient(
-          to right bottom,
-          rgba($color-primary, 0.7),
-          rgba($color-primary-dark, 0.7)
-        ),
-        url('../img/form.jpg');
-    }
-  }
-  &--guestPage {
-    height: 100vh;
-    max-width: 100vw;
-    overflow: hidden;
-
-    background: radial-gradient(
-      circle,
-      rgba($color-primary, 1) 0%,
-      rgba($color-primary-dark, 1) 50%
-    );
-
-    display: grid;
-    grid-template-columns: 4fr 1fr;
-
-    @media only screen and (max-width: $bp-900) {
-      grid-template-rows: min-content 1fr;
-      grid-template-columns: 1fr;
-      height: 100%;
-    }
-  }
 }
 .devinfo {
   color: $color-white;
@@ -130,17 +22,8 @@ body {
   margin-top: 0.5rem;
   text-align: center;
 
-  &--left {
-    text-align: left;
+  ::selection {
+    background-color: $color-primary-dark;
+    color: $color-primary-light;
   }
-  @media only screen and (max-width: $bp-1300) {
-    font-size: 1.2rem;
-  }
-  @media only screen and (max-width: $bp-1100) {
-    font-size: 1rem;
-  }
-}
-::selection {
-  background-color: $color-primary-dark;
-  color: $color-secondary-dark;
 }
