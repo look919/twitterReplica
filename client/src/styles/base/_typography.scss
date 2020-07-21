@@ -32,14 +32,6 @@ body {
   margin-top: 2rem;
   text-align: center;
 
-  background-image: linear-gradient(
-    to right top,
-    rgba($color-primary, 0.9),
-    rgba($color-primary-dark, 0.9)
-  );
-  -webkit-background-clip: text;
-  color: transparent;
-
   transition: all 0.4s;
 
   &:hover {
