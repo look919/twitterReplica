@@ -8,11 +8,19 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
+const cors = require('cors');
 
 const globalErrorHandler = require('./controllers/errorController');
 const userRouter = require('./routes/userRoutes');
 
 const app = express();
+
+app.enable('trust proxy');
+
+//CORS
+app.use(cors());
+app.options('*', cors());
 
 // Set security HTTP headers
 app.use(helmet());
@@ -26,7 +34,7 @@ if (process.env.NODE_ENV === 'development') {
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from this IP, please try again in an hour!'
+  message: 'Too many requests from this IP, please try again in an hour!',
 });
 app.use('/api', limiter);
 
@@ -47,6 +55,7 @@ app.use(
     //whitelist: ['size', 'price']
   })
 );
+app.use(compression());
 
 app.use('/api/v1/users', userRouter);
 
