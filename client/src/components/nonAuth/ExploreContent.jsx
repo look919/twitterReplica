@@ -34,11 +34,11 @@ const ExploreContent = () => {
         </div>
 
         <div className='nonAuth__content__explore__trends'>
-          <SingleTrend name='#sejm' num={73.2} />
-          <SingleTrend name='Kanye' num={465} />
-          <SingleTrend name='Polish' num={20.6} />
-          <SingleTrend name='Lorem' num={10.4} />
-          <SingleTrend name='#ipsum' num={42.7} />
+          <SingleTrend name='#sejm' num={73.2} id='1' />
+          <SingleTrend name='Kanye' num={465} id='2' />
+          <SingleTrend name='Polish' num={20.6} id='3' />
+          <SingleTrend name='Lorem' num={10.4} id='4' />
+          <SingleTrend name='#ipsum' num={42.7} id='5' />
           <Link
             to='/'
             className='btn-inline nonAuth__content__explore__trends__more'

@@ -41,7 +41,7 @@
     border: 1px solid $color-primary;
     background-color: $color-background;
   }
-  &:focus + .input-container__icon {
+  &:focus + .input-search-container__icon {
     fill: $color-primary;
   }
 }

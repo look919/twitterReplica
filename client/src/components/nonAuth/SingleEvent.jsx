@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SingleEvent = ({ author, time, text, img }) => {
   return (
-    <div className='nonAuth__content__explore__event'>
+    <Link to='/' className='nonAuth__content__explore__event'>
       <div className='nonAuth__content__explore__event__info'>
         <p className='nonAuth__content__explore__event__info__author'>
           {author}
@@ -19,7 +20,7 @@ const SingleEvent = ({ author, time, text, img }) => {
         alt='news'
         className='nonAuth__content__explore__event__img'
       />
-    </div>
+    </Link>
   );
 };
 

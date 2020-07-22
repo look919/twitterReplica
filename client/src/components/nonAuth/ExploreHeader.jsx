@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { TwitterLogo, Settings, Search } from '../../img/Svgs.jsx';
 
 const ExploreHeader = () => {
   return (
     <header className='nonAuth__header'>
-      <TwitterLogo className='logo' />
+      <Link to='/' className='logo-link'>
+        <TwitterLogo className='logo' />
+      </Link>
       <form className='input-search-container'>
         <input className='input-search' placeholder='Wyszukiwarka Twittera' />
         <Search className='input-search-container__icon' />

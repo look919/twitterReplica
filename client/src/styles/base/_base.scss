@@ -37,9 +37,19 @@ body {
 //svgs
 .logo {
   fill: $color-white;
-  height: 2.5rem;
-  width: 3.5rem;
+  height: 3rem;
+  width: 4rem;
   margin-right: 3rem;
+  padding: 0.2rem;
+
+  &:hover {
+    background-color: lighten($color-background, 5%);
+    border-radius: 25%;
+    fill: $color-primary;
+  }
+}
+.logo-link {
+  height: 3rem;
 }
 .sadFace {
   height: 1.5rem;

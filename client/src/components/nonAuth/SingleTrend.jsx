@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { ArrowDown, SadFace } from '../../img/Svgs.jsx';
 
-const SingleTrend = ({ name, num }) => {
+const SingleTrend = ({ name, num, id = 1 }) => {
   const [report, setReport] = useState({
     checked: false,
     option: '',
@@ -20,28 +21,30 @@ const SingleTrend = ({ name, num }) => {
       checked: false,
       option: e.target.value,
     });
-    console.log(e.currentTarget);
   };
 
   const Trend = (
     <div className='nonAuth__content__explore__trend'>
-      <p className='nonAuth__content__explore__trend__p'>
+      <p to='/' className='nonAuth__content__explore__trend__p'>
         Najpopularniejsze w Polska
       </p>
-      <h3 className='heading-3 nonAuth__content__explore__trend__heading'>
+      <Link
+        to='/'
+        className='heading-3 nonAuth__content__explore__trend__heading'
+      >
         {name}
-      </h3>
+      </Link>
       <p className='nonAuth__content__explore__trend__p'>Tweety: {num} tys.</p>
       <div className='nonAuth__content__explore__trend__report'>
         <input
           type='checkbox'
-          id='nonAuthReport'
+          id={id}
           className='nonAuth__content__explore__trend__report__checkbox'
           value={report}
           onChange={onChange}
         />
         <label
-          htmlFor='nonAuthReport'
+          htmlFor={id}
           className='nonAuth__content__explore__trend__report__input'
         >
           {!report.checked ? (
