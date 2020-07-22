@@ -24,7 +24,50 @@
     display: flex;
 
     &__explore {
-      width: 65rem;
+      width: 64rem;
+      margin-right: 1rem;
+
+      border-right: 1px solid $color-line;
+      border-left: 1px solid $color-line;
+
+      &__heading,
+      &__subheading {
+        width: 100%;
+        padding: 1.4rem;
+        border-bottom: 1px solid $color-line;
+      }
+      &__subheading {
+        font-size: 1.8rem;
+        padding: 1.2rem 1.5rem;
+      }
+      &__photo {
+        position: relative;
+        height: 34rem;
+        background-image: url('../../img/explore-mask.jpg');
+        background-image: linear-gradient(
+            transparent 0%,
+            transparent 25%,
+            rgba(0, 0, 0, 0.7) 75%,
+            rgba(0, 0, 0, 0.8) 100%
+          ),
+          url('../../img/explore-mask.jpg');
+        &__p {
+          position: absolute;
+          bottom: 4.5rem;
+          left: 1.5rem;
+          font-size: 1.2rem;
+        }
+        &__heading {
+          position: absolute;
+          bottom: 1.5rem;
+          left: 1.5rem;
+        }
+        &__breakline {
+          width: 100%;
+          height: 1.2rem;
+          background-color: $color-grey-dark;
+        }
+      }
     }
     &__sidebar {
       width: 35rem;
