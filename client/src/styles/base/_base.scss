@@ -12,14 +12,16 @@ html {
 
 body {
   box-sizing: border-box;
-  height: 100%;
+  width: 100%;
   display: flex;
   background-color: $color-background;
   align-items: center;
   justify-content: center;
+  overflow-x: hidden;
 }
 
 .container {
+  width: 100%;
 }
 .devinfo {
   color: $color-white;
@@ -32,9 +34,16 @@ body {
     color: $color-primary-light;
   }
 }
+//svgs
 .logo {
   fill: $color-white;
   height: 2.5rem;
   width: 3.5rem;
   margin-right: 3rem;
+}
+.sadFace {
+  height: 1.5rem;
+  width: 1.5rem;
+  fill: $color-grey;
+  margin-right: 1rem;
 }

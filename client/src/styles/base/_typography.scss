@@ -1,8 +1,7 @@
 %heading {
-  font-weight: 300;
+  font-weight: 700;
   line-height: 1;
   color: $color-white;
-  letter-spacing: 1px;
   margin: 0;
 }
 a {
@@ -24,12 +23,12 @@ body {
 .heading-2 {
   @extend %heading;
   font-size: 1.9rem;
-  font-weight: 700;
+
   letter-spacing: 0;
 }
 .heading-3 {
   @extend %heading;
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: $color-white;
 }
 
