@@ -14,6 +14,13 @@ const SingleTrend = ({ name, num, id = 1 }) => {
       ...report,
       checked: true,
     });
+
+    setTimeout(() => {
+      setReport({
+        ...report,
+        checked: false,
+      });
+    }, 5000);
   };
   const onReportOptionChoosed = (e) => {
     e.preventDefault();

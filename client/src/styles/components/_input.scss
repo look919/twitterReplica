@@ -24,7 +24,7 @@
 
   &:focus {
     outline: none;
-    border-bottom: 1px solid $color-primary;
+    border-bottom: 2px solid $color-primary;
   }
   &:focus + .input-container__p {
     color: $color-primary;

@@ -127,7 +127,6 @@
           }
           &__input {
             position: absolute;
-            z-index: 5;
             top: 1.5rem;
             right: 1.5rem;
 
@@ -233,7 +232,7 @@
     }
     &__sidebar {
       width: 35rem;
-      height: 60rem;
+      height: 62rem;
       margin: 1rem;
       border-radius: 1rem;
       border: 1px solid $color-line;
