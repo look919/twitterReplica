@@ -5,7 +5,8 @@
 @import 'base/typography';
 @import 'base/utilities';
 
-@import 'components/nonAuth';
+@import 'components/nonAuth/nonAuth';
+@import 'components/nonAuth/loginPage';
 
 @import 'components/btn';
 @import 'components/btn-inline';

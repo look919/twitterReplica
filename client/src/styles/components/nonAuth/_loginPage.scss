@@ -1,0 +1,19 @@
+.loginPage {
+  width: 50rem;
+  height: 40rem;
+  padding-top: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  &__logo {
+    width: 6rem;
+    height: 4.5rem;
+    margin-right: 0;
+  }
+  &__logo-link {
+    margin-bottom: 2rem;
+  }
+}

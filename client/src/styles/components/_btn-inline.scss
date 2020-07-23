@@ -1,9 +1,13 @@
 .btn-inline {
   font-size: 1.4rem;
   margin: 0.7rem 0;
+  border: none;
+  color: darken($color-primary, 10%);
+  background: none;
+
   &:link,
   &:visited {
-    color: $color-primary;
+    color: darken($color-primary, 10%);
 
     text-decoration: none;
   }

@@ -55,14 +55,14 @@
       &__photo {
         position: relative;
         height: 34rem;
-        background-image: url('../../img/explore-mask.jpg');
+        background-image: url('../../../img/explore-mask.jpg');
         background-image: linear-gradient(
             transparent 0%,
             transparent 25%,
             rgba(0, 0, 0, 0.7) 75%,
             rgba(0, 0, 0, 0.8) 100%
           ),
-          url('../../img/explore-mask.jpg');
+          url('../../../img/explore-mask.jpg');
         &__p {
           position: absolute;
           bottom: 4.5rem;
@@ -146,11 +146,11 @@
           }
           &__box {
             position: absolute;
+            z-index: 20;
             top: 1rem;
             right: 0rem;
             width: 35rem;
 
-            z-index: 30;
             display: flex;
             flex-direction: column;
             align-items: flex-start;

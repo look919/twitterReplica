@@ -13,7 +13,9 @@ const ExploreHeader = () => {
         <input className='input-search' placeholder='Wyszukiwarka Twittera' />
         <Search className='input-search-container__icon' />
       </form>
-      <button className='btn btn--dark'>Zaloguj się</button>
+      <Link to='/login' className='btn btn--dark'>
+        Zaloguj się
+      </Link>
       <button className='btn'>Zarejestruj się</button>
       <Settings className='nonAuth__settings' />
     </header>

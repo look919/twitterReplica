@@ -7,7 +7,8 @@ import store from '../store';
 
 import setAuthToken from '../utils/setAuthToken';
 import Alert from './layout/Alert';
-import MainPage from './MainPage.jsx';
+import MainPage from './MainPage';
+import LoginPage from './nonAuth/LoginPage';
 
 import '../styles/main.scss';
 
@@ -28,6 +29,7 @@ const App = () => {
           <Alert />
           <Switch>
             <Route path='/' component={MainPage} exact={true} />
+            <Route path='/login' component={LoginPage} exact={true} />
           </Switch>
         </div>
       </BrowserRouter>
