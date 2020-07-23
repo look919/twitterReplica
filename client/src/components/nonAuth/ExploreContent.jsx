@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 
 import SingleTrend from './SingleTrend';
 import SingleEvent from './SingleEvent';
-import Input from '../smallParts/Input';
-import SideBarImg from '../../img/twitter_login_sidebar_illustration.png';
+import ExploreSideBar from './ExploreSideBar';
 
 import event1 from '../../img/events/event-1.jpg';
 import event2 from '../../img/events/event-2.jpg';
@@ -101,24 +100,7 @@ const ExploreContent = () => {
         </div>
       </div>
 
-      <div className='nonAuth__content__sidebar'>
-        <img
-          src={SideBarImg}
-          className='nonAuth__content__sidebar__img'
-          alt='twitter recommendition'
-        />
-        <h2 className='heading-2 nonAuth__content__sidebar__heading'>
-          Zobacz co się dzieje na świecie w tym momencie.
-        </h2>
-        <Input type='email' name='E-mail' />
-        <Input type='password' name='Hasło' />
-        <Link to='/' className='btn-inline'>
-          Nie pamiętasz hasła?
-        </Link>
-        <button className='btn btn--dark btn--wide'>Zaloguj się</button>
-        <p className='nonAuth__content__sidebar__p'>lub</p>
-        <button className='btn btn--wide'>Zarejestruj się</button>
-      </div>
+      <ExploreSideBar />
     </section>
   );
 };
