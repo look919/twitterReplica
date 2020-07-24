@@ -1,0 +1,15 @@
+.inDevPage {
+  width: 55rem;
+  height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 3rem 0;
+
+  &__p {
+    margin: 3rem 0;
+    text-align: center;
+  }
+}

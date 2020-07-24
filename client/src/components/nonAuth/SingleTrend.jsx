@@ -32,11 +32,11 @@ const SingleTrend = ({ name, num, id = 1 }) => {
 
   const Trend = (
     <div className='nonAuth__content__explore__trend'>
-      <p to='/' className='nonAuth__content__explore__trend__p'>
+      <p className='nonAuth__content__explore__trend__p'>
         Najpopularniejsze w Polska
       </p>
       <Link
-        to='/'
+        to='/dev'
         className='heading-3 nonAuth__content__explore__trend__heading'
       >
         {name}

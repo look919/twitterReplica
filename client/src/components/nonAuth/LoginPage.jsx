@@ -16,11 +16,14 @@ const LoginPage = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const handleLogin = (e) => {
+    e.preventDefault();
+  };
 
   return (
-    <section className='loginPage'>
-      <Link to='/' className='logo-link loginPage__logo-link'>
-        <TwitterLogo className='logo loginPage__logo' />
+    <form onSubmit={(e) => handleLogin(e)} className='loginPage'>
+      <Link to='/' className='logo-link logo-link--big'>
+        <TwitterLogo className='logo logo--big' />
       </Link>
       <h1 className='heading-1'>Zaloguj się do Twittera</h1>
       <Input
@@ -36,8 +39,14 @@ const LoginPage = () => {
         value={formData.password}
         text={'Hasło'}
         onChange={onChange}
+        length={8}
       />
-      <button className='btn btn--wide'>Zaloguj się</button>
+      <button
+        className='btn btn--wide'
+        disabled={!formData.email || !formData.password ? true : false}
+      >
+        Zaloguj się
+      </button>
       <div className='loginPage__links'>
         <Link to='/forget' className='btn-inline'>
           Nie pamiętasz hasła?
@@ -47,7 +56,7 @@ const LoginPage = () => {
           Zarejestruj się, aby korzystać z Twittera
         </button>
       </div>
-    </section>
+    </form>
   );
 };
 

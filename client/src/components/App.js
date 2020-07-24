@@ -9,6 +9,8 @@ import setAuthToken from '../utils/setAuthToken';
 import Alert from './layout/Alert';
 import MainPage from './MainPage';
 import LoginPage from './nonAuth/LoginPage';
+import DevInfo from './layout/DevInfo';
+import NotFoundPage from './layout/NotFoundPage';
 
 import '../styles/main.scss';
 
@@ -29,7 +31,9 @@ const App = () => {
           <Alert />
           <Switch>
             <Route path='/' component={MainPage} exact={true} />
-            <Route path='/login' component={LoginPage} exact={true} />
+            <Route path='/login' component={LoginPage} />
+            <Route path='/dev' component={DevInfo} />
+            <Route component={NotFoundPage} />
           </Switch>
         </div>
       </BrowserRouter>

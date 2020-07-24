@@ -16,8 +16,16 @@ const ExploreSideBar = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log('click');
+  };
+
   return (
-    <div className='nonAuth__content__sidebar'>
+    <form
+      onSubmit={(e) => handleLogin(e)}
+      className='nonAuth__content__sidebar'
+    >
       <img
         src={SideBarImg}
         className='nonAuth__content__sidebar__img'
@@ -40,13 +48,18 @@ const ExploreSideBar = () => {
         value={formData.password}
         onChange={onChange}
       />
-      <Link to='/' className='btn-inline'>
+      <Link to='/forget' className='btn-inline'>
         Nie pamiętasz hasła?
       </Link>
-      <button className='btn btn--dark btn--wide'>Zaloguj się</button>
+      <button
+        disabled={!formData.email || !formData.password ? true : false}
+        className='btn btn--dark btn--wide'
+      >
+        Zaloguj się
+      </button>
       <p className='nonAuth__content__sidebar__p'>lub</p>
       <button className='btn btn--wide'>Zarejestruj się</button>
-    </div>
+    </form>
   );
 };
 

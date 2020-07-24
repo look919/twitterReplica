@@ -39,7 +39,7 @@ const ExploreContent = () => {
           <SingleTrend name='Lorem' num={10.4} id='4' />
           <SingleTrend name='#ipsum' num={42.7} id='5' />
           <Link
-            to='/'
+            to='/dev'
             className='btn-inline nonAuth__content__explore__trends__more'
           >
             Pokaż więcej
@@ -89,7 +89,7 @@ const ExploreContent = () => {
             img={event6}
           />
           <Link
-            to='/'
+            to='/dev'
             className='btn-inline nonAuth__content__explore__trends__more'
           >
             Pokaż więcej

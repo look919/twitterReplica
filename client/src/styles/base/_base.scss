@@ -47,9 +47,19 @@ body {
     border-radius: 25%;
     fill: $color-primary;
   }
+
+  &--big {
+    width: 6rem;
+    height: 4.5rem;
+    margin-right: 0;
+  }
 }
 .logo-link {
   height: 3rem;
+
+  &--big {
+    margin-bottom: 3rem;
+  }
 }
 .sadFace {
   height: 1.5rem;
