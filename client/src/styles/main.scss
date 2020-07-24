@@ -5,10 +5,12 @@
 @import 'base/typography';
 @import 'base/utilities';
 
+@import 'components/inDevPage';
+
 @import 'components/nonAuth/nonAuth';
 @import 'components/nonAuth/loginPage';
 
-@import 'components/btn';
-@import 'components/btn-inline';
-@import 'components/input';
-@import 'components/input-search';
+@import 'components/smallParts/btn';
+@import 'components/smallParts/btn-inline';
+@import 'components/smallParts/input';
+@import 'components/smallParts/input-search';

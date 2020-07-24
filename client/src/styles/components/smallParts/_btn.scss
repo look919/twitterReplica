@@ -12,20 +12,6 @@
   transition: all 0.4s;
   margin: 0 0.5rem;
 
-  &--dark {
-    background-color: $color-background;
-    color: $color-primary;
-
-    &:hover {
-      background-color: lighten($color-background, 3%);
-    }
-  }
-  &--wide {
-    width: 100%;
-    text-align: center;
-    padding: 0.8rem;
-  }
-
   &:link,
   &:visited {
     text-decoration: none;
@@ -34,11 +20,24 @@
   &:hover {
     background-color: darken($color-primary, 10%);
   }
-
   &:focus {
     outline: none;
   }
   &:active {
-    transform: translateY(0.5rem);
+    transform: translateY(0.2rem);
+  }
+
+  &--dark {
+    background-color: $color-background;
+    color: $color-primary;
+
+    &:hover {
+      background-color: lighten($color-background, 5%);
+    }
+  }
+  &--wide {
+    width: 100%;
+    text-align: center;
+    padding: 0.8rem;
   }
 }

@@ -5,6 +5,9 @@
   color: darken($color-primary, 10%);
   background: none;
 
+  &:focus {
+    outline: none;
+  }
   &:link,
   &:visited {
     color: darken($color-primary, 10%);
