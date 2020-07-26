@@ -22,6 +22,10 @@
   border: none;
   border-bottom: 2px solid $color-grey;
 
+  &--borderBlue {
+    border-bottom: 2px solid $color-primary;
+  }
+
   &:focus {
     outline: none;
     border-bottom: 2px solid $color-primary;

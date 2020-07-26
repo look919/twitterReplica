@@ -4,7 +4,7 @@ const Input = ({ type, name, text, value, length = 0, onChange }) => {
   return (
     <div className='input-container'>
       <input
-        className='input'
+        className={value ? 'input input--borderBlue' : 'input'}
         type={type}
         value={value}
         name={name}
