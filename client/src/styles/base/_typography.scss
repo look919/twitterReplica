@@ -1,8 +1,7 @@
 %heading {
-  font-weight: 300;
+  font-weight: 700;
   line-height: 1;
-  color: $color-primary-dark;
-  letter-spacing: 1px;
+  color: $color-white;
   margin: 0;
 }
 a {
@@ -13,47 +12,26 @@ body {
   font-weight: 400;
   font-size: 1.7rem;
   line-height: 1.7;
-  color: $color-black;
-  background-color: $color-grey-light-1;
+  color: $color-white;
 }
 
 .heading-1 {
   @extend %heading;
-  font-size: 7rem;
-  margin-bottom: 2.5rem;
-  color: $color-white;
+  font-size: 2.4rem;
+  font-weight: 700;
 }
-
 .heading-2 {
   @extend %heading;
-  font-size: 4rem;
-  font-weight: 600;
-  margin-bottom: 8rem;
-  margin-top: 2rem;
-  text-align: center;
+  font-size: 1.9rem;
 
-  transition: all 0.4s;
-
-  &:hover {
-    transform: skewX(-16deg);
-    background-image: linear-gradient(
-      to top,
-      rgba($color-primary-dark, 0.85),
-      rgba($color-primary, 0.85)
-    );
-  }
+  letter-spacing: 0;
 }
 .heading-3 {
   @extend %heading;
-  font-size: 3rem;
-
+  font-size: 1.6rem;
   color: $color-white;
 }
-.heading-4 {
-  @extend %heading;
-  font-size: 2.3rem;
-  text-transform: uppercase;
-}
+
 .alert {
   position: absolute;
   top: 0;
@@ -125,8 +103,7 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px $color-primary inset;
-  box-shadow: 0 0 0px 1000px $color-primary inset;
-  -webkit-text-fill-color: $color-black;
-  border: 1px solid $color-black;
+  -webkit-box-shadow: 0 0 0px 1000px $color-background-input inset;
+  box-shadow: 0 0 0px 1000px $color-background-input inset;
+  -webkit-text-fill-color: $color-grey;
 }

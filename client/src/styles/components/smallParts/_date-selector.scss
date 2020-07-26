@@ -1,0 +1,103 @@
+.input-container {
+  position: relative;
+
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0 1rem;
+  padding-bottom: 3px;
+
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-around;
+  background-color: $color-background-input;
+  height: 6rem;
+  font-size: 1.4rem;
+
+  color: $color-grey;
+  border-color: $color-grey;
+
+  &__p {
+    font-size: 1.2rem;
+    height: 1.5rem;
+  }
+  &--borderBlue {
+    border-color: $color-primary;
+  }
+
+  &--month {
+    width: 22rem;
+  }
+  &--day {
+    width: 12rem;
+  }
+  &--year {
+    width: 15rem;
+  }
+}
+.dateSelector {
+  margin: 0 -1rem;
+  background-color: $color-background-input !important;
+
+  padding: 0;
+  font-size: 1.4rem;
+  border: none;
+  border-bottom: 2px solid $color-grey !important;
+
+  z-index: 20;
+
+  &--month {
+    width: 22rem;
+  }
+  &--day {
+    width: 12rem;
+  }
+  &--year {
+    width: 15rem;
+  }
+}
+
+.css-2b097c-container,
+.css-1laao21-a11yText,
+.css-yk16xz-control,
+.css-g1d714-ValueContainer,
+.css-1uccc91-singleValue,
+.css-1pahdxg-control,
+.css-b8ldur,
+.css-26l3qy-menu {
+  background-color: $color-background-input !important;
+  border-color: inherit !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+
+  color: $color-white !important;
+  outline: none !important;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $color-background-input !important;
+    border: none !important;
+
+    color: $color-white !important;
+    outline: none !important;
+    outline-color: $color-background-input !important;
+    box-shadow: 0 0 0 1px $color-background-input !important;
+  }
+
+  div {
+    background-color: $color-background-input !important;
+
+    &:hover {
+      background-color: $color-background !important;
+    }
+  }
+}
+.css-1okebmr-indicatorSeparator {
+  display: none !important;
+}
+.css-26l3qy-menu {
+  position: absolute !important;
+  top: -33rem !important;
+  left: 0;
+}

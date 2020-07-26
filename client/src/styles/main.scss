@@ -5,5 +5,14 @@
 @import 'base/typography';
 @import 'base/utilities';
 
-@import 'components/btn';
-@import 'components/btn-inline';
+@import 'components/nonAuth/nonAuth';
+@import 'components/nonAuth/loginPage';
+@import 'components/nonAuth/registerPage';
+
+@import 'components/smallParts/btn';
+@import 'components/smallParts/btn-inline';
+@import 'components/smallParts/input';
+@import 'components/smallParts/input-search';
+@import 'components/smallParts/date-selector';
+
+@import 'layout/inDevPage';

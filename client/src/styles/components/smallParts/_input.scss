@@ -1,0 +1,36 @@
+.input-container {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0 1rem;
+  padding-top: 3px;
+  padding-bottom: 0;
+
+  display: flex;
+  flex-direction: column-reverse;
+  background-color: $color-background-input;
+  height: 6rem;
+  font-size: 1.4rem;
+  color: $color-grey;
+}
+.input {
+  margin: 0 -1rem;
+  height: 5rem;
+  background-color: inherit;
+  color: $color-grey;
+  padding: 0.3rem 1rem;
+  font-size: 1.4rem;
+  border: none;
+  border-bottom: 2px solid $color-grey;
+
+  &--borderBlue {
+    border-bottom: 2px solid $color-primary;
+  }
+
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid $color-primary;
+  }
+  &:focus + .input-container__p {
+    color: $color-primary;
+  }
+}

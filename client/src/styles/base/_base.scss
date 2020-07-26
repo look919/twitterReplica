@@ -12,6 +12,12 @@ html {
 
 body {
   box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  background-color: $color-background;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
 }
 
 .container {
@@ -27,4 +33,38 @@ body {
     background-color: $color-primary-dark;
     color: $color-primary-light;
   }
+}
+//svgs
+.logo {
+  fill: $color-white;
+  height: 3rem;
+  width: 4rem;
+  margin-right: 3rem;
+  padding: 0.2rem;
+
+  &:hover {
+    background-color: lighten($color-background, 5%);
+    border-radius: 25%;
+    fill: $color-primary;
+  }
+
+  &--big {
+    width: 6rem;
+    height: 4.5rem;
+    margin-right: 0;
+  }
+}
+.logo-link {
+  height: 3rem;
+  align-self: center;
+
+  &--big {
+    margin-bottom: 3rem;
+  }
+}
+.sadFace {
+  height: 1.5rem;
+  width: 1.5rem;
+  fill: $color-grey;
+  margin-right: 1rem;
 }
