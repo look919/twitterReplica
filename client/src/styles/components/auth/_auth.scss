@@ -1,0 +1,10 @@
+.auth {
+  display: grid;
+  grid-template-columns: 1fr 60rem 1fr;
+
+  &__nav {
+    width: 25rem;
+    padding: 1rem 1.5rem;
+    justify-self: end;
+  }
+}
