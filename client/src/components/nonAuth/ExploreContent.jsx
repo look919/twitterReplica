@@ -25,9 +25,7 @@ const ExploreContent = () => {
             COVID-19: Updates for the US
           </h1>
         </div>
-        <div className='nonAuth__content__explore__photo__breakline'>
-          &nbsp;
-        </div>
+        <div className='breakline'>&nbsp;</div>
         <div className='nonAuth__content__explore__subheading'>
           <h2 className='heading-2'>Najpopularniejsze dla Ciebie</h2>
         </div>
@@ -45,9 +43,7 @@ const ExploreContent = () => {
             Pokaż więcej
           </Link>
         </div>
-        <div className='nonAuth__content__explore__photo__breakline'>
-          &nbsp;
-        </div>
+        <div className='breakline'>&nbsp;</div>
         <div className='nonAuth__content__explore__heading'>
           <h2 className='heading-2'>Co się dzieje</h2>
         </div>
@@ -94,9 +90,7 @@ const ExploreContent = () => {
           >
             Pokaż więcej
           </Link>
-          <div className='nonAuth__content__explore__photo__breakline'>
-            &nbsp;
-          </div>
+          <div className='breakline'>&nbsp;</div>
         </div>
       </div>
 
