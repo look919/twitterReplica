@@ -63,28 +63,32 @@ const SingleTrend = ({ name, num, id = 1 }) => {
                 value='spam'
                 className='nonAuth__content__explore__trend__report__box__btn'
               >
-                <SadFace /> To jest spam
+                <SadFace className='nonAuth__content__explore__trend__report__box__btn__icon' />{' '}
+                To jest spam
               </button>
               <button
                 onClick={(e) => onReportOptionChoosed(e)}
                 className='nonAuth__content__explore__trend__report__box__btn'
                 value='insulting'
               >
-                <SadFace /> Te treści są obraźliwe lub stanowią nadużycie
+                <SadFace className='nonAuth__content__explore__trend__report__box__btn__icon' />{' '}
+                Te treści są obraźliwe lub stanowią nadużycie
               </button>
               <button
                 onClick={(e) => onReportOptionChoosed(e)}
                 value='plagiarism'
                 className='nonAuth__content__explore__trend__report__box__btn'
               >
-                <SadFace /> Te treści są skopiowane z innego źródła
+                <SadFace className='nonAuth__content__explore__trend__report__box__btn__icon' />{' '}
+                Te treści są skopiowane z innego źródła
               </button>
               <button
                 onClick={(e) => onReportOptionChoosed(e)}
                 value='lowQuality'
                 className='nonAuth__content__explore__trend__report__box__btn'
               >
-                <SadFace /> To są treści niskiej jakości
+                <SadFace className='nonAuth__content__explore__trend__report__box__btn__icon' />{' '}
+                To są treści niskiej jakości
               </button>
             </div>
           )}

@@ -14,7 +14,14 @@ const MainContent = () => {
         </div>
         <CreateTweet />
         <div className='breakline'>&nbsp;</div>
-        <Tweet />
+        <Tweet message={'Test tweet with some emoticons 🌐🥰🌐🏠🥶🦻👀👿🤳'} />
+        <Tweet
+          message={
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proinaliquam risus quis malesuada consectetur.' +
+            'Duis et dolor nisl.Vivamus egestas urna ut augue tincidunt rutrum. Donec sedconsectetur libero. Vivamus ' +
+            'porttitor ex a odio porta pellentesque.Nullam cursus interdum semper. 😉 '
+          }
+        />
       </div>
     </main>
   );
