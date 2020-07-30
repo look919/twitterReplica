@@ -16,7 +16,7 @@ import {
   Block,
 } from '../../../img/Svgs';
 
-const Tweet = ({ message = 'test' }) => {
+const Tweet = ({ tweet }) => {
   const [report, setReport] = useState({
     checked: false,
     option: '',
@@ -46,6 +46,9 @@ const Tweet = ({ message = 'test' }) => {
   return (
     <div className='mainContent__tweet'>
       <div className='mainContent__tweet__img'>
+        {tweet.reTweet && (
+          <Retweets className='mainContent__tweet__img__retweetIcon' />
+        )}
         <img
           src={defaultUser}
           className='mainContent__tweet__img__photo'
@@ -53,9 +56,14 @@ const Tweet = ({ message = 'test' }) => {
         />
       </div>
       <div className='mainContent__tweet__content'>
+        {tweet.reTweet && (
+          <span className='mainContent__tweet__content__retweeted'>
+            {tweet.user + ' Retweeted'}
+          </span>
+        )}
         <div className='mainContent__tweet__content__author'>
           <span className='mainContent__tweet__content__author__name'>
-            DefaultUser
+            {tweet.user}
           </span>
           <span className='mainContent__tweet__content__author__at'>
             @defaultUser
@@ -63,18 +71,17 @@ const Tweet = ({ message = 'test' }) => {
           <span className='mainContent__tweet__content__author__dot'>
             {' · '}
           </span>
-
           <span className='mainContent__tweet__content__author__time'>2h</span>
 
           <input
             type='checkbox'
-            id='test'
+            id={tweet.id}
             className='mainContent__tweet__content__author__checkbox'
             value={report}
             onChange={onChange}
           />
           <label
-            htmlFor={'test'}
+            htmlFor={tweet.id}
             className='mainContent__tweet__content__author__input'
           >
             {!report.checked ? (
@@ -119,25 +126,25 @@ const Tweet = ({ message = 'test' }) => {
         </div>
 
         <div className='mainContent__tweet__content__text'>
-          <div>{emoji(message)}</div>
+          <div>{emoji(tweet.message)}</div>
         </div>
         <div className='mainContent__tweet__content__options'>
           <div className='mainContent__tweet__content__option'>
             <Comments className='mainContent__tweet__content__option__icon' />
             <span className='mainContent__tweet__content__option__amount'>
-              7
+              {tweet.comments !== 0 && tweet.comments}
             </span>
           </div>
-          <div className='mainContent__tweet__content__option'>
+          <div className='mainContent__tweet__content__option mainContent__tweet__content__option--green'>
             <Retweets className='mainContent__tweet__content__option__icon' />
             <span className='mainContent__tweet__content__option__amount'>
-              2
+              {tweet.retweets !== 0 && tweet.retweets}
             </span>
           </div>
-          <div className='mainContent__tweet__content__option'>
+          <div className='mainContent__tweet__content__option mainContent__tweet__content__option--red'>
             <Likes className='mainContent__tweet__content__option__icon' />
             <span className='mainContent__tweet__content__option__amount'>
-              43
+              {tweet.likes !== 0 && tweet.likes}
             </span>
           </div>
           <div className='mainContent__tweet__content__option'>
