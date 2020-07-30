@@ -5,6 +5,7 @@ import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import ReactGiphySearchbox from 'react-giphy-searchbox';
 
 import defaultUser from '../../../img/default_profile.png';
 import {
@@ -20,6 +21,8 @@ const CreateTweet = () => {
   const [tweetMessage, setTweetMessage] = useState({
     message: '',
     emojiPicker: false,
+    gifPicker: false,
+    imgOrGif: '',
   });
   const [fillPercentage, setFillPercentage] = useState(
     (tweetMessage.message.length / 240) * 100
@@ -30,13 +33,27 @@ const CreateTweet = () => {
       ...tweetMessage,
       message: `${tweetMessage.message}${emoji}`,
       emojiPicker: false,
+      gifPicker: false,
     });
     setFillPercentage((tweetMessage.message.length / 240) * 100);
+  };
+  const addGifToTweet = (item) => {
+    setTweetMessage({
+      ...tweetMessage,
+      imgOrGif: item.url,
+      gifPicker: false,
+    });
   };
   const openEmojiPicker = () => {
     setTweetMessage({
       ...tweetMessage,
       emojiPicker: true,
+    });
+  };
+  const openGifPicker = () => {
+    setTweetMessage({
+      ...tweetMessage,
+      gifPicker: true,
     });
   };
   const onChange = (e) => {
@@ -46,6 +63,8 @@ const CreateTweet = () => {
     });
     setFillPercentage((tweetMessage.message.length / 240) * 100);
   };
+
+  console.log(tweetMessage);
 
   return (
     <div className='mainContent__createTweet'>
@@ -76,12 +95,21 @@ const CreateTweet = () => {
         >
           <AddImage className='mainContent__createTweet__options__icon' />
         </Link>
-        <Link
-          to='/dev'
-          className='mainContent__createTweet__options__iconHandler'
-        >
-          <AddGif className='mainContent__createTweet__options__icon' />
-        </Link>
+
+        {!tweetMessage.gifPicker ? (
+          <button
+            onClick={openGifPicker}
+            className='mainContent__createTweet__options__icon__btn mainContent__createTweet__options__iconHandler'
+          >
+            <AddGif className='mainContent__createTweet__options__icon' />
+          </button>
+        ) : (
+          <ReactGiphySearchbox
+            apiKey='YRLT8egMiEDkhBgx1AR2sQh0CkWYl5kr'
+            onSelect={(gif) => addGifToTweet(gif)}
+          />
+        )}
+
         <Link
           to='/dev'
           className='mainContent__createTweet__options__iconHandler'

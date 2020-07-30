@@ -3,6 +3,7 @@ import React from 'react';
 import CreateTweet from './CreateTweet';
 import { Star } from '../../../img/Svgs';
 import Tweet from './Tweet';
+import testTweets from '../../../utils/testTweets.json';
 
 const MainContent = () => {
   return (
