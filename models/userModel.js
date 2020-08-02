@@ -99,7 +99,6 @@ userSchema.pre('save', function (next) {
 userSchema.pre(/^find/, async function (next) {
   this.populate({
     path: 'tweets',
-    select: '',
   });
 
   next();
