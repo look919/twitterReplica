@@ -72,3 +72,36 @@ exports.createTweet = catchAsync(async (req, res, next) => {
     },
   });
 });
+exports.addLikeToTweet = catchAsync(async (req, res, next) => {
+  const updateTweetLikes = await User.findByIdAndUpdate(
+    req.body.tweet.id,
+    { likes: [...req.body.tweet.likes, req.user.id] },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  if (!updateTweetLikes) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  const updateUserTweetLikes = await User.findByIdAndUpdate(
+    req.user.id,
+    { likes: [...req.user.likes, updateTweetLikes.id] },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!updateUserTweetLikes) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      data: doc,
+    },
+  });
+});

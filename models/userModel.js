@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema({
     required: [true, 'login is required'],
     unique: [true, 'login already taken'],
   },
+  photo: {
+    type: String,
+    default:
+      'https://twitterreplica.s3.eu-central-1.amazonaws.com/default_profile.png',
+  },
   role: {
     type: String,
     enum: ['user', 'admin', 'test'],
