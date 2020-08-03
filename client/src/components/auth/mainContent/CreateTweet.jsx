@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
+import TextareaAutosize from 'react-textarea-autosize';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -64,8 +65,6 @@ const CreateTweet = () => {
     setFillPercentage((tweetMessage.message.length / 240) * 100);
   };
 
-  console.log(tweetMessage);
-
   return (
     <div className='mainContent__createTweet'>
       <div className='mainContent__createTweet__img'>
@@ -77,12 +76,12 @@ const CreateTweet = () => {
       </div>
       <div className='mainContent__createTweet__tweet'>
         <div className='mainContent__createTweet__tweet__text'>
-          <input
+          <TextareaAutosize
             autoComplete='off'
             value={tweetMessage.message}
             name='message'
             onChange={onChange}
-            className='mainContent__createTweet__tweet__text__input'
+            className='mainContent__createTweet__tweet__text__textarea'
             placeholder="What's happening?"
             maxLength={240}
           />

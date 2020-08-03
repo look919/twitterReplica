@@ -35,7 +35,7 @@
     padding: 1rem 1.2rem;
 
     display: grid;
-    grid-template-rows: 1fr 4rem;
+    grid-template-rows: min-content 4rem;
     grid-template-columns: 6rem calc(100% - 5rem);
 
     grid-column-gap: 0.5rem;
@@ -61,14 +61,17 @@
 
         padding-bottom: 2rem;
 
-        &__input {
+        &__textarea {
           width: 100%;
+          height: max-content;
           background: $color-background;
           opacity: 1;
           border: none;
           color: $color-white;
+          resize: none;
 
-          font-size: 1.9rem;
+          font-family: $font-primary;
+          font-size: 1.9rem !important;
 
           &::placeholder {
             color: darken($color-grey, 7%);
@@ -275,6 +278,11 @@
       &__text {
         font-size: 1.5rem;
         line-height: 1.3125;
+
+        &:link,
+        &:visited {
+          color: rgb(27, 149, 224);
+        }
       }
 
       &__options {
