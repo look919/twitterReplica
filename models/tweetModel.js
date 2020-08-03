@@ -50,7 +50,6 @@ tweetSchema.pre(/^find/, function (next) {
 
   this.populate({
     path: 'ref',
-    select: '',
   });
 
   next();
