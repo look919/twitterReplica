@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from '../store';
-
+import store from '../../store';
+import PrivateRoute from './PrivateRoute';
 // import { loadUser } from '../actions/auth';
 
-import setAuthToken from '../utils/setAuthToken';
-import Alert from './layout/Alert';
-import MainPage from './MainPage';
-import LoginPage from './nonAuth/LoginPage';
-import DevInfo from './layout/DevInfo';
-import NotFoundPage from './layout/NotFoundPage';
+import setAuthToken from '../../utils/setAuthToken';
+import Alert from '../layout/Alert';
+import MainPage from '../MainPage';
+import LoginPage from '../nonAuth/LoginPage';
+import DevInfo from '../layout/DevInfo';
+import NotFoundPage from '../layout/NotFoundPage';
 
-import '../styles/main.scss';
+import '../../styles/main.scss';
 
 const App = () => {
   // if (localStorage.token) {
@@ -31,6 +31,7 @@ const App = () => {
           <Alert />
           <Switch>
             <Route path='/' component={MainPage} exact={true} />
+            <PrivateRoute path='/home' component={MainPage} />
             <Route path='/login' component={LoginPage} />
             <Route path='/dev' component={DevInfo} />
             <Route component={NotFoundPage} />
