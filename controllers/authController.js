@@ -18,7 +18,7 @@ const createSendToken = (user, statusCode, req, res) => {
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: req.secure || req.headers('x-forwarded-proto') === 'https',
+    //secure: req.secure || req.headers('x-forwarded-proto') === 'https',
   };
 
   res.cookie('jwt', token, cookieOptions);
@@ -37,7 +37,7 @@ const createSendToken = (user, statusCode, req, res) => {
 
 exports.getLoggedInUser = () =>
   catchAsync(async (req, res, next) => {
-    const user = await User.findById(req.user).populate('room');
+    const user = await User.findById(req.user).populate('tweets');
 
     if (!user) {
       return next(new AppError('No document found with that ID', 404));
@@ -53,13 +53,10 @@ exports.getLoggedInUser = () =>
 
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
-    login: req.body.login,
+    email: req.body.email,
+    name: req.body.name,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
-    role: req.body.role,
-    hotel: req.body.hotel,
-    room: req.body.room,
-    days: req.body.days,
   });
   res.status(201).json({
     status: 'success',
@@ -69,17 +66,17 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 });
 exports.login = catchAsync(async (req, res, next) => {
-  const { login, password } = req.body;
+  const { email, password } = req.body;
 
   // 1) Check if email and password exist
-  if (!login || !password) {
-    return next(new AppError('Please provide login and password!', 400));
+  if (!email || !password) {
+    return next(new AppError('Please provide email and password!', 400));
   }
   // 2) Check if user exists && password is correct
-  const user = await User.findOne({ login }).select('+password');
+  const user = await User.findOne({ email }).select('+password');
 
   if (!user || !(await user.correctPassword(password, user.password))) {
-    return next(new AppError('Incorrect login or password', 401));
+    return next(new AppError('Incorrect email or password', 401));
   }
 
   // 3) If everything ok, send token to client
@@ -136,6 +133,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
   res.locals.user = currentUser;
+
   next();
 });
 
@@ -185,7 +183,7 @@ exports.restrictTo = (...roles) => {
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
   const { currentPassword, password, passwordConfirm } = req.body;
-  if (req.user.login === 'admin' || req.user.login === 'user') {
+  if (req.user.role === 'test') {
     return next(
       new AppError(
         'This user is destinated for everyone, you cannot change password to him.',

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import findLinksInText from '../../../utils/findLinksInText';
 
 import emoji from 'react-easy-emoji';
 
@@ -126,7 +127,7 @@ const Tweet = ({ tweet }) => {
         </div>
 
         <div className='mainContent__tweet__content__text'>
-          <div>{emoji(tweet.message)}</div>
+          <div>{findLinksInText(emoji(tweet.message))}</div>
         </div>
         <div className='mainContent__tweet__content__options'>
           <div className='mainContent__tweet__content__option'>

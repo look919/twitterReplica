@@ -3,42 +3,88 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
-  login: {
+  email: {
     type: String,
     required: [true, 'login is required'],
-    unique: [true, 'login already taken']
+    unique: [true, 'login already taken'],
+  },
+  name: {
+    type: String,
+    required: [true, 'login is required'],
+    unique: [true, 'login already taken'],
+  },
+  photo: {
+    type: String,
+    default:
+      'https://twitterreplica.s3.eu-central-1.amazonaws.com/default_profile.png',
   },
   role: {
     type: String,
-    enum: ['user', 'admin'],
-    default: 'user'
+    enum: ['user', 'admin', 'test'],
+    default: 'user',
   },
   password: {
     type: String,
     required: [true, 'password is required'],
     minlength: 8,
-    select: false
+    select: false,
   },
   passwordConfirm: {
     type: String,
     required: [true, 'password confirm is required'],
     validate: {
-      validator: function(el) {
+      validator: function (el) {
         return el === this.password;
       },
-      message: 'Passwords are not the same'
-    }
+      message: 'Passwords are not the same',
+    },
   },
   createdAt: {
     type: Date,
-    default: Date.now()
+    default: Date.now(),
+  },
+  following: {
+    type: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+      },
+    ],
+    default: [],
+  },
+  followers: {
+    type: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+      },
+    ],
+    default: [],
+  },
+  tweets: {
+    type: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Tweet',
+      },
+    ],
+    default: [],
+  },
+  likes: {
+    type: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Tweet',
+      },
+    ],
+    default: [],
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
-  passwordResetExpires: Date
+  passwordResetExpires: Date,
 });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   // Runs only when password gets modified
   if (!this.isModified('password')) return next();
 
@@ -47,7 +93,7 @@ userSchema.pre('save', async function(next) {
 
   next();
 });
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangedAt = Date.now() - 1000;
@@ -55,23 +101,22 @@ userSchema.pre('save', function(next) {
   next();
 });
 
-userSchema.pre(/^find/, async function(next) {
+userSchema.pre(/^find/, async function (next) {
   this.populate({
-    // path: 'room',
-    // select: 'name price features'
+    path: 'tweets',
   });
 
   next();
 });
 
-userSchema.methods.correctPassword = async function(
+userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
       this.passwordChangedAt.getTime() / 1000,
@@ -83,7 +128,7 @@ userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
   return false;
 };
 
-userSchema.methods.createPasswordResetToken = function() {
+userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
   this.passwordResetToken = crypto
     .createHash('sha256')
