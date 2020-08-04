@@ -70,6 +70,9 @@ export default function (state = initialState, action) {
     case UPDATE_PASSWORD_FAIL:
     case REGISTER_FAIL:
     default:
-      return state;
+      return {
+        ...state,
+        loading: false,
+      };
   }
 }

@@ -68,6 +68,7 @@ export const register = (name, email, password, passwordConfirm) => async (
 //login user
 export const login = ({ email, password }) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
+
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -75,6 +76,7 @@ export const login = ({ email, password }) => async (dispatch) => {
   };
   try {
     const res = await axios.post('/api/v1/users/login', body, config);
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,

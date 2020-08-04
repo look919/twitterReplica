@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
 
 import Input from '../smallParts/Input';
 import { TwitterLogo } from '../../img/Svgs';
 
-const LoginPage = () => {
+const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -16,9 +19,17 @@ const LoginPage = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
+    await login(formData);
+
+    await setFormData({
+      email: '',
+      password: '',
+    });
   };
+  if (isAuthenticated && !loading) return <Redirect to='/home' />;
 
   return (
     <form onSubmit={(e) => handleLogin(e)} className='loginPage'>
@@ -44,6 +55,7 @@ const LoginPage = () => {
       <button
         className='btn btn--wide'
         disabled={!formData.email || !formData.password ? true : false}
+        onClick={(e) => handleLogin(e)}
       >
         Zaloguj się
       </button>
@@ -60,4 +72,13 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+LoginPage.propTypes = {
+  auth: PropTypes.object.isRequired,
+  login: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { login })(LoginPage);
