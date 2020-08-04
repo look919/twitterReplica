@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../../store';
 import PrivateRoute from './PrivateRoute';
-// import { loadUser } from '../actions/auth';
+import { loadUser } from '../../actions/auth';
 
 import setAuthToken from '../../utils/setAuthToken';
 import Alert from '../layout/Alert';
@@ -15,10 +15,10 @@ import NotFoundPage from '../layout/NotFoundPage';
 import '../../styles/main.scss';
 
 const App = () => {
-  // if (localStorage.token) {
-  //   setAuthToken(localStorage.token);
-  //   store.dispatch(loadUser());
-  // }
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+    store.dispatch(loadUser());
+  }
   // useEffect(() => {
   //   store.dispatch(getAllProducts());
   //   store.dispatch(getCartItems());

@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
     required: [true, 'login is required'],
     unique: [true, 'login already taken'],
   },
+  at: {
+    type: String,
+  },
   photo: {
     type: String,
     default:
@@ -84,6 +87,12 @@ const userSchema = new mongoose.Schema({
   passwordResetExpires: Date,
 });
 
+userSchema.pre('save', async function (next) {
+  // Runs only when create @
+  if (this.at) return next();
+
+  (this.at = `@${this.name.replace(/ /g, '')}`), next();
+});
 userSchema.pre('save', async function (next) {
   // Runs only when password gets modified
   if (!this.isModified('password')) return next();
