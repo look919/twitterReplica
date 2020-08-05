@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const randomize = require('randomatic');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -42,6 +43,11 @@ const userSchema = new mongoose.Schema({
       message: 'Passwords are not the same',
     },
   },
+  dateOfBirth: String,
+  city: String,
+  town: String,
+  link: String,
+  description: String,
   createdAt: {
     type: Date,
     default: Date.now(),
@@ -81,6 +87,14 @@ const userSchema = new mongoose.Schema({
       },
     ],
     default: [],
+  },
+  activationCode: {
+    type: String,
+    default: randomize('0', 4),
+  },
+  activated: {
+    type: Boolean,
+    default: false,
   },
   passwordChangedAt: Date,
   passwordResetToken: String,

@@ -57,6 +57,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     name: req.body.name,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    role: req.body.role,
   });
   res.status(201).json({
     status: 'success',
