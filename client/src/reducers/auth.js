@@ -1,6 +1,8 @@
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  ACTIVATION_SUCCESS,
+  ACTIVATION_FAIL,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   AUTH_SUCCESS,
@@ -34,7 +36,7 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case LOGIN_SUCCESS:
-    case REGISTER_SUCCESS:
+    case ACTIVATION_SUCCESS:
     case UPDATE_PASSWORD_SUCCESS:
       localStorage.setItem('token', payload.token);
       return {
@@ -62,13 +64,16 @@ export default function (state = initialState, action) {
         loading: false,
       };
 
+    case REGISTER_SUCCESS:
+    case REGISTER_FAIL:
+    case ACTIVATION_FAIL:
     case FORGOT_PASSWORD_SUCCESS:
     case FORGOT_PASSWORD_FAIL:
     case RESET_PASSWORD_SUCCESS:
     case RESET_PASSWORD_FAIL:
     case UPDATE_USER_FAIL:
     case UPDATE_PASSWORD_FAIL:
-    case REGISTER_FAIL:
+
     default:
       return {
         ...state,
