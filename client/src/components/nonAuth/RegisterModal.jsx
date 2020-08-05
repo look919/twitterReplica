@@ -109,7 +109,6 @@ const RegisterModal = ({
           passwordConfirm: '',
           confirmationStage: false,
         });
-        modalIsOpen = false;
 
         return <Redirect to='/home' />;
       }

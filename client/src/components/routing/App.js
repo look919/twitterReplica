@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../../store';
@@ -19,10 +19,6 @@ const App = () => {
     setAuthToken(localStorage.token);
     store.dispatch(loadUser());
   }
-  // useEffect(() => {
-  //   store.dispatch(getAllProducts());
-  //   store.dispatch(getCartItems());
-  // }, []);
 
   return (
     <Provider store={store}>
