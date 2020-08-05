@@ -3,6 +3,8 @@ import { setAlert } from './alert';
 import setAuthToken from './../utils/setAuthToken';
 
 import {
+  ACTIVATION_SUCCESS,
+  ACTIVATION_FAIL,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   LOGIN_SUCCESS,
@@ -34,14 +36,19 @@ export const loadUser = () => async (dispatch) => {
 };
 
 //register User
-export const register = (name, email, password, passwordConfirm) => async (
-  dispatch
-) => {
+export const register = (
+  name,
+  email,
+  password,
+  passwordConfirm,
+  dateOfBirth
+) => async (dispatch) => {
   const body = JSON.stringify({
     name,
     email,
     password,
     passwordConfirm,
+    dateOfBirth,
   });
 
   const config = {
@@ -60,6 +67,32 @@ export const register = (name, email, password, passwordConfirm) => async (
     dispatch(setAlert(err.response.data.message, 'danger'));
     dispatch({
       type: REGISTER_FAIL,
+      payload: err.message,
+    });
+  }
+};
+
+//login user
+export const activate = ({ email, activationCode }) => async (dispatch) => {
+  const body = JSON.stringify({ email, activationCode });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    const res = await axios.patch('/api/v1/users/activate', body, config);
+
+    dispatch({
+      type: ACTIVATION_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(setAlert('Account activated', 'success'));
+  } catch (err) {
+    dispatch(setAlert(err.response.data.message, 'danger'));
+    dispatch({
+      type: ACTIVATION_FAIL,
       payload: err.message,
     });
   }

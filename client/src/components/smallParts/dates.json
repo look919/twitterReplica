@@ -33,18 +33,18 @@
     { "value": "31", "label": "31" }
   ],
   "optionMonth": [
-    { "value": "Styczeń", "label": "Styczeń" },
-    { "value": "Luty", "label": "Luty" },
-    { "value": "Marzec", "label": "Marzec" },
-    { "value": "Kwiecień", "label": "Kwiecień" },
-    { "value": "Maj", "label": "Maj" },
-    { "value": "Czerwiec", "label": "Czerwiec" },
-    { "value": "Lipiec", "label": "Lipiec" },
-    { "value": "Sierpień", "label": "Sierpień" },
-    { "value": "Wrzesień", "label": "Wrzesień" },
-    { "value": "Październik", "label": "Październik" },
-    { "value": "Listopad", "label": "Listopad" },
-    { "value": "Grudzień", "label": "Grudzień" }
+    { "value": "January", "label": "January" },
+    { "value": "February", "label": "February" },
+    { "value": "March", "label": "March" },
+    { "value": "April", "label": "April" },
+    { "value": "May", "label": "May" },
+    { "value": "June", "label": "June" },
+    { "value": "July", "label": "July" },
+    { "value": "August", "label": "August" },
+    { "value": "September", "label": "September" },
+    { "value": "October", "label": "October" },
+    { "value": "November", "label": "November" },
+    { "value": "December", "label": "December" }
   ],
   "optionYear": [
     { "value": "2020", "label": "2020" },

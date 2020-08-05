@@ -1,7 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Modal from 'react-modal';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 
+import { register, activate } from '../../actions/auth';
 import Input from '../smallParts/Input';
 import DateSelector from '../smallParts/DateSelector';
 import { TwitterLogo } from '../../img/Svgs';
@@ -19,16 +23,25 @@ const customStyles = {
   },
 };
 
-const RegisterModal = ({ modalIsOpen, closeModal }) => {
+const RegisterModal = ({
+  auth: { isAuthenticated, loading, activationStage },
+  register,
+  activate,
+  modalIsOpen,
+  closeModal,
+}) => {
+  let refContainer = useRef(activationStage);
+  refContainer.current = activationStage;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     passwordConfirm: '',
-    day: '',
-    month: '',
-    year: '',
-    confirmationCode: '',
+    day: '01',
+    monthValue: '01',
+    monthLabel: 'January',
+    year: '2020',
+    activationCode: '',
     confirmationStage: false,
   });
 
@@ -45,9 +58,11 @@ const RegisterModal = ({ modalIsOpen, closeModal }) => {
     });
   };
   const onMonthChange = (sel) => {
+    //diffrence in month saving due its hard to convert to Date string like 01-February-2020
     setFormData({
       ...formData,
-      month: sel.value,
+      monthValue: sel.value,
+      monthLabel: sel.label,
     });
   };
   const onYearChange = (sel) => {
@@ -56,14 +71,52 @@ const RegisterModal = ({ modalIsOpen, closeModal }) => {
       year: sel.value,
     });
   };
+
   const handleRegister = async (e) => {
     e.preventDefault();
+    const {
+      name,
+      email,
+      password,
+      passwordConfirm,
+      confirmationStage,
+      activationCode,
+    } = formData;
+    const dateOfBirth = moment(
+      `${formData.year}-${formData.monthValue}-${formData.day}T10:00:00`,
+      ['YYYY-MMMM-DD', 'DD-MM-YYYY']
+    );
 
-    await setFormData({
-      ...formData,
-      confirmationStage: true,
-    });
+    if (!confirmationStage) {
+      //registration stage
+      await register(name, email, password, passwordConfirm, dateOfBirth);
+
+      if (refContainer.current) {
+        await setFormData({
+          ...formData,
+          confirmationStage: true,
+        });
+      }
+    } else {
+      await activate({ email, activationCode });
+
+      if (!refContainer.current) {
+        await setFormData({
+          ...formData,
+          name: '',
+          email: '',
+          password: '',
+          passwordConfirm: '',
+          confirmationStage: false,
+        });
+        modalIsOpen = false;
+
+        return <Redirect to='/home' />;
+      }
+    }
   };
+
+  if (isAuthenticated && !loading) return <Redirect to='/home' />;
 
   return !formData.confirmationStage ? (
     <Modal
@@ -116,7 +169,7 @@ const RegisterModal = ({ modalIsOpen, closeModal }) => {
         </p>
         <div className='registerPage__form__date'>
           <DateSelector
-            value={{ value: formData.month, label: formData.month }}
+            value={{ value: formData.monthValue, label: formData.monthLabel }}
             text='Miesiąc'
             onChange={onMonthChange}
             options={dates.optionMonth}
@@ -167,16 +220,33 @@ const RegisterModal = ({ modalIsOpen, closeModal }) => {
         </p>
         <Input
           type='text'
-          name='confirmationCode'
+          name='activationCode'
           text={'Kod weryfikacji'}
-          value={formData.confirmationCode}
+          value={formData.activationCode}
           onChange={onChange}
         />
 
-        <button className='btn registerPage__form__btn'>Potwierdz</button>
+        <button
+          className='btn registerPage__form__btn'
+          onClick={(e) => handleRegister(e)}
+        >
+          Potwierdz
+        </button>
       </form>
     </Modal>
   );
 };
 
-export default RegisterModal;
+RegisterModal.propTypes = {
+  auth: PropTypes.object.isRequired,
+  register: PropTypes.func.isRequired,
+  activate: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default withRouter(
+  connect(mapStateToProps, { register, activate })(RegisterModal)
+);

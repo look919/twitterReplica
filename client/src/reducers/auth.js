@@ -23,6 +23,7 @@ const initialState = {
   isAuthenticated: null,
   user: null,
   loading: true,
+  activationStage: false,
 };
 
 export default function (state = initialState, action) {
@@ -35,6 +36,12 @@ export default function (state = initialState, action) {
         user: payload,
         loading: false,
       };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        activationStage: true,
+        loading: false,
+      };
     case LOGIN_SUCCESS:
     case ACTIVATION_SUCCESS:
     case UPDATE_PASSWORD_SUCCESS:
@@ -44,6 +51,7 @@ export default function (state = initialState, action) {
         user: payload.data.user,
         isAuthenticated: true,
         loading: false,
+        activationStage: false,
       };
     case LOGIN_FAIL:
     case AUTH_FAIL:
@@ -63,8 +71,6 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
-
-    case REGISTER_SUCCESS:
     case REGISTER_FAIL:
     case ACTIVATION_FAIL:
     case FORGOT_PASSWORD_SUCCESS:
@@ -73,7 +79,6 @@ export default function (state = initialState, action) {
     case RESET_PASSWORD_FAIL:
     case UPDATE_USER_FAIL:
     case UPDATE_PASSWORD_FAIL:
-
     default:
       return {
         ...state,

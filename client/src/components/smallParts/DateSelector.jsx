@@ -11,7 +11,7 @@ const DateSelector = ({ options, text, value, onChange, type }) => {
       }
     >
       <Select
-        className='dateSelector dateSelector--${type}'
+        className={`dateSelector dateSelector--${type}`}
         options={options}
         value={value}
         onChange={(e) => onChange(e)}

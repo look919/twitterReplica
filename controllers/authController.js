@@ -60,6 +60,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordConfirm: req.body.passwordConfirm,
     role: req.body.role,
   });
+  console.log(newUser);
+
   res.status(201).json({
     status: 'success',
     data: {
@@ -82,7 +84,7 @@ exports.activate = catchAsync(async (req, res, next) => {
   }
 
   if (user.activationCode !== activationCode) {
-    return next(new AppError('Invalid code', 401));
+    return next(new AppError('Invalid activation code', 401));
   }
 
   // 3) If everything ok, change activated property and send token to client
