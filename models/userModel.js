@@ -22,10 +22,14 @@ const userSchema = new mongoose.Schema({
     default:
       'https://twitterreplica.s3.eu-central-1.amazonaws.com/default_profile.png',
   },
+  backgroundImage: {
+    type: String,
+  },
   role: {
     type: String,
     enum: ['user', 'admin', 'test'],
     default: 'user',
+    select: false,
   },
   password: {
     type: String,
@@ -42,6 +46,7 @@ const userSchema = new mongoose.Schema({
       },
       message: 'Passwords are not the same',
     },
+    select: false,
   },
   dateOfBirth: Date,
   city: String,
