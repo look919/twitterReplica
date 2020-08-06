@@ -19,10 +19,10 @@ import {
 } from '../actions/types';
 
 const initialState = {
+  loading: true,
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   user: null,
-  loading: true,
   activationStage: false,
 };
 
@@ -79,10 +79,13 @@ export default function (state = initialState, action) {
     case RESET_PASSWORD_FAIL:
     case UPDATE_USER_FAIL:
     case UPDATE_PASSWORD_FAIL:
-    default:
       return {
         ...state,
         loading: false,
+      };
+    default:
+      return {
+        ...state,
       };
   }
 }

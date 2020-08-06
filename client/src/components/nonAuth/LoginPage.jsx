@@ -23,11 +23,6 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
     e.preventDefault();
 
     await login(formData);
-
-    await setFormData({
-      email: '',
-      password: '',
-    });
   };
   if (isAuthenticated && !loading) return <Redirect to='/home' />;
 
