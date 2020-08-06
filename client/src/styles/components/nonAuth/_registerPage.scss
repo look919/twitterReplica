@@ -22,12 +22,12 @@
   flex-direction: column;
 
   &__heading {
-    margin-top: 1.2rem;
-    margin-bottom: 1.5rem;
+    margin-top: 1.8rem;
+    margin-bottom: 0.4rem;
   }
   &__p {
     color: $color-grey;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     margin: 0.5rem 0;
   }
   &__form {
@@ -42,7 +42,7 @@
       justify-content: space-around;
     }
     &__btn {
-      margin-top: 3rem !important;
+      margin-top: 4rem !important;
 
       &__gif {
         height: 2.5rem;

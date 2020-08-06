@@ -40,7 +40,7 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
       <Link to='/' className='logo-link logo-link--big'>
         <TwitterLogo className='logo logo--big' />
       </Link>
-      <h1 className='heading-1'>Zaloguj się do Twittera</h1>
+      <h1 className='heading-1'>Log in to Twitter</h1>
       <Input
         type='email'
         name='email'
@@ -61,15 +61,15 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
         disabled={!formData.email || !formData.password ? true : false}
         onClick={(e) => handleLogin(e)}
       >
-        Zaloguj się
+        Log in
       </button>
       <div className='loginPage__links'>
-        <Link to='/forget' className='btn-inline'>
-          Nie pamiętasz hasła?
+        <Link to='/forget' className='btn-inline loginPage__link'>
+          Forgot password?
         </Link>
         {' · '}
-        <button className='btn-inline' onClick={openModal}>
-          Zarejestruj się, aby korzystać z Twittera
+        <button className='btn-inline loginPage__link' onClick={openModal}>
+          Sign up for Twitter
         </button>
       </div>
       <RegisterModal modalIsOpen={modalIsOpen} />

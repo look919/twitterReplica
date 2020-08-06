@@ -23,10 +23,10 @@ const ExploreHeader = () => {
         <Search className='input-search-container__icon' />
       </form>
       <Link to='/login' className='btn btn--dark'>
-        Zaloguj się
+        Log in
       </Link>
       <button onClick={openModal} className='btn'>
-        Zarejestruj się
+        Sign up
       </button>
       <Settings className='nonAuth__settings' />
       <RegisterModal modalIsOpen={modalIsOpen} />

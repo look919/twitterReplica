@@ -41,7 +41,7 @@ const ExploreSideBar = ({ login }) => {
         alt='twitter recommendition'
       />
       <h2 className='heading-2 nonAuth__content__sidebar__heading'>
-        Zobacz co się dzieje na świecie w tym momencie.
+        See what's happening in the world at this moment.
       </h2>
       <Input
         type='email'
@@ -58,18 +58,18 @@ const ExploreSideBar = ({ login }) => {
         onChange={onChange}
       />
       <Link to='/forget' className='btn-inline'>
-        Nie pamiętasz hasła?
+        Forgot your password?
       </Link>
       <button
         onClick={(e) => handleLogin(e)}
         disabled={!formData.email || !formData.password ? true : false}
         className='btn btn--dark btn--wide'
       >
-        Zaloguj się
+        Log in
       </button>
-      <p className='nonAuth__content__sidebar__p'>lub</p>
+      <p className='nonAuth__content__sidebar__p'>or</p>
       <button onClick={openModal} className='btn btn--wide'>
-        Zarejestruj się
+        Sign up
       </button>
       <RegisterModal modalIsOpen={modalIsOpen} />
     </form>

@@ -7,4 +7,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+
+  &__link {
+    font-size: 1.5rem !important;
+    color: $color-primary !important;
+  }
 }

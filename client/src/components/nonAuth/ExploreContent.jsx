@@ -17,7 +17,7 @@ const ExploreContent = () => {
     <section className='nonAuth__content'>
       <div className='nonAuth__content__explore'>
         <div className='nonAuth__content__explore__heading'>
-          <h2 className='heading-2'>Przeglądaj</h2>
+          <h2 className='heading-2'>Explore</h2>
         </div>
         <div className='nonAuth__content__explore__photo'>
           <p className='nonAuth__content__explore__photo__p'>COVID-19 · LIVE</p>
@@ -27,7 +27,7 @@ const ExploreContent = () => {
         </div>
         <div className='breakline'>&nbsp;</div>
         <div className='nonAuth__content__explore__subheading'>
-          <h2 className='heading-2'>Najpopularniejsze dla Ciebie</h2>
+          <h2 className='heading-2'>Trends for you</h2>
         </div>
 
         <div className='nonAuth__content__explore__trends'>
@@ -40,41 +40,41 @@ const ExploreContent = () => {
             to='/dev'
             className='btn-inline nonAuth__content__explore__trends__more'
           >
-            Pokaż więcej
+            Show more
           </Link>
         </div>
         <div className='breakline'>&nbsp;</div>
         <div className='nonAuth__content__explore__heading'>
-          <h2 className='heading-2'>Co się dzieje</h2>
+          <h2 className='heading-2'>What’s happening</h2>
         </div>
         <div className='nonAuth__content__explore__events'>
           <SingleEvent
             author='The Active Times'
-            time='4 minuty temu'
+            time='4 minutes ago'
             text='The most pet-friendly cities in America'
             img={event1}
           />
           <SingleEvent
             author='CNBC Make it'
-            time='9 minut temu'
+            time='9 minutes ago'
             text="MIT engineers designed a face mask that\'s as effective as an N95"
             img={event2}
           />
           <SingleEvent
             author='Los Angeles Times'
-            time='2 godziny temu'
+            time='2 hours ago'
             text='Spotify to take on YouTube by offering video podcasts'
             img={event3}
           />
           <SingleEvent
             author='Toronto Star'
-            time='wczoraj'
+            time='Last night'
             text='Safe Third Country Agreement with U.S. violates charter: Federal court'
             img={event4}
           />
           <SingleEvent
             author='The Wall Street Journal'
-            time='wczoraj'
+            time='Yesterday'
             text='How deadly is Covid-19? Researchers are getting closer to an answer'
             img={event5}
           />
@@ -88,7 +88,7 @@ const ExploreContent = () => {
             to='/dev'
             className='btn-inline nonAuth__content__explore__trends__more'
           >
-            Pokaż więcej
+            Show more
           </Link>
           <div className='breakline'>&nbsp;</div>
         </div>

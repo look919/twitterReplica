@@ -124,12 +124,12 @@ const RegisterModal = ({
       <Link to='/' className='logo-link '>
         <TwitterLogo className='logo' />
       </Link>
-      <h1 className='heading-1 registerPage__heading'>Utwórz konto</h1>
+      <h1 className='heading-1 registerPage__heading'>Create your account</h1>
       <form className='registerPage__form'>
         <Input
           type='text'
           name='name'
-          text={'Imię'}
+          text={'Name'}
           value={formData.name}
           onChange={onChange}
           length={50}
@@ -144,41 +144,40 @@ const RegisterModal = ({
         <Input
           type='password'
           name='password'
-          text={'Hasło'}
+          text={'Password'}
           value={formData.password}
           onChange={onChange}
         />
         <Input
           type='password'
           name='passwordConfirm'
-          text={'Potwierdź hasło'}
+          text={'Password confirm'}
           value={formData.passwordConfirm}
           onChange={onChange}
         />
-        <h3 className='heading-3 registerPage__heading'>Data urodzenia</h3>
+        <h3 className='heading-3 registerPage__heading'>Date of birth</h3>
         <p className='registerPage__p'>
-          Ta informacja nie będzie widoczna dla innych użytkowników. Podaj swój
-          wiek, nawet jeśli jest to konto reprezentujące firmę, zwierzaka lub
-          jakąkolwiek inną osobę czy rzecz.
+          This will not be shown publicly. Confirm your own age, even if this
+          account is for a business, a pet, or something else.
         </p>
         <div className='registerPage__form__date'>
           <DateSelector
             value={{ value: formData.monthValue, label: formData.monthLabel }}
-            text='Miesiąc'
+            text='Month'
             onChange={onMonthChange}
             options={dates.optionMonth}
             type='month'
           />
           <DateSelector
             value={{ value: formData.day, label: formData.day }}
-            text='Dzień'
+            text='Day'
             onChange={onDayChange}
             options={dates.optionDay}
             type='day'
           />
           <DateSelector
             value={{ value: formData.year, label: formData.year }}
-            text='Rok'
+            text='Year'
             onChange={onYearChange}
             options={dates.optionYear}
             type='year'
@@ -197,7 +196,7 @@ const RegisterModal = ({
               )
             }
           >
-            Zarejestruj się
+            Sign up
           </button>
         ) : (
           <button
@@ -226,11 +225,11 @@ const RegisterModal = ({
         <TwitterLogo className='logo' />
       </Link>
       <h1 className='heading-1 registerPage__heading'>
-        Wysłaliśmy do Ciebie kod
+        We sent you the activation code
       </h1>
       <form className='registerPage__form'>
         <p className='registerPage__p'>
-          Wpisz poniżej w celu weryfikacji kod wysłany na email:{' '}
+          To verify enter below the code you received on the email :{' '}
           {formData.email}
         </p>
         <Input
@@ -245,7 +244,7 @@ const RegisterModal = ({
             className='btn registerPage__form__btn'
             onClick={(e) => handleRegister(e)}
           >
-            Potwierdz
+            Confirm
           </button>
         ) : (
           <button
