@@ -2,12 +2,15 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const randomize = require('randomatic');
+const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, 'login is required'],
     unique: [true, 'login already taken'],
+    lowercase: true,
+    validate: [validator.isEmail, 'Please provide a valid email'],
   },
   name: {
     type: String,
@@ -29,7 +32,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['user', 'admin', 'test'],
     default: 'user',
-    select: false,
   },
   password: {
     type: String,

@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
+import RegisterModal from './RegisterModal';
 
 import Input from '../smallParts/Input';
 import { TwitterLogo } from '../../img/Svgs';
@@ -12,6 +13,7 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
     email: '',
     password: '',
   });
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const onChange = (e) => {
     setFormData({
@@ -19,6 +21,13 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
       [e.target.name]: e.target.value,
     });
   };
+
+  //modalfunc
+  function openModal(e) {
+    e.preventDefault();
+    setIsOpen(true);
+  }
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -27,7 +36,7 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
   if (isAuthenticated && !loading) return <Redirect to='/home' />;
 
   return (
-    <form onSubmit={(e) => handleLogin(e)} className='loginPage'>
+    <form className='loginPage'>
       <Link to='/' className='logo-link logo-link--big'>
         <TwitterLogo className='logo logo--big' />
       </Link>
@@ -59,10 +68,11 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
           Nie pamiętasz hasła?
         </Link>
         {' · '}
-        <button className='btn-inline'>
+        <button className='btn-inline' onClick={openModal}>
           Zarejestruj się, aby korzystać z Twittera
         </button>
       </div>
+      <RegisterModal modalIsOpen={modalIsOpen} />
     </form>
   );
 };

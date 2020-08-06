@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
 
 import Input from '../smallParts/Input';
 import SideBarImg from '../../img/twitter_login_sidebar_illustration.png';
 import RegisterModal from './RegisterModal';
 
-const ExploreSideBar = () => {
+const ExploreSideBar = ({ login }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -20,7 +23,8 @@ const ExploreSideBar = () => {
   };
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log('click');
+
+    login(formData);
   };
 
   //modalfunc
@@ -71,5 +75,8 @@ const ExploreSideBar = () => {
     </form>
   );
 };
+ExploreSideBar.propTypes = {
+  login: PropTypes.func.isRequired,
+};
 
-export default ExploreSideBar;
+export default connect(null, { login })(ExploreSideBar);

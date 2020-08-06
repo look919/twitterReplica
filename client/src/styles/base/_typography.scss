@@ -36,7 +36,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 50;
+  z-index: 5000;
   padding: 0.8rem;
   width: 50%;
   opacity: 0.9;
@@ -45,34 +45,14 @@ body {
   transform: translateX(50%);
 }
 
-.alert-primary {
-  background: green;
-  color: #fff;
-}
-
-.alert-light {
-  background: white;
-  color: #333;
-}
-.alert-dark {
-  background: grey;
-  color: #fff;
-}
-
 .alert-danger {
   background: red;
   color: #fff;
 }
 .alert-success {
-  background: green;
+  background: $color-primary;
   color: #fff;
 }
-.alert-white {
-  background: #fff;
-  color: #333;
-  border: #ccc solid 1px;
-}
-
 .isActive {
   color: $color-primary !important;
 

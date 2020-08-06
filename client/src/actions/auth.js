@@ -27,8 +27,6 @@ export const loadUser = () => async (dispatch) => {
       payload: res.data.user,
     });
   } catch (err) {
-    console.log(err.response);
-
     dispatch({
       type: AUTH_FAIL,
     });
@@ -64,6 +62,7 @@ export const register = (
     });
     dispatch(setAlert('Account created successfully', 'success'));
   } catch (err) {
+    console.log(err.response);
     dispatch(setAlert(err.response.data.message, 'danger'));
     dispatch({
       type: REGISTER_FAIL,
@@ -75,7 +74,6 @@ export const register = (
 //login user
 export const activate = ({ email, activationCode }) => async (dispatch) => {
   const body = JSON.stringify({ email, activationCode });
-
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -90,11 +88,12 @@ export const activate = ({ email, activationCode }) => async (dispatch) => {
     });
     dispatch(setAlert('Account activated', 'success'));
   } catch (err) {
-    dispatch(setAlert(err.response.data.message, 'danger'));
     dispatch({
       type: ACTIVATION_FAIL,
       payload: err.message,
     });
+    console.log(err.response.data);
+    dispatch(setAlert('Wrong activation code', 'danger'));
   }
 };
 

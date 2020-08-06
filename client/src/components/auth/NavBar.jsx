@@ -122,10 +122,10 @@ const NavBar = ({ user, logout }) => {
           <button className='btn btn--wide btn--'>Tweet</button>
         </nav>
         {userBox && (
-          <Link to='/dev' className='auth__nav__content__userBox'>
-            <div
+          <div className='auth__nav__content__userBox'>
+            <Link
               className='auth__nav__content__user auth__nav__content__user--box'
-              onClick={() => setUserBox(true)}
+              to='/dev'
             >
               <img
                 src={user.photo}
@@ -139,7 +139,7 @@ const NavBar = ({ user, logout }) => {
                 <p className='auth__nav__content__user__text__p'>{user.at}</p>
               </div>
               <Approved className='auth__nav__content__userBox__icon' />
-            </div>
+            </Link>
             <Link to='/dev' className='auth__nav__content__userBox__link'>
               Edit profile
             </Link>
@@ -149,7 +149,7 @@ const NavBar = ({ user, logout }) => {
             >
               Log out {user.at}
             </button>
-          </Link>
+          </div>
         )}
         <button className='auth__nav__content__user' onClick={handleSetUserBox}>
           <img

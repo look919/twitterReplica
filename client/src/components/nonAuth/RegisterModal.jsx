@@ -4,6 +4,7 @@ import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import loadingGif from '../../img/loading-dark.gif';
 
 import { register, activate } from '../../actions/auth';
 import Input from '../smallParts/Input';
@@ -43,6 +44,7 @@ const RegisterModal = ({
     year: '2020',
     activationCode: '',
     confirmationStage: false,
+    loading: false,
   });
 
   const onChange = (e) => {
@@ -74,6 +76,11 @@ const RegisterModal = ({
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    await setFormData({
+      ...formData,
+      loading: true,
+    });
     const {
       name,
       email,
@@ -95,23 +102,11 @@ const RegisterModal = ({
         await setFormData({
           ...formData,
           confirmationStage: true,
+          loading: false,
         });
       }
     } else {
       await activate({ email, activationCode });
-
-      if (!refContainer.current) {
-        await setFormData({
-          ...formData,
-          name: '',
-          email: '',
-          password: '',
-          passwordConfirm: '',
-          confirmationStage: false,
-        });
-
-        return <Redirect to='/home' />;
-      }
     }
   };
 
@@ -189,12 +184,33 @@ const RegisterModal = ({
             type='year'
           />
         </div>
-        <button
-          className='btn registerPage__form__btn '
-          onClick={handleRegister}
-        >
-          Zarejestruj się
-        </button>
+        {!formData.loading ? (
+          <button
+            className='btn registerPage__form__btn '
+            onClick={handleRegister}
+            disabled={
+              !(
+                formData.name &&
+                formData.email &&
+                formData.password &&
+                formData.passwordConfirm
+              )
+            }
+          >
+            Zarejestruj się
+          </button>
+        ) : (
+          <button
+            onClick={(e) => e.preventDefault()}
+            className='btn registerPage__form__btn'
+          >
+            <img
+              src={loadingGif}
+              className='registerPage__form__btn__gif'
+              alt='loading...'
+            />
+          </button>
+        )}
       </form>
     </Modal>
   ) : (
@@ -224,13 +240,25 @@ const RegisterModal = ({
           value={formData.activationCode}
           onChange={onChange}
         />
-
-        <button
-          className='btn registerPage__form__btn'
-          onClick={(e) => handleRegister(e)}
-        >
-          Potwierdz
-        </button>
+        {!formData.loading ? (
+          <button
+            className='btn registerPage__form__btn'
+            onClick={(e) => handleRegister(e)}
+          >
+            Potwierdz
+          </button>
+        ) : (
+          <button
+            onClick={(e) => e.preventDefault()}
+            className='btn registerPage__form__btn'
+          >
+            <img
+              src={loadingGif}
+              className='registerPage__form__btn__gif'
+              alt='loading...'
+            />
+          </button>
+        )}
       </form>
     </Modal>
   );
