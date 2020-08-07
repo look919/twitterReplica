@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Wrapper from './components/Wrapper';
-import App from './components/App';
 
-ReactDOM.render(
-  <Wrapper>
-    <App />
-  </Wrapper>,
-  document.getElementById('root')
-);
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('root'));

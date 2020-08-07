@@ -1,22 +1,32 @@
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const randomize = require('randomatic');
+const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, 'login is required'],
     unique: [true, 'login already taken'],
+    lowercase: true,
+    validate: [validator.isEmail, 'Please provide a valid email'],
   },
   name: {
     type: String,
     required: [true, 'login is required'],
     unique: [true, 'login already taken'],
   },
+  at: {
+    type: String,
+  },
   photo: {
     type: String,
     default:
       'https://twitterreplica.s3.eu-central-1.amazonaws.com/default_profile.png',
+  },
+  backgroundImage: {
+    type: String,
   },
   role: {
     type: String,
@@ -38,7 +48,13 @@ const userSchema = new mongoose.Schema({
       },
       message: 'Passwords are not the same',
     },
+    select: false,
   },
+  dateOfBirth: Date,
+  city: String,
+  town: String,
+  link: String,
+  description: String,
   createdAt: {
     type: Date,
     default: Date.now(),
@@ -79,11 +95,25 @@ const userSchema = new mongoose.Schema({
     ],
     default: [],
   },
+  activationCode: {
+    type: String,
+    default: randomize('0', 4),
+  },
+  activated: {
+    type: Boolean,
+    default: false,
+  },
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
 });
 
+userSchema.pre('save', async function (next) {
+  // Runs only when create @
+  if (this.at) return next();
+
+  (this.at = `@${this.name.replace(/ /g, '')}`), next();
+});
 userSchema.pre('save', async function (next) {
   // Runs only when password gets modified
   if (!this.isModified('password')) return next();

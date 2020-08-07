@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import defaultUser from '../../utils/defaultUser.js';
 
-import defaultUser from '../../img/default_profile.png';
 import {
   TwitterLogo,
   Home,
@@ -13,9 +13,23 @@ import {
   Profile,
   More,
   ArrowDown,
+  Approved,
 } from '../../img/Svgs';
 
-const NavBar = () => {
+const NavBar = ({ user, logout }) => {
+  if (!user) user = defaultUser;
+
+  const [userBox, setUserBox] = useState(false);
+
+  const handleSetUserBox = () => {
+    userBox ? setUserBox(false) : setUserBox(true);
+  };
+  const handleLogout = (e) => {
+    e.preventDefault();
+
+    logout();
+  };
+
   return (
     <section className='auth__nav'>
       <div className='auth__nav__content'>
@@ -107,20 +121,50 @@ const NavBar = () => {
           </NavLink>
           <button className='btn btn--wide btn--'>Tweet</button>
         </nav>
-        <div className='auth__nav__content__user'>
+        {userBox && (
+          <div className='auth__nav__content__userBox'>
+            <Link
+              className='auth__nav__content__user auth__nav__content__user--box'
+              to='/dev'
+            >
+              <img
+                src={user.photo}
+                className='auth__nav__content__user__photo auth__nav__content__user__photo--box'
+                alt='profile'
+              />
+              <div className='auth__nav__content__user__text'>
+                <h3 className='heading-3 auth__nav__content__user__text__name'>
+                  {user.name}
+                </h3>
+                <p className='auth__nav__content__user__text__p'>{user.at}</p>
+              </div>
+              <Approved className='auth__nav__content__userBox__icon' />
+            </Link>
+            <Link to='/dev' className='auth__nav__content__userBox__link'>
+              Edit profile
+            </Link>
+            <button
+              onClick={(e) => handleLogout(e)}
+              className='auth__nav__content__userBox__btn'
+            >
+              Log out {user.at}
+            </button>
+          </div>
+        )}
+        <button className='auth__nav__content__user' onClick={handleSetUserBox}>
           <img
-            src={defaultUser}
+            src={user.photo}
             className='auth__nav__content__user__photo'
             alt='profile'
           />
           <div className='auth__nav__content__user__text'>
             <h3 className='heading-3 auth__nav__content__user__text__name'>
-              Default profile
+              {user.name}
             </h3>
-            <p className='auth__nav__content__user__text__p'>@DefaultProfile</p>
+            <p className='auth__nav__content__user__text__p'>{user.at}</p>
           </div>
           <ArrowDown className='auth__nav__content__user__icon' />
-        </div>
+        </button>
       </div>
     </section>
   );

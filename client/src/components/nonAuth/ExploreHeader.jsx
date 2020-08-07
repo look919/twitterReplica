@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import RegisterModal from './RegisterModal';
 import { TwitterLogo, Settings, Search } from '../../img/Svgs.jsx';
 
 const ExploreHeader = () => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  //modalfunc
+  function openModal(e) {
+    e.preventDefault();
+    setIsOpen(true);
+  }
+
   return (
     <header className='nonAuth__header'>
       <Link to='/' className='logo-link'>
@@ -14,10 +23,13 @@ const ExploreHeader = () => {
         <Search className='input-search-container__icon' />
       </form>
       <Link to='/login' className='btn btn--dark'>
-        Zaloguj się
+        Log in
       </Link>
-      <button className='btn'>Zarejestruj się</button>
+      <button onClick={openModal} className='btn'>
+        Sign up
+      </button>
       <Settings className='nonAuth__settings' />
+      <RegisterModal modalIsOpen={modalIsOpen} />
     </header>
   );
 };

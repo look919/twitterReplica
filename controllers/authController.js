@@ -4,13 +4,13 @@ const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
+const Email = require('../utils/email/email');
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
-
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user.id);
   const cookieOptions = {
@@ -18,13 +18,14 @@ const createSendToken = (user, statusCode, req, res) => {
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    //secure: req.secure || req.headers('x-forwarded-proto') === 'https',
+    secure: req.secure,
   };
 
   res.cookie('jwt', token, cookieOptions);
 
   //Remove password from output
   user.password = undefined;
+  user.passwordConfirm = undefined;
 
   res.status(statusCode).json({
     status: 'success',
@@ -34,22 +35,36 @@ const createSendToken = (user, statusCode, req, res) => {
     },
   });
 };
+exports.isLoggedIn = async (req, res, next) => {
+  const token = req.header('Authentication');
 
-exports.getLoggedInUser = () =>
-  catchAsync(async (req, res, next) => {
-    const user = await User.findById(req.user).populate('tweets');
+  if (token) {
+    try {
+      // 1) verify token
+      const decoded = await promisify(jwt.verify)(
+        token,
+        process.env.JWT_SECRET
+      );
 
-    if (!user) {
-      return next(new AppError('No document found with that ID', 404));
+      // 2) Check if user still exists
+      const currentUser = await await User.findById(decoded.id);
+
+      if (!currentUser) {
+        return next();
+      }
+
+      // 3) Check if user changed password after the token was issued
+      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return next();
+      }
+
+      return res.status(200).json({ user: currentUser });
+    } catch (err) {
+      return next();
     }
-
-    res.status(200).json({
-      status: 'success',
-      data: {
-        data: user,
-      },
-    });
-  });
+  }
+  next();
+};
 
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
@@ -57,13 +72,43 @@ exports.signup = catchAsync(async (req, res, next) => {
     name: req.body.name,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    role: req.body.role,
   });
+
+  await new Email(newUser, newUser.activationCode).sendWelcome();
+
   res.status(201).json({
     status: 'success',
     data: {
       newUser,
     },
   });
+});
+exports.activate = catchAsync(async (req, res, next) => {
+  const { email, activationCode } = req.body;
+
+  // 1) Check if email and password exist
+  if (!activationCode) {
+    return next(new AppError('Please provide code sent to your email', 400));
+  }
+  // 2) Check if user exists && password is correct
+  const user = await User.findOne({ email }).select('+password');
+
+  if (!user) {
+    return next(new AppError('No User found with that email', 404));
+  }
+
+  if (user.activationCode !== activationCode) {
+    return next(new AppError('Invalid activation code', 401));
+  }
+
+  // 3) If everything ok, change activated property and send token to client
+  user.activated = true;
+  user.passwordConfirm = user.password;
+
+  await user.save();
+
+  createSendToken(user, 200, req, res);
 });
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -79,6 +124,9 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect email or password', 401));
   }
 
+  if (!user.activated) {
+    return next(new AppError('Account not activated yet', 401));
+  }
   // 3) If everything ok, send token to client
   createSendToken(user, 200, req, res);
 });
@@ -136,37 +184,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   next();
 });
-
-// Only for rendered pages, no errors!
-exports.isLoggedIn = async (req, res, next) => {
-  const token = req.header('Authentication');
-
-  if (token) {
-    try {
-      // 1) verify token
-      const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.JWT_SECRET
-      );
-
-      // 2) Check if user still exists
-      const currentUser = await User.findById(decoded.id);
-      if (!currentUser) {
-        return next();
-      }
-
-      // 3) Check if user changed password after the token was issued
-      if (currentUser.changedPasswordAfter(decoded.iat)) {
-        return next();
-      }
-
-      res.status(200).json({ user: currentUser });
-    } catch (err) {
-      return next();
-    }
-  }
-  next();
-};
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {

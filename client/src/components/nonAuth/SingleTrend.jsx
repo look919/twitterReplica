@@ -32,16 +32,14 @@ const SingleTrend = ({ name, num, id = 1 }) => {
 
   const Trend = (
     <div className='nonAuth__content__explore__trend'>
-      <p className='nonAuth__content__explore__trend__p'>
-        Najpopularniejsze w Polska
-      </p>
+      <p className='nonAuth__content__explore__trend__p'>Trending in Poland</p>
       <Link
         to='/dev'
         className='heading-3 nonAuth__content__explore__trend__heading'
       >
         {name}
       </Link>
-      <p className='nonAuth__content__explore__trend__p'>Tweety: {num} tys.</p>
+      <p className='nonAuth__content__explore__trend__p'>{num}K Tweets</p>
       <div className='nonAuth__content__explore__trend__report'>
         <input
           type='checkbox'
@@ -64,7 +62,7 @@ const SingleTrend = ({ name, num, id = 1 }) => {
                 className='nonAuth__content__explore__trend__report__box__btn'
               >
                 <SadFace className='nonAuth__content__explore__trend__report__box__btn__icon' />{' '}
-                To jest spam
+                This trend is spam
               </button>
               <button
                 onClick={(e) => onReportOptionChoosed(e)}
@@ -72,7 +70,7 @@ const SingleTrend = ({ name, num, id = 1 }) => {
                 value='insulting'
               >
                 <SadFace className='nonAuth__content__explore__trend__report__box__btn__icon' />{' '}
-                Te treści są obraźliwe lub stanowią nadużycie
+                This trend is abusive or harmful
               </button>
               <button
                 onClick={(e) => onReportOptionChoosed(e)}
@@ -80,7 +78,7 @@ const SingleTrend = ({ name, num, id = 1 }) => {
                 className='nonAuth__content__explore__trend__report__box__btn'
               >
                 <SadFace className='nonAuth__content__explore__trend__report__box__btn__icon' />{' '}
-                Te treści są skopiowane z innego źródła
+                This trend is a duplicate
               </button>
               <button
                 onClick={(e) => onReportOptionChoosed(e)}
@@ -88,7 +86,7 @@ const SingleTrend = ({ name, num, id = 1 }) => {
                 className='nonAuth__content__explore__trend__report__box__btn'
               >
                 <SadFace className='nonAuth__content__explore__trend__report__box__btn__icon' />{' '}
-                To są treści niskiej jakości
+                This trend is low quality
               </button>
             </div>
           )}
@@ -100,7 +98,7 @@ const SingleTrend = ({ name, num, id = 1 }) => {
     <div className='nonAuth__content__explore__trend'>
       <div className='nonAuth__content__explore__trend__report__field'>
         <p className='nonAuth__content__explore__trend__p--reported'>
-          Dziekujemy. Odśwież tę stronę, aby zaktualizować trendy.
+          Thanks. Refresh this page to update these trends.
         </p>
       </div>
     </div>
