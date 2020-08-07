@@ -11,7 +11,7 @@ const ExploreAuth = ({ user, logout }) => {
   return (
     <section className='auth'>
       <NavBar user={user} logout={logout} />
-      <MainContent />
+      <MainContent user={user} />
       <Recommended />
     </section>
   );

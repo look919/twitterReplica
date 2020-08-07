@@ -47,7 +47,7 @@ const Tweet = ({ tweet }) => {
   return (
     <div className='mainContent__tweet'>
       <div className='mainContent__tweet__img'>
-        {tweet.reTweet && (
+        {tweet.retweet && (
           <Retweets className='mainContent__tweet__img__retweetIcon' />
         )}
         <img
@@ -57,7 +57,7 @@ const Tweet = ({ tweet }) => {
         />
       </div>
       <div className='mainContent__tweet__content'>
-        {tweet.reTweet && (
+        {tweet.retweet && (
           <span className='mainContent__tweet__content__retweeted'>
             {tweet.user + ' Retweeted'}
           </span>
@@ -76,13 +76,13 @@ const Tweet = ({ tweet }) => {
 
           <input
             type='checkbox'
-            id={tweet.id}
+            id={tweet._id}
             className='mainContent__tweet__content__author__checkbox'
             value={report}
             onChange={onChange}
           />
           <label
-            htmlFor={tweet.id}
+            htmlFor={tweet._id}
             className='mainContent__tweet__content__author__input'
           >
             {!report.checked ? (

@@ -5,7 +5,12 @@ import { Star } from '../../../img/Svgs';
 import Tweet from './Tweet';
 import testTweets from '../../../utils/testTweets.json';
 
-const MainContent = () => {
+import { connect } from 'react-redux';
+import { createTweet } from '../../../actions/tweets';
+import PropTypes from 'prop-types';
+
+const MainContent = ({ user: { user } }) => {
+  console.log(user);
   return (
     <main className='mainContent'>
       <div className='mainContent__header'>
@@ -16,11 +21,22 @@ const MainContent = () => {
       </div>
       <CreateTweet />
       <div className='breakline'>&nbsp;</div>
-      {testTweets.tweets.map((tweet) => (
-        <Tweet tweet={tweet} key={tweet.id} />
-      ))}
+      {user &&
+        user.tweets.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)}
     </main>
   );
 };
 
-export default MainContent;
+MainContent.propTypes = {
+  createTweet: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  user: state.auth,
+});
+
+export default connect(mapStateToProps, { createTweet })(MainContent);
+
+// {testTweets.tweets.map((tweet) => (
+//   <Tweet tweet={tweet} key={tweet.id} />
+// ))}

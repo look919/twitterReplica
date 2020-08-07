@@ -1,14 +1,18 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
+import ReactGiphySearchbox from 'react-giphy-searchbox';
 import TextareaAutosize from 'react-textarea-autosize';
-import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import ReactGiphySearchbox from 'react-giphy-searchbox';
 
-import defaultUser from '../../../img/default_profile.png';
+import { connect } from 'react-redux';
+import { createTweet } from '../../../actions/tweets';
+import PropTypes from 'prop-types';
+
+import defaultUser from '../../../utils/defaultUser';
 import {
   AddImage,
   AddGif,
@@ -18,58 +22,81 @@ import {
   Plus,
 } from '../../../img/Svgs';
 
-const CreateTweet = () => {
-  const [tweetMessage, setTweetMessage] = useState({
+const CreateTweet = ({ user: { user }, createTweet }) => {
+  if (!user) user = defaultUser;
+
+  const [tweet, setTweet] = useState({
     message: '',
     emojiPicker: false,
     gifPicker: false,
     imgOrGif: '',
+    retweet: false,
   });
   const [fillPercentage, setFillPercentage] = useState(
-    (tweetMessage.message.length / 240) * 100
+    (tweet.message.length / 240) * 100
   );
+  useEffect(() => {
+    setTweet({
+      ...tweet,
+      userId: user._id,
+    });
+  }, [user]);
 
   const addToMessage = (emoji) => {
-    setTweetMessage({
-      ...tweetMessage,
-      message: `${tweetMessage.message}${emoji}`,
+    setTweet({
+      ...tweet,
+      message: `${tweet.message}${emoji}`,
       emojiPicker: false,
       gifPicker: false,
     });
-    setFillPercentage((tweetMessage.message.length / 240) * 100);
+    setFillPercentage((tweet.message.length / 240) * 100);
   };
   const addGifToTweet = (item) => {
-    setTweetMessage({
-      ...tweetMessage,
+    setTweet({
+      ...tweet,
       imgOrGif: item.url,
       gifPicker: false,
     });
   };
   const openEmojiPicker = () => {
-    setTweetMessage({
-      ...tweetMessage,
+    setTweet({
+      ...tweet,
       emojiPicker: true,
     });
   };
   const openGifPicker = () => {
-    setTweetMessage({
-      ...tweetMessage,
+    setTweet({
+      ...tweet,
       gifPicker: true,
     });
   };
   const onChange = (e) => {
-    setTweetMessage({
-      ...tweetMessage,
+    setTweet({
+      ...tweet,
       [e.target.name]: e.target.value,
     });
-    setFillPercentage((tweetMessage.message.length / 240) * 100);
+    setFillPercentage((tweet.message.length / 240) * 100);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    await createTweet(tweet);
+
+    await setTweet({
+      ...tweet,
+      message: '',
+      emojiPicker: false,
+      gifPicker: false,
+      imgOrGif: '',
+    });
   };
 
   return (
     <div className='mainContent__createTweet'>
       <div className='mainContent__createTweet__img'>
         <img
-          src={defaultUser}
+          src={user.photo}
           className='mainContent__createTweet__img__photo'
           alt='user'
         />
@@ -78,7 +105,7 @@ const CreateTweet = () => {
         <div className='mainContent__createTweet__tweet__text'>
           <TextareaAutosize
             autoComplete='off'
-            value={tweetMessage.message}
+            value={tweet.message}
             name='message'
             onChange={onChange}
             className='mainContent__createTweet__tweet__text__textarea'
@@ -95,7 +122,7 @@ const CreateTweet = () => {
           <AddImage className='mainContent__createTweet__options__icon' />
         </Link>
 
-        {!tweetMessage.gifPicker ? (
+        {!tweet.gifPicker ? (
           <button
             onClick={openGifPicker}
             className='mainContent__createTweet__options__icon__btn mainContent__createTweet__options__iconHandler'
@@ -115,7 +142,7 @@ const CreateTweet = () => {
         >
           <AddPool className='mainContent__createTweet__options__icon' />
         </Link>
-        {!tweetMessage.emojiPicker ? (
+        {!tweet.emojiPicker ? (
           <button
             onClick={openEmojiPicker}
             className='mainContent__createTweet__options__icon__btn mainContent__createTweet__options__iconHandler'
@@ -134,7 +161,7 @@ const CreateTweet = () => {
         >
           <AddSchedule className='mainContent__createTweet__options__icon' />
         </Link>
-        {tweetMessage.message && (
+        {tweet.message && (
           <Fragment>
             <CircularProgressbar
               value={fillPercentage}
@@ -156,11 +183,24 @@ const CreateTweet = () => {
           </Fragment>
         )}
 
-        <button className='btn mainContent__createTweet__options__btn'>
+        <button
+          onClick={(e) => onSubmit(e)}
+          className='btn mainContent__createTweet__options__btn'
+          disabled={!tweet.message}
+        >
           Tweet
         </button>
       </div>
     </div>
   );
 };
-export default CreateTweet;
+
+CreateTweet.propTypes = {
+  createTweet: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  user: state.auth,
+});
+
+export default connect(mapStateToProps, { createTweet })(CreateTweet);
