@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import findLinksInText from '../../../utils/findLinksInText';
+import moment from 'moment';
 
+import findLinksInText from '../../../utils/findLinksInText';
 import emoji from 'react-easy-emoji';
+import HoverTweetBox from './HoverTweetBox';
 
 import defaultUser from '../../../img/default_profile.png';
 import {
@@ -16,6 +18,25 @@ import {
   Mute,
   Block,
 } from '../../../img/Svgs';
+
+moment.locale('en', {
+  relativeTime: {
+    future: 'in %s',
+    past: '%s',
+    s: 'seconds',
+    ss: '%ss',
+    m: 'a minute',
+    mm: '%dm',
+    h: 'an hour',
+    hh: '%dh',
+    d: 'a day',
+    dd: '%dd',
+    M: 'a month',
+    MM: '%dM',
+    y: 'a year',
+    yy: '%dY',
+  },
+});
 
 const Tweet = ({ tweet }) => {
   const [report, setReport] = useState({
@@ -55,24 +76,35 @@ const Tweet = ({ tweet }) => {
           className='mainContent__tweet__img__photo'
           alt='user'
         />
+        <HoverTweetBox
+          user={tweet.user}
+          idClass='mainContent__tweet__img__photo__hover'
+        />
       </div>
       <div className='mainContent__tweet__content'>
         {tweet.retweet && (
           <span className='mainContent__tweet__content__retweeted'>
-            {tweet.user + ' Retweeted'}
+            {tweet.user.name + ' Retweeted'}
           </span>
         )}
         <div className='mainContent__tweet__content__author'>
-          <span className='mainContent__tweet__content__author__name'>
-            {tweet.user}
-          </span>
+          <div className='mainContent__tweet__content__author__name'>
+            {tweet.user.name}
+          </div>
+          <HoverTweetBox
+            user={tweet.user}
+            idClass='mainContent__tweet__content__author__name__hover'
+          />
+
           <span className='mainContent__tweet__content__author__at'>
-            @defaultUser
+            {tweet.user.at}
           </span>
           <span className='mainContent__tweet__content__author__dot'>
             {' · '}
           </span>
-          <span className='mainContent__tweet__content__author__time'>2h</span>
+          <span className='mainContent__tweet__content__author__time'>
+            {moment(tweet.createdAt).fromNow()}
+          </span>
 
           <input
             type='checkbox'

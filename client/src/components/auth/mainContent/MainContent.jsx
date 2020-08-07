@@ -10,7 +10,6 @@ import { createTweet } from '../../../actions/tweets';
 import PropTypes from 'prop-types';
 
 const MainContent = ({ user: { user } }) => {
-  console.log(user);
   return (
     <main className='mainContent'>
       <div className='mainContent__header'>

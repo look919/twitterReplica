@@ -1,0 +1,59 @@
+.tweetHoverBox {
+  flex-direction: column; //setting display flex on seperate class to avoid open many at once
+  position: absolute;
+  padding: 2rem 1.6rem;
+  margin-top: 1rem;
+  background-color: $color-background;
+  border-radius: 1.5rem;
+  z-index: 5000;
+  box-shadow: 0 0 1rem 2px rgba($color-white, 0.2);
+  width: 30rem;
+
+  &__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &__img {
+      border-radius: 50%;
+      height: 5.5rem;
+      width: 5.5rem;
+      margin-bottom: 0.5rem;
+    }
+    &__btn {
+      height: 4rem;
+    }
+  }
+  &__userName {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    &__name {
+      height: 1.7rem;
+      font-weight: 700;
+    }
+    &__at {
+      height: 2rem;
+      color: $color-grey;
+      margin-bottom: 0.8rem;
+    }
+  }
+  &__desc {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+  &__numbers {
+    &__following-num,
+    &__followers-num {
+      color: $color-white;
+      font-weight: 700;
+      margin-right: 3px;
+    }
+    &__following-text,
+    &__followers-text {
+      color: $color-grey;
+      margin-right: 2.5rem;
+    }
+  }
+}

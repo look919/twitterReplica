@@ -46,6 +46,15 @@ const tweetSchema = new mongoose.Schema({
 });
 
 tweetSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'user',
+    select: '-tweets name photo at description following followers',
+  });
+
+  next();
+});
+
+tweetSchema.pre(/^find/, function (next) {
   if (!this.ref) return next();
 
   this.populate({
