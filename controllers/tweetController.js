@@ -6,6 +6,7 @@ const Tweet = require('./../models/tweetModel');
 const User = require('./../models/userModel');
 const factory = require('./handlerFactory');
 const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 exports.createTweet - factory.createOne(Tweet);
 exports.getAllTweets = factory.getAll(Tweet);
@@ -47,11 +48,13 @@ exports.uploadImage = upload.single('photo');
 
 exports.createTweet = catchAsync(async (req, res, next) => {
   if (req.file) req.body.photo = req.file.location;
+
+  console.log(req.user.id, req.body.user);
   if (req.user.id !== req.body.user) {
     return next(new AppError('There was an error with verification user', 404));
   }
 
-  const doc = await Tweet.create(req.body);
+  const doc = await await Tweet.create(req.body);
   const updateUserTweets = await User.findByIdAndUpdate(
     req.user.id,
     { tweets: [...req.user.tweets, doc.id] },
@@ -72,6 +75,7 @@ exports.createTweet = catchAsync(async (req, res, next) => {
     },
   });
 });
+
 exports.addLikeToTweet = catchAsync(async (req, res, next) => {
   const updateTweetLikes = await User.findByIdAndUpdate(
     req.body.tweet.id,

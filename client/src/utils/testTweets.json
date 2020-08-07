@@ -5,7 +5,7 @@
       "user": "defaultUser",
       "createdAt": "2020-04-20",
       "message": "Test link https://twitter.com/home 🌐🥰🌐🏠🥶🦻👀👿🤳",
-      "reTweet": false,
+      "retweet": false,
       "comments": 7,
       "retweets": 3,
       "likes": 54
@@ -15,7 +15,7 @@
       "user": "monkey",
       "createdAt": "2020-03-30",
       "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proinaliquam risus quis malesuada consectetur. Duis et dolor nisl.Vivamus egestas urna ut augue tincidunt rutrum. Donec sedconsectetur libero. Vivamus porttitor ex a odio porta pellentesque.Nullam cursus interdum semper. 😉 ",
-      "reTweet": false,
+      "retweet": false,
       "comments": 1,
       "retweets": 1,
       "likes": 1
@@ -25,7 +25,7 @@
       "user": "userito42",
       "createdAt": "2020-04-13",
       "message": "Pretty boy https://www.tomaszwirkus.com/projects",
-      "reTweet": false,
+      "retweet": false,
       "comments": 2,
       "retweets": 1,
       "likes": 11
@@ -35,7 +35,7 @@
       "user": "user43",
       "createdAt": "2020-04-20",
       "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proinaliquam risus quis malesuada consectetur. Duis et 😂😂😂😂",
-      "reTweet": false,
+      "retweet": false,
       "comments": 777,
       "retweets": 321,
       "likes": 5344
@@ -45,7 +45,7 @@
       "user": "defaultUser",
       "createdAt": "2019-03-20",
       "message": "Testing information 🏠😎",
-      "reTweet": true,
+      "retweet": true,
       "comments": 7,
       "retweets": 0,
       "likes": 0
@@ -55,7 +55,7 @@
       "user": "tom",
       "createdAt": "2020-07-01",
       "message": "Test link https://www.wp.pl 🌐🥰🌐🏠🤳",
-      "reTweet": false,
+      "retweet": false,
       "comments": 23,
       "retweets": 5,
       "likes": 100
@@ -65,7 +65,7 @@
       "user": "user123",
       "createdAt": "2019-12-12",
       "message": "Uno due tre quatro 🇮🇹",
-      "reTweet": false,
+      "retweet": false,
       "comments": 3,
       "retweets": 0,
       "likes": 13
@@ -75,7 +75,7 @@
       "user": "defaultUser",
       "createdAt": "2020-04-18",
       "message": "Test tweet with some emoticons 🌐🥰🌐🏠🥶🦻👀👿🤳",
-      "reTweet": true,
+      "retweet": true,
       "comments": 17,
       "retweets": 2,
       "likes": 502
@@ -85,7 +85,7 @@
       "user": "user123",
       "createdAt": "2020-12-10",
       "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proinaliquam risus quis malesuada consectetur. Duis et 😂",
-      "reTweet": false,
+      "retweet": false,
       "comments": 233,
       "retweets": 31,
       "likes": 521
@@ -95,7 +95,7 @@
       "user": "TomatoTest",
       "createdAt": "2020-06-23",
       "message": "Test tweet with some emoticons 🌐🥰🌐🏠🥶🦻👀👿🤳",
-      "reTweet": false,
+      "retweet": false,
       "comments": 0,
       "retweets": 1,
       "likes": 3
@@ -105,7 +105,7 @@
       "user": "test10",
       "createdAt": "2020-02-10",
       "message": "1000 years later 😎",
-      "reTweet": true,
+      "retweet": true,
       "comments": 0,
       "retweets": 0,
       "likes": 1

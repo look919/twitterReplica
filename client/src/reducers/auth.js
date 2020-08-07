@@ -16,6 +16,7 @@ import {
   FORGOT_PASSWORD_FAIL,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  CREATE_TWEET_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
@@ -69,6 +70,15 @@ export default function (state = initialState, action) {
         ...state,
         user: payload,
         isAuthenticated: true,
+        loading: false,
+      };
+    case CREATE_TWEET_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          tweets: [...state.user.tweets, payload.data.data],
+        },
         loading: false,
       };
     case REGISTER_FAIL:
