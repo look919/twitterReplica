@@ -93,41 +93,34 @@ const CreateTweet = ({ user: { user }, createTweet }) => {
   };
 
   return (
-    <div className='mainContent__createTweet'>
-      <div className='mainContent__createTweet__img'>
-        <img
-          src={user.photo}
-          className='mainContent__createTweet__img__photo'
-          alt='user'
-        />
+    <div className='createTweet'>
+      <div className='createTweet__img'>
+        <img src={user.photo} className='createTweet__img__photo' alt='user' />
       </div>
-      <div className='mainContent__createTweet__tweet'>
-        <div className='mainContent__createTweet__tweet__text'>
+      <div className='createTweet__tweet'>
+        <div className='createTweet__tweet__text'>
           <TextareaAutosize
             autoComplete='off'
             value={tweet.message}
             name='message'
             onChange={onChange}
-            className='mainContent__createTweet__tweet__text__textarea'
+            className='createTweet__tweet__text__textarea'
             placeholder="What's happening?"
             maxLength={240}
           />
         </div>
       </div>
-      <div className='mainContent__createTweet__options'>
-        <Link
-          to='/dev'
-          className='mainContent__createTweet__options__iconHandler'
-        >
-          <AddImage className='mainContent__createTweet__options__icon' />
+      <div className='createTweet__options'>
+        <Link to='/dev' className='createTweet__options__iconHandler'>
+          <AddImage className='createTweet__options__icon' />
         </Link>
 
         {!tweet.gifPicker ? (
           <button
             onClick={openGifPicker}
-            className='mainContent__createTweet__options__icon__btn mainContent__createTweet__options__iconHandler'
+            className='createTweet__options__icon__btn mainContent__createTweet__options__iconHandler'
           >
-            <AddGif className='mainContent__createTweet__options__icon' />
+            <AddGif className='createTweet__options__icon' />
           </button>
         ) : (
           <ReactGiphySearchbox
@@ -136,37 +129,31 @@ const CreateTweet = ({ user: { user }, createTweet }) => {
           />
         )}
 
-        <Link
-          to='/dev'
-          className='mainContent__createTweet__options__iconHandler'
-        >
-          <AddPool className='mainContent__createTweet__options__icon' />
+        <Link to='/dev' className='createTweet__options__iconHandler'>
+          <AddPool className='createTweet__options__icon' />
         </Link>
         {!tweet.emojiPicker ? (
           <button
             onClick={openEmojiPicker}
-            className='mainContent__createTweet__options__icon__btn mainContent__createTweet__options__iconHandler'
+            className='createTweet__options__icon__btn mainContent__createTweet__options__iconHandler'
           >
-            <AddEmoji className='mainContent__createTweet__options__icon' />
+            <AddEmoji className='createTweet__options__icon' />
           </button>
         ) : (
           <Picker
-            className='mainContent__createTweet__options__emojiPicker'
+            className='createTweet__options__emojiPicker'
             onSelect={(emoji) => addToMessage(emoji.native)}
           />
         )}
-        <Link
-          to='/dev'
-          className='mainContent__createTweet__options__iconHandler'
-        >
-          <AddSchedule className='mainContent__createTweet__options__icon' />
+        <Link to='/dev' className='createTweet__options__iconHandler'>
+          <AddSchedule className='createTweet__options__icon' />
         </Link>
         {tweet.message && (
           <Fragment>
             <CircularProgressbar
               value={fillPercentage}
               text=''
-              className='mainContent__createTweet__options__fillProgress'
+              className='createTweet__options__fillProgress'
               maxValue={101}
               background={true}
               styles={{
@@ -176,10 +163,8 @@ const CreateTweet = ({ user: { user }, createTweet }) => {
                 },
               }}
             />
-            <div className='mainContent__createTweet__options__line'>
-              &nbsp;
-            </div>
-            <Plus className='mainContent__createTweet__options__icon' />
+            <div className='createTweet__options__line'>&nbsp;</div>
+            <Plus className='createTweet__options__icon' />
           </Fragment>
         )}
 
