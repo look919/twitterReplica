@@ -54,10 +54,41 @@ exports.createTweet = catchAsync(async (req, res, next) => {
     return next(new AppError('There was an error with verification user', 404));
   }
 
-  const doc = await await Tweet.create(req.body);
+  const doc = await Tweet.create(req.body);
   const updateUserTweets = await User.findByIdAndUpdate(
     req.user.id,
     { tweets: [...req.user.tweets, doc.id] },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!updateUserTweets) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      data: doc,
+    },
+  });
+});
+
+exports.deleteTweet = catchAsync(async (req, res, next) => {
+  if (req.user.id !== req.body.user) {
+    return next(new AppError('There was an error with verification user', 404));
+  }
+
+  const doc = await Tweet.findByIdAndDelete(req.body.tweetId);
+  const userTweetsAfterDelete = req.user.tweets.filter(
+    (tweet) => tweet._id !== req.body.tweetId
+  );
+
+  const updateUserTweets = await User.findByIdAndUpdate(
+    req.user.id,
+    { tweets: userTweetsAfterDelete },
     {
       new: true,
       runValidators: true,
