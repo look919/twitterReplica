@@ -11,7 +11,6 @@ const AppError = require('../utils/appError');
 exports.createTweet - factory.createOne(Tweet);
 exports.getAllTweets = factory.getAll(Tweet);
 exports.getTweet = factory.getOne(Tweet, { path: 'user' });
-exports.deleteTweet = factory.deleteOne(Tweet);
 
 //const multerStorage = multer.memoryStorage();
 const multerFilter = (req, file, cb) => {
@@ -77,13 +76,10 @@ exports.createTweet = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteTweet = catchAsync(async (req, res, next) => {
-  if (req.user.id !== req.body.user) {
-    return next(new AppError('There was an error with verification user', 404));
-  }
+  const doc = await Tweet.findByIdAndDelete(req.params.tweetId);
 
-  const doc = await Tweet.findByIdAndDelete(req.body.tweetId);
   const userTweetsAfterDelete = req.user.tweets.filter(
-    (tweet) => tweet._id !== req.body.tweetId
+    (tweet) => tweet.id !== req.params.tweetId
   );
 
   const updateUserTweets = await User.findByIdAndUpdate(
@@ -95,14 +91,18 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
     }
   );
 
-  if (!updateUserTweets) {
+  if (
+    !updateUserTweets ||
+    userTweetsAfterDelete.length === req.user.tweets.length
+  ) {
     return next(new AppError('No document found with that ID', 404));
   }
 
-  res.status(201).json({
+  res.status(200).json({
     status: 'success',
     data: {
-      data: doc,
+      data: updateUserTweets,
+      doc,
     },
   });
 });

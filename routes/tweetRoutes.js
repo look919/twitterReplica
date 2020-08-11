@@ -13,7 +13,8 @@ router
   .get(tweetController.getAllTweets)
   .post(tweetController.uploadImage, tweetController.createTweet);
 
+router.route('/:tweetId').delete(tweetController.deleteTweet);
+
 router.use(authController.restrictTo('admin'));
-router.route('/:id').delete(tweetController.deleteTweet);
 
 module.exports = router;

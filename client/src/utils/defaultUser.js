@@ -5,5 +5,8 @@ const user = {
   name: '',
   at: '',
   photo: defaultUser,
+  following: [],
+  followers: [],
+  description: '',
 };
 export default user;

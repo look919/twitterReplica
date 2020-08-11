@@ -2,6 +2,7 @@ import React from 'react';
 
 import { SadFace, Unfollow, Mute, Block } from '../../../img/Svgs';
 
+//This component is also responsible for deleting tweets if its ours.
 const ReportBox = ({ eventListener }) => {
   return (
     <div className='tweet__content__author__box'>

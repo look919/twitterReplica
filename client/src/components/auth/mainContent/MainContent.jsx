@@ -1,13 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import CreateTweet from './CreateTweet';
-import { Star } from '../../../img/Svgs';
 import Tweet from './Tweet';
-import testTweets from '../../../utils/testTweets.json';
+//import { deleteTweet } from '../../../actions/tweets';
 
-import { connect } from 'react-redux';
-import { createTweet } from '../../../actions/tweets';
-import PropTypes from 'prop-types';
+import { Star } from '../../../img/Svgs';
 
 const MainContent = ({ user: { user } }) => {
   return (
