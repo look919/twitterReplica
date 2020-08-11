@@ -51,8 +51,19 @@ exports.createTweet = catchAsync(async (req, res, next) => {
   if (req.user.id !== req.body.user) {
     return next(new AppError('There was an error with verification user', 404));
   }
-
+  console.log(req.body);
   const doc = await Tweet.create(req.body);
+  if (req.body.ref) {
+    const updateRefferedTweet = await Tweet.findById(req.body.ref);
+    await Tweet.findByIdAndUpdate(
+      req.body.ref,
+      { comments: [...updateRefferedTweet.comments, doc._id] },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  }
   const updateUserTweets = await User.findByIdAndUpdate(
     req.user.id,
     { tweets: [...req.user.tweets, doc.id] },

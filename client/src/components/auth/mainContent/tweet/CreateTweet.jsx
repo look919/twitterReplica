@@ -9,10 +9,10 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 import { connect } from 'react-redux';
-import { createTweet } from '../../../actions/tweets';
+import { createTweet } from '../../../../actions/tweets';
 import PropTypes from 'prop-types';
 
-import defaultUser from '../../../utils/defaultUser';
+import defaultUser from '../../../../utils/defaultUser';
 import {
   AddImage,
   AddGif,
@@ -20,9 +20,14 @@ import {
   AddEmoji,
   AddSchedule,
   Plus,
-} from '../../../img/Svgs';
+} from '../../../../img/Svgs';
 
-const CreateTweet = ({ user: { user }, createTweet }) => {
+const CreateTweet = ({
+  user: { user },
+  createTweet,
+  placeholder,
+  reply = '',
+}) => {
   if (!user) user = defaultUser;
 
   const [tweet, setTweet] = useState({
@@ -30,6 +35,7 @@ const CreateTweet = ({ user: { user }, createTweet }) => {
     emojiPicker: false,
     gifPicker: false,
     imgOrGif: '',
+    ref: reply,
     retweet: false,
   });
   const [fillPercentage, setFillPercentage] = useState(
@@ -91,6 +97,7 @@ const CreateTweet = ({ user: { user }, createTweet }) => {
       emojiPicker: false,
       gifPicker: false,
       imgOrGif: '',
+      ref: '',
     });
   };
 
@@ -107,7 +114,7 @@ const CreateTweet = ({ user: { user }, createTweet }) => {
             name='message'
             onChange={onChange}
             className='createTweet__tweet__text__textarea'
-            placeholder="What's happening?"
+            placeholder={placeholder}
             maxLength={240}
           />
         </div>
@@ -175,7 +182,7 @@ const CreateTweet = ({ user: { user }, createTweet }) => {
           className='btn mainContent__createTweet__options__btn'
           disabled={!tweet.message}
         >
-          Tweet
+          {!reply ? 'Tweet' : 'Reply'}
         </button>
       </div>
     </div>

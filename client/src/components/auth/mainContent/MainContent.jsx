@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import CreateTweet from './CreateTweet';
-import Tweet from './Tweet';
+import CreateTweet from './tweet/CreateTweet';
+import Tweet from './tweet/Tweet';
 //import { deleteTweet } from '../../../actions/tweets';
 
 import { Star } from '../../../img/Svgs';
@@ -17,7 +17,7 @@ const MainContent = ({ user: { user } }) => {
           <Star className='mainContent__header__content__icon' />
         </div>
       </div>
-      <CreateTweet />
+      <CreateTweet placeholder='Whats happening?' />
       <div className='breakline'>&nbsp;</div>
       {user &&
         user.tweets.map((tweet) => (

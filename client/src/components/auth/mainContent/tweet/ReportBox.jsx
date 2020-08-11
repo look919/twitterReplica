@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { SadFace, Unfollow, Mute, Block, DeleteTweet } from '../../../img/Svgs';
+import {
+  SadFace,
+  Unfollow,
+  Mute,
+  Block,
+  DeleteTweet,
+} from '../../../../img/Svgs';
 
 //This component is also responsible for deleting tweets if its ours.
 const ReportBox = ({ eventListener, deleteFunc, del = false }) => {

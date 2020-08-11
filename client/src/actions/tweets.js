@@ -19,7 +19,7 @@ export const createTweet = ({
   formData.append('user', userId);
   formData.append('message', message);
   formData.append('retweet', retweet);
-  if (retweet) formData.append('ref', ref);
+  if (ref) formData.append('ref', ref);
   if (imgOrGif) formData.append('imgOrGif', imgOrGif);
 
   // for (var pair of formData.entries()) {
@@ -38,7 +38,6 @@ export const createTweet = ({
       type: CREATE_TWEET_SUCCESS,
       payload: res.data,
     });
-    dispatch(setAlert('Tweet created successfully', 'success'));
   } catch (err) {
     dispatch(setAlert('There was a problem while creating tweet', 'danger'));
     console.log(err.response);
