@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteTweet } from '../../../actions/tweets';
+
 import moment from 'moment';
 import findLinksInText from '../../../utils/findLinksInText';
 import emoji from 'react-easy-emoji';
@@ -16,7 +19,7 @@ import {
   ArrowDown,
 } from '../../../img/Svgs';
 
-const Tweet = ({ tweet }) => {
+const Tweet = ({ tweet, user, deleteTweet }) => {
   const [report, setReport] = useState({
     checked: false,
     option: '',
@@ -27,13 +30,11 @@ const Tweet = ({ tweet }) => {
       ...report,
       checked: true,
     });
+  };
+  const onTweetDelete = async (e) => {
+    e.preventDefault();
 
-    setTimeout(() => {
-      setReport({
-        ...report,
-        checked: false,
-      });
-    }, 5000);
+    await deleteTweet(user._id, tweet._id);
   };
   const onReportOptionChoosed = (e) => {
     e.preventDefault();
@@ -42,7 +43,6 @@ const Tweet = ({ tweet }) => {
       option: e.target.value,
     });
   };
-
   return (
     <div className='tweet'>
       <div className='tweet__img'>
@@ -79,6 +79,12 @@ const Tweet = ({ tweet }) => {
           <label htmlFor={tweet._id} className='tweet__content__author__input'>
             {!report.checked ? (
               <ArrowDown className='tweet__content__author__input__icon' />
+            ) : user._id === tweet.user._id ? (
+              <ReportBox
+                eventListener={onReportOptionChoosed}
+                deleteFunc={onTweetDelete}
+                del={true}
+              />
             ) : (
               <ReportBox eventListener={onReportOptionChoosed} />
             )}
@@ -116,8 +122,10 @@ const Tweet = ({ tweet }) => {
   );
 };
 
-Tweet.prototype = {
-  message: PropTypes.string.isRequired,
+Tweet.propTypes = {
+  user: PropTypes.object.isRequired,
+  tweet: PropTypes.object.isRequired,
+  deleteTweet: PropTypes.func.isRequired,
 };
 
-export default Tweet;
+export default connect(null, { deleteTweet })(Tweet);

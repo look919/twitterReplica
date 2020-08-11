@@ -35,11 +35,13 @@ const CreateTweet = ({ user: { user }, createTweet }) => {
   const [fillPercentage, setFillPercentage] = useState(
     (tweet.message.length / 240) * 100
   );
+
   useEffect(() => {
     setTweet({
       ...tweet,
       userId: user._id,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const addToMessage = (emoji) => {

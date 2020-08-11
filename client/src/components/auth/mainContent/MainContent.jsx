@@ -20,20 +20,21 @@ const MainContent = ({ user: { user } }) => {
       <CreateTweet />
       <div className='breakline'>&nbsp;</div>
       {user &&
-        user.tweets.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)}
+        user.tweets.map((tweet) => (
+          <Tweet tweet={tweet} user={user} key={tweet._id} />
+        ))}
     </main>
   );
 };
 
 MainContent.propTypes = {
-  createTweet: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   user: state.auth,
 });
 
-export default connect(mapStateToProps, { createTweet })(MainContent);
+export default connect(mapStateToProps, {})(MainContent);
 
 // {testTweets.tweets.map((tweet) => (
 //   <Tweet tweet={tweet} key={tweet.id} />

@@ -48,7 +48,6 @@ exports.uploadImage = upload.single('photo');
 exports.createTweet = catchAsync(async (req, res, next) => {
   if (req.file) req.body.photo = req.file.location;
 
-  console.log(req.user.id, req.body.user);
   if (req.user.id !== req.body.user) {
     return next(new AppError('There was an error with verification user', 404));
   }
@@ -76,6 +75,10 @@ exports.createTweet = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteTweet = catchAsync(async (req, res, next) => {
+  if (req.user.id !== req.body.user) {
+    return next(new AppError('There was an error with verification user', 404));
+  }
+
   const doc = await Tweet.findByIdAndDelete(req.params.tweetId);
 
   const userTweetsAfterDelete = req.user.tweets.filter(
@@ -101,7 +104,7 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      data: updateUserTweets,
+      data: updateUserTweets.tweets,
       doc,
     },
   });

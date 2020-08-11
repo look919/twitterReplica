@@ -112,6 +112,10 @@
         right: 0rem;
         width: 25rem;
 
+        &--short {
+          width: 15rem;
+        }
+
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -131,11 +135,20 @@
           color: $color-white;
           font-size: 1.5rem;
 
+          &--delete {
+            padding: 1rem 1.2rem;
+            color: rgb(224, 36, 94);
+          }
+
           &__icon {
             height: 2rem;
             width: 2rem;
             fill: $color-grey;
             margin-right: 1rem;
+
+            &--delete {
+              fill: rgb(224, 36, 94);
+            }
           }
 
           &:hover {
@@ -225,6 +238,51 @@
       &__amount {
         color: $color-grey;
         font-size: 1.3rem;
+      }
+    }
+  }
+  &__delete {
+    position: fixed;
+    z-index: 500032;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30rem;
+    height: 24rem;
+    background-color: $color-background;
+    border: none !important;
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &:focus {
+      outline: none;
+    }
+
+    &__text {
+      font-size: 1.5rem;
+      color: $color-grey;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    &__btns {
+      display: flex;
+      justify-content: space-between;
+
+      &__btn {
+        padding: 0.8rem 3.5rem !important;
+        border: none !important;
+
+        &--cancel {
+          background-color: $color-grey !important;
+        }
+        &--del {
+          background-color: rgb(224, 36, 94) !important;
+        }
       }
     }
   }
