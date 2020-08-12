@@ -8,6 +8,8 @@ import {
   DELETE_TWEET_FAIL,
   LIKE_TWEET_SUCCESS,
   LIKE_TWEET_FAIL,
+  DELETE_LIKE_TWEET_SUCCESS,
+  DELETE_LIKE_TWEET_FAIL,
 } from './types';
 
 const config = {
@@ -90,6 +92,29 @@ export const likeTweet = (tweet) => async (dispatch) => {
     console.log(err.response);
     dispatch({
       type: LIKE_TWEET_FAIL,
+      payload: err.message,
+    });
+  }
+};
+export const deleteLikeFromTweet = (tweet) => async (dispatch) => {
+  const body = JSON.stringify({ tweet });
+
+  try {
+    const res = await axios.patch(
+      `/api/v1/tweets/${tweet._id}/delete-like`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: DELETE_LIKE_TWEET_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch(setAlert('There was a problem with unliking tweet', 'danger'));
+    console.log(err.response);
+    dispatch({
+      type: DELETE_LIKE_TWEET_FAIL,
       payload: err.message,
     });
   }

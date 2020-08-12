@@ -1,7 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteTweet, likeTweet } from '../../../../actions/tweets';
+import {
+  deleteTweet,
+  likeTweet,
+  deleteLikeFromTweet,
+} from '../../../../actions/tweets';
 
 import moment from 'moment';
 import findLinksInText from '../../../../utils/findLinksInText';
@@ -18,7 +22,13 @@ import {
   ArrowDown,
 } from '../../../../img/Svgs';
 
-const Tweet = ({ tweet, user, deleteTweet, likeTweet }) => {
+const Tweet = ({
+  tweet,
+  user,
+  deleteTweet,
+  likeTweet,
+  deleteLikeFromTweet,
+}) => {
   const [options, setOptions] = useState({
     addCommentChecked: false,
     reportChecked: false,
@@ -52,16 +62,27 @@ const Tweet = ({ tweet, user, deleteTweet, likeTweet }) => {
   };
   const onTweetLike = (e) => {
     e.preventDefault();
-    likeTweet(tweet);
 
-    likeSvg.current.style.fill = '#e2245e';
-    likeText.current.style.color = '#e2245e';
-    tweet.likes.push(user._id);
+    if (!tweet.likes.includes(user._id)) {
+      likeTweet(tweet);
+      likeSvg.current.style.fill = '#e2245e';
+      likeText.current.style.color = '#e2245e';
+      tweet.likes.push(user._id);
 
-    setOptions({
-      ...options,
-      tweetLiked: true,
-    });
+      setOptions({
+        ...options,
+        tweetLiked: true,
+      });
+    } else {
+      deleteLikeFromTweet(tweet);
+      likeSvg.current.style.fill = '#7c8c99';
+      likeText.current.style.color = '#7c8c99';
+      tweet.likes = tweet.likes.filter((like) => like !== user._id);
+      setOptions({
+        ...options,
+        tweetLiked: false,
+      });
+    }
   };
   const onReportOptionChoosed = (e) => {
     e.preventDefault();
@@ -143,7 +164,6 @@ const Tweet = ({ tweet, user, deleteTweet, likeTweet }) => {
           <button
             onClick={(e) => onTweetLike(e)}
             className='tweet__content__option tweet__content__option--red'
-            disabled={tweet.likes.includes(user._id)}
           >
             <svg
               ref={likeSvg}
@@ -183,6 +203,9 @@ Tweet.propTypes = {
   tweet: PropTypes.object.isRequired,
   deleteTweet: PropTypes.func.isRequired,
   likeTweet: PropTypes.func.isRequired,
+  deleteLikeFromTweet: PropTypes.func.isRequired,
 };
 
-export default connect(null, { deleteTweet, likeTweet })(Tweet);
+export default connect(null, { deleteTweet, likeTweet, deleteLikeFromTweet })(
+  Tweet
+);

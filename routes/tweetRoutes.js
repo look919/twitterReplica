@@ -15,6 +15,9 @@ router
 
 router.route('/:tweetId').patch(tweetController.deleteTweet);
 router.route('/:tweetId/like').patch(tweetController.addLikeToTweet);
+router
+  .route('/:tweetId/delete-like')
+  .patch(tweetController.deleteLikeFromTweet);
 
 router.use(authController.restrictTo('admin'));
 module.exports = router;

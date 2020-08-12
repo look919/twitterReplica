@@ -45,32 +45,31 @@ upload = multer({
 
 exports.uploadImage = upload.single('photo');
 
+const updateModelOptions = {
+  new: true,
+  runValidators: true,
+};
+
 exports.createTweet = catchAsync(async (req, res, next) => {
   if (req.file) req.body.photo = req.file.location;
 
   if (req.user.id !== req.body.user) {
     return next(new AppError('There was an error with verification user', 404));
   }
-  console.log(req.body);
+
   const doc = await Tweet.create(req.body);
   if (req.body.ref) {
     const updateRefferedTweet = await Tweet.findById(req.body.ref);
     await Tweet.findByIdAndUpdate(
       req.body.ref,
       { comments: [...updateRefferedTweet.comments, doc._id] },
-      {
-        new: true,
-        runValidators: true,
-      }
+      updateModelOptions
     );
   }
   const updateUserTweets = await User.findByIdAndUpdate(
     req.user.id,
     { tweets: [...req.user.tweets, doc.id] },
-    {
-      new: true,
-      runValidators: true,
-    }
+    updateModelOptions
   );
 
   if (!updateUserTweets) {
@@ -99,10 +98,7 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
   const updateUserTweets = await User.findByIdAndUpdate(
     req.user.id,
     { tweets: userTweetsAfterDelete },
-    {
-      new: true,
-      runValidators: true,
-    }
+    updateModelOptions
   );
 
   if (
@@ -122,14 +118,10 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
 });
 
 exports.addLikeToTweet = catchAsync(async (req, res, next) => {
-  console.log('test');
   const updateTweetLikes = await Tweet.findByIdAndUpdate(
     req.body.tweet._id,
     { likes: [...req.body.tweet.likes, req.user._id] },
-    {
-      new: true,
-      runValidators: true,
-    }
+    updateModelOptions
   );
   if (!updateTweetLikes) {
     return next(new AppError('No document found with that ID', 404));
@@ -138,10 +130,35 @@ exports.addLikeToTweet = catchAsync(async (req, res, next) => {
   const updateUserTweetLikes = await User.findByIdAndUpdate(
     req.user.id,
     { likes: [...req.user.likes, updateTweetLikes._id] },
-    {
-      new: true,
-      runValidators: true,
-    }
+    updateModelOptions
+  );
+
+  if (!updateUserTweetLikes) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      data: updateTweetLikes,
+    },
+  });
+});
+
+exports.deleteLikeFromTweet = catchAsync(async (req, res, next) => {
+  const updateTweetLikes = await Tweet.findByIdAndUpdate(
+    req.body.tweet._id,
+    { likes: req.body.tweet.likes.filter((like) => like !== req.user._id) },
+    updateModelOptions
+  );
+  if (!updateTweetLikes) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  const updateUserTweetLikes = await User.findByIdAndUpdate(
+    req.user.id,
+    { likes: req.user.likes.filter((like) => like !== req.body.tweet._id) },
+    updateModelOptions
   );
 
   if (!updateUserTweetLikes) {
