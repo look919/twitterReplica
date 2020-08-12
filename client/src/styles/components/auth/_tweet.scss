@@ -199,7 +199,7 @@
         svg {
           fill: $color-primary;
           border-radius: 50%;
-          background-color: $color-background-input;
+          background-color: rgba($color-primary, 0.15);
         }
       }
 
@@ -212,7 +212,7 @@
           svg {
             fill: rgb(23, 191, 99);
             border-radius: 50%;
-            background-color: $color-background-input;
+            background-color: rgba(23, 191, 99, 0.15);
           }
         }
       }
@@ -225,7 +225,7 @@
           svg {
             fill: rgb(226, 36, 94);
             border-radius: 50%;
-            background-color: $color-background-input;
+            background-color: rgba(226, 36, 94, 0.15);
           }
         }
       }

@@ -14,7 +14,7 @@ router
   .post(tweetController.uploadImage, tweetController.createTweet);
 
 router.route('/:tweetId').patch(tweetController.deleteTweet);
+router.route('/:tweetId/like').patch(tweetController.addLikeToTweet);
 
 router.use(authController.restrictTo('admin'));
-
 module.exports = router;

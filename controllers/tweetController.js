@@ -122,9 +122,10 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
 });
 
 exports.addLikeToTweet = catchAsync(async (req, res, next) => {
-  const updateTweetLikes = await User.findByIdAndUpdate(
-    req.body.tweet.id,
-    { likes: [...req.body.tweet.likes, req.user.id] },
+  console.log('test');
+  const updateTweetLikes = await Tweet.findByIdAndUpdate(
+    req.body.tweet._id,
+    { likes: [...req.body.tweet.likes, req.user._id] },
     {
       new: true,
       runValidators: true,
@@ -136,7 +137,7 @@ exports.addLikeToTweet = catchAsync(async (req, res, next) => {
 
   const updateUserTweetLikes = await User.findByIdAndUpdate(
     req.user.id,
-    { likes: [...req.user.likes, updateTweetLikes.id] },
+    { likes: [...req.user.likes, updateTweetLikes._id] },
     {
       new: true,
       runValidators: true,
@@ -147,10 +148,10 @@ exports.addLikeToTweet = catchAsync(async (req, res, next) => {
     return next(new AppError('No document found with that ID', 404));
   }
 
-  res.status(201).json({
+  res.status(200).json({
     status: 'success',
     data: {
-      data: doc,
+      data: updateTweetLikes,
     },
   });
 });

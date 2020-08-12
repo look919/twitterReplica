@@ -6,7 +6,15 @@ import {
   CREATE_TWEET_FAIL,
   DELETE_TWEET_SUCCESS,
   DELETE_TWEET_FAIL,
+  LIKE_TWEET_SUCCESS,
+  LIKE_TWEET_FAIL,
 } from './types';
+
+const config = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
 
 export const createTweet = ({
   userId,
@@ -26,11 +34,6 @@ export const createTweet = ({
   //   console.log(pair[0] + ', ' + pair[1]);
   // }
 
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
   try {
     const res = await axios.post('/api/v1/tweets', formData, config);
 
@@ -51,12 +54,6 @@ export const createTweet = ({
 export const deleteTweet = (user, tweetId) => async (dispatch) => {
   const body = JSON.stringify({ user, tweetId });
 
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
   try {
     const res = await axios.patch(`/api/v1/tweets/${tweetId}`, body, config);
 
@@ -69,6 +66,30 @@ export const deleteTweet = (user, tweetId) => async (dispatch) => {
     console.log(err.response);
     dispatch({
       type: DELETE_TWEET_FAIL,
+      payload: err.message,
+    });
+  }
+};
+
+export const likeTweet = (tweet) => async (dispatch) => {
+  const body = JSON.stringify({ tweet });
+
+  try {
+    const res = await axios.patch(
+      `/api/v1/tweets/${tweet._id}/like`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: LIKE_TWEET_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch(setAlert('There was a problem with liking tweet', 'danger'));
+    console.log(err.response);
+    dispatch({
+      type: LIKE_TWEET_FAIL,
       payload: err.message,
     });
   }
