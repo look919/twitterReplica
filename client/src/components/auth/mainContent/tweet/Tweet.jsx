@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   deleteTweet,
+  retweet,
+  deleteRetweet,
   likeTweet,
   deleteLikeFromTweet,
 } from '../../../../actions/tweets';
@@ -26,6 +28,8 @@ const Tweet = ({
   tweet,
   user,
   deleteTweet,
+  retweet,
+  deleteRetweet,
   likeTweet,
   deleteLikeFromTweet,
 }) => {
@@ -34,9 +38,12 @@ const Tweet = ({
     reportChecked: false,
     reportOption: '',
     tweetLiked: false,
+    tweetRetweeted: false,
   });
   const likeSvg = useRef(0);
   const likeText = useRef(0);
+  const retweetSvg = useRef(0);
+  const retweetText = useRef(0);
 
   const addComment = () => {
     setOptions({
@@ -81,6 +88,33 @@ const Tweet = ({
       setOptions({
         ...options,
         tweetLiked: false,
+      });
+    }
+  };
+  const onRetweetClicked = (e) => {
+    e.preventDefault();
+
+    if (!tweet.retweets.includes(user._id)) {
+      retweet(tweet);
+
+      retweetSvg.current.style.fill = '#17bf63';
+      retweetText.current.style.color = '#17bf63';
+      tweet.retweets.push(user._id);
+
+      setOptions({
+        ...options,
+        tweetRetweeted: true,
+      });
+    } else {
+      deleteRetweet(tweet);
+      retweetSvg.current.style.fill = '#7c8c99';
+      retweetSvg.current.style.color = '#7c8c99';
+
+      tweet.retweets = tweet.retweets.filter((retweet) => retweet !== user._id);
+
+      setOptions({
+        ...options,
+        tweetRetweeted: false,
       });
     }
   };
@@ -155,12 +189,21 @@ const Tweet = ({
             closeModal={closeModal}
             tweet={tweet}
           />
-          <div className='tweet__content__option tweet__content__option--green'>
-            <Retweets className='tweet__content__option__icon' />
-            <span className='tweet__content__option__amount'>
+          <button
+            onClick={(e) => onRetweetClicked(e)}
+            className='tweet__content__option tweet__content__option--green'
+          >
+            <svg
+              viewBox='0 0 24 24'
+              ref={retweetSvg}
+              className='tweet__content__option__icon'
+            >
+              <path d='M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z'></path>
+            </svg>
+            <span className='tweet__content__option__amount' ref={retweetText}>
               {tweet.retweets.length !== 0 && tweet.retweets.length}
             </span>
-          </div>
+          </button>
           <button
             onClick={(e) => onTweetLike(e)}
             className='tweet__content__option tweet__content__option--red'
@@ -204,8 +247,14 @@ Tweet.propTypes = {
   deleteTweet: PropTypes.func.isRequired,
   likeTweet: PropTypes.func.isRequired,
   deleteLikeFromTweet: PropTypes.func.isRequired,
+  retweet: PropTypes.func.isRequired,
+  deleteRetweet: PropTypes.func.isRequired,
 };
 
-export default connect(null, { deleteTweet, likeTweet, deleteLikeFromTweet })(
-  Tweet
-);
+export default connect(null, {
+  deleteTweet,
+  retweet,
+  deleteRetweet,
+  likeTweet,
+  deleteLikeFromTweet,
+})(Tweet);

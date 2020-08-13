@@ -58,16 +58,30 @@ exports.createTweet = catchAsync(async (req, res, next) => {
   }
 
   const doc = await Tweet.create(req.body);
-  if (req.body.ref) {
+
+  //update refering tweet
+
+  // 1) if its a comment to another tweet
+  if (req.body.ref && !req.body.retweet) {
     const updateRefferedTweet = await Tweet.findById(req.body.ref);
     await Tweet.findByIdAndUpdate(
       req.body.ref,
       { comments: [...updateRefferedTweet.comments, doc._id] },
       updateModelOptions
     );
+  } else if (req.body.ref && req.body.retweet) {
+    // 2) if its actual retweet
+    const updateRefferedTweet = await Tweet.findById(req.body.ref);
+    await Tweet.findByIdAndUpdate(
+      req.body.ref,
+      { retweets: [...updateRefferedTweet.retweets, req.user._id] },
+      updateModelOptions
+    );
   }
+
+  //update user
   const updateUserTweets = await User.findByIdAndUpdate(
-    req.user.id,
+    req.user._id,
     { tweets: [...req.user.tweets, doc.id] },
     updateModelOptions
   );
@@ -113,6 +127,70 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
     data: {
       data: updateUserTweets.tweets,
       doc,
+    },
+  });
+});
+
+exports.addRetweet = catchAsync(async (req, res, next) => {
+  const updateTweetRetweets = await Tweet.findByIdAndUpdate(
+    req.body.tweet._id,
+    { retweets: [...req.body.tweet.likes, req.user._id] },
+    updateModelOptions
+  );
+  if (!updateTweetRetweets) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  const updateUserTweetRetweets = await User.findByIdAndUpdate(
+    req.user.id,
+    { retweets: [...req.user.retweets, updateTweetRetweets._id] },
+    updateModelOptions
+  );
+
+  if (!updateUserTweetRetweets) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      data: updateTweetRetweets,
+    },
+  });
+});
+
+exports.deleteRetweet = catchAsync(async (req, res, next) => {
+  const updateTweetRetweets = await Tweet.findByIdAndUpdate(
+    req.body.tweet._id,
+    {
+      retweets: req.body.tweet.retweets.filter(
+        (tweet) => tweet !== req.user._id
+      ),
+    },
+    updateModelOptions
+  );
+  if (!updateTweetRetweets) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  const updateUserTweetRetweets = await User.findByIdAndUpdate(
+    req.user.id,
+    {
+      retweets: req.user.retweets.filter(
+        (tweet) => tweet !== req.body.tweet._id
+      ),
+    },
+    updateModelOptions
+  );
+
+  if (!updateUserTweetRetweets) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      data: updateTweetRetweets,
     },
   });
 });

@@ -14,6 +14,8 @@ router
   .post(tweetController.uploadImage, tweetController.createTweet);
 
 router.route('/:tweetId').patch(tweetController.deleteTweet);
+router.route('/:tweetId/retweet').patch(tweetController.addRetweet);
+router.route('/:tweetId/delete-retweet').patch(tweetController.deleteRetweet);
 router.route('/:tweetId/like').patch(tweetController.addLikeToTweet);
 router
   .route('/:tweetId/delete-like')

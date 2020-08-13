@@ -10,6 +10,10 @@ import {
   LIKE_TWEET_FAIL,
   DELETE_LIKE_TWEET_SUCCESS,
   DELETE_LIKE_TWEET_FAIL,
+  RETWEET_SUCCESS,
+  RETWEET_FAIL,
+  DELETE_RETWEET_SUCCESS,
+  DELETE_RETWEET_FAIL,
 } from './types';
 
 const config = {
@@ -28,7 +32,7 @@ export const createTweet = ({
   const formData = new FormData();
   formData.append('user', userId);
   formData.append('message', message);
-  formData.append('retweet', retweet);
+  if (retweet) formData.append('retweet', retweet);
   if (ref) formData.append('ref', ref);
   if (imgOrGif) formData.append('imgOrGif', imgOrGif);
 
@@ -68,6 +72,52 @@ export const deleteTweet = (user, tweetId) => async (dispatch) => {
     console.log(err.response);
     dispatch({
       type: DELETE_TWEET_FAIL,
+      payload: err.message,
+    });
+  }
+};
+export const retweet = (tweet) => async (dispatch) => {
+  const body = JSON.stringify({ tweet });
+
+  try {
+    const res = await axios.patch(
+      `/api/v1/tweets/${tweet._id}/retweet`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: RETWEET_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch(setAlert('There was a problem with retweeting', 'danger'));
+    console.log(err.response);
+    dispatch({
+      type: RETWEET_FAIL,
+      payload: err.message,
+    });
+  }
+};
+export const deleteRetweet = (tweet) => async (dispatch) => {
+  const body = JSON.stringify({ tweet });
+
+  try {
+    const res = await axios.patch(
+      `/api/v1/tweets/${tweet._id}/delete-retweet`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: DELETE_RETWEET_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch(setAlert('There was a problem with deleting retweet', 'danger'));
+    console.log(err.response);
+    dispatch({
+      type: DELETE_RETWEET_FAIL,
       payload: err.message,
     });
   }
