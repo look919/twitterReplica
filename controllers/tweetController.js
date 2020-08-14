@@ -134,9 +134,10 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
 exports.addRetweet = catchAsync(async (req, res, next) => {
   const updateTweetRetweets = await Tweet.findByIdAndUpdate(
     req.body.tweet._id,
-    { retweets: [...req.body.tweet.likes, req.user._id] },
+    { retweets: [...req.body.tweet.retweets, req.user._id] },
     updateModelOptions
   );
+
   if (!updateTweetRetweets) {
     return next(new AppError('No document found with that ID', 404));
   }
@@ -164,11 +165,12 @@ exports.deleteRetweet = catchAsync(async (req, res, next) => {
     req.body.tweet._id,
     {
       retweets: req.body.tweet.retweets.filter(
-        (tweet) => tweet !== req.user._id
+        (tweet) => tweet !== req.user.id
       ),
     },
     updateModelOptions
   );
+
   if (!updateTweetRetweets) {
     return next(new AppError('No document found with that ID', 404));
   }
