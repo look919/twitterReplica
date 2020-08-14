@@ -26,6 +26,15 @@ const tweetSchema = new mongoose.Schema({
     ],
     default: [],
   },
+  retweets: {
+    type: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Tweet',
+      },
+    ],
+    default: [],
+  },
   likes: {
     type: [
       {
@@ -43,6 +52,15 @@ const tweetSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Tweet',
   },
+});
+
+tweetSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'user',
+    select: '-tweets name photo at description following followers',
+  });
+
+  next();
 });
 
 tweetSchema.pre(/^find/, function (next) {

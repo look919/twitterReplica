@@ -13,7 +13,13 @@ router
   .get(tweetController.getAllTweets)
   .post(tweetController.uploadImage, tweetController.createTweet);
 
-router.use(authController.restrictTo('admin'));
-router.route('/:id').delete(tweetController.deleteTweet);
+router.route('/:tweetId').patch(tweetController.deleteTweet);
+router.route('/:tweetId/retweet').patch(tweetController.addRetweet);
+router.route('/:tweetId/delete-retweet').patch(tweetController.deleteRetweet);
+router.route('/:tweetId/like').patch(tweetController.addLikeToTweet);
+router
+  .route('/:tweetId/delete-like')
+  .patch(tweetController.deleteLikeFromTweet);
 
+router.use(authController.restrictTo('admin'));
 module.exports = router;

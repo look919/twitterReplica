@@ -35,36 +35,30 @@ const createSendToken = (user, statusCode, req, res) => {
     },
   });
 };
-exports.isLoggedIn = async (req, res, next) => {
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
   const token = req.header('Authentication');
 
   if (token) {
-    try {
-      // 1) verify token
-      const decoded = await promisify(jwt.verify)(
-        token,
-        process.env.JWT_SECRET
-      );
+    // 1) verify token
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-      // 2) Check if user still exists
-      const currentUser = await await User.findById(decoded.id);
+    // 2) Check if user still exists
+    const currentUser = await User.findById(decoded.id);
 
-      if (!currentUser) {
-        return next();
-      }
-
-      // 3) Check if user changed password after the token was issued
-      if (currentUser.changedPasswordAfter(decoded.iat)) {
-        return next();
-      }
-
-      return res.status(200).json({ user: currentUser });
-    } catch (err) {
+    if (!currentUser) {
       return next();
     }
+
+    // 3) Check if user changed password after the token was issued
+    if (currentUser.changedPasswordAfter(decoded.iat)) {
+      return next();
+    }
+
+    return res.status(200).json({ user: currentUser });
   }
-  next();
-};
+
+  return next();
+});
 
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({

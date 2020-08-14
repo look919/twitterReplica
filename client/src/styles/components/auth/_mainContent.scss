@@ -177,6 +177,15 @@
         border-radius: 50%;
         height: 5rem;
         width: 5rem;
+        position: relative;
+
+        &__hover {
+          display: none;
+        }
+
+        &:hover + &__hover {
+          display: flex;
+        }
       }
     }
     &__content {
@@ -196,6 +205,18 @@
           font-weight: 700;
           font-size: 1.5rem;
           margin-right: 5px;
+          position: relative;
+
+          &__hover {
+            display: none;
+            top: 0;
+
+            margin-top: 4rem !important;
+          }
+
+          &:hover + &__hover {
+            display: flex;
+          }
         }
         &__at,
         &__time {

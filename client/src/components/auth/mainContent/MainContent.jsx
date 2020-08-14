@@ -1,11 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import CreateTweet from './CreateTweet';
+import CreateTweet from './tweet/CreateTweet';
+import Tweet from './tweet/Tweet';
+//import { deleteTweet } from '../../../actions/tweets';
+
 import { Star } from '../../../img/Svgs';
-import Tweet from './Tweet';
-import testTweets from '../../../utils/testTweets.json';
 
-const MainContent = () => {
+const MainContent = ({ user: { user } }) => {
   return (
     <main className='mainContent'>
       <div className='mainContent__header'>
@@ -14,13 +17,25 @@ const MainContent = () => {
           <Star className='mainContent__header__content__icon' />
         </div>
       </div>
-      <CreateTweet />
+      <CreateTweet placeholder='Whats happening?' />
       <div className='breakline'>&nbsp;</div>
-      {testTweets.tweets.map((tweet) => (
-        <Tweet tweet={tweet} key={tweet.id} />
-      ))}
+      {user &&
+        user.tweets.map((tweet) => (
+          <Tweet tweet={tweet} user={user} key={tweet._id} />
+        ))}
     </main>
   );
 };
 
-export default MainContent;
+MainContent.propTypes = {
+  user: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  user: state.auth,
+});
+
+export default connect(mapStateToProps, {})(MainContent);
+
+// {testTweets.tweets.map((tweet) => (
+//   <Tweet tweet={tweet} key={tweet.id} />
+// ))}

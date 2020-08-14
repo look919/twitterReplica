@@ -5,17 +5,21 @@
 @import 'base/typography';
 @import 'base/utilities';
 
+@import 'components/smallParts/btn';
+@import 'components/smallParts/btn-inline';
+@import 'components/smallParts/input';
+@import 'components/smallParts/input-search';
+@import 'components/smallParts/date-selector';
+
 @import 'components/nonAuth/nonAuth';
 @import 'components/nonAuth/loginPage';
 @import 'components/nonAuth/registerPage';
 
 @import 'components/auth//auth';
 @import 'components/auth/mainContent';
-
-@import 'components/smallParts/btn';
-@import 'components/smallParts/btn-inline';
-@import 'components/smallParts/input';
-@import 'components/smallParts/input-search';
-@import 'components/smallParts/date-selector';
+@import 'components/auth/createTweet';
+@import 'components/auth/tweet';
+@import 'components/auth/tweetHoverBox';
+@import 'components/auth/comment';
 
 @import 'layout/inDevPage';
