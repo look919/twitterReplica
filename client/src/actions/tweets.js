@@ -30,7 +30,7 @@ export const getTweets = () => async (dispatch) => {
 
     dispatch({
       type: GET_TWEETS_SUCCESS,
-      payload: res.data,
+      payload: res.data.data,
     });
   } catch (err) {
     dispatch(setAlert('There was a problem while loading tweets', 'danger'));
@@ -64,7 +64,7 @@ export const createTweet = ({
 
     dispatch({
       type: CREATE_TWEET_SUCCESS,
-      payload: res.data,
+      payload: res.data.data,
     });
   } catch (err) {
     dispatch(setAlert('There was a problem while creating tweet', 'danger'));
@@ -84,7 +84,7 @@ export const deleteTweet = (user, tweetId) => async (dispatch) => {
 
     dispatch({
       type: DELETE_TWEET_SUCCESS,
-      payload: res.data,
+      payload: res.data.data,
     });
   } catch (err) {
     dispatch(setAlert('There was a problem while deleting tweet', 'danger'));

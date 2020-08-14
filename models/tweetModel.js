@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const tweetSchema = new mongoose.Schema({
   user: {
@@ -15,7 +16,7 @@ const tweetSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: moment(),
   },
   comments: {
     type: [

@@ -126,10 +126,13 @@ exports.createTweet = catchAsync(async (req, res, next) => {
     return next(new AppError('No document found with that ID', 404));
   }
 
+  //I dont actualy send tweet data to json response,
+  //because i load tweets from people followed, so i send users there
+
   res.status(201).json({
     status: 'success',
     data: {
-      data: doc,
+      data: updateUserTweets,
     },
   });
 });
@@ -161,7 +164,7 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      data: updateUserTweets.tweets,
+      data: updateUserTweets,
       doc,
     },
   });
