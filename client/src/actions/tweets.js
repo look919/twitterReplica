@@ -2,6 +2,8 @@ import axios from 'axios';
 import { setAlert } from './alert';
 
 import {
+  GET_TWEETS_SUCCESS,
+  GET_TWEETS_FAIL,
   CREATE_TWEET_SUCCESS,
   CREATE_TWEET_FAIL,
   DELETE_TWEET_SUCCESS,

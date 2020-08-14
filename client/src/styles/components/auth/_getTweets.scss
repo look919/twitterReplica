@@ -1,0 +1,11 @@
+.getTweets {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+
+  &__loading {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
+}

@@ -73,16 +73,15 @@ exports.getTweets = catchAsync(async (req, res, next) => {
     followedPerson.retweets = followedPerson.retweets.slice(
       Math.max(followedPerson.retweets.length - 3, 0)
     );
-
     return followedPerson;
   });
 
-  const allPeopleTweets = [user, ...followedPeople];
+  const allPeopleFollowedTweets = [user, ...followedPeople];
 
   res.status(201).json({
     status: 'success',
     data: {
-      data: allPeopleTweets,
+      data: allPeopleFollowedTweets,
     },
   });
 });
