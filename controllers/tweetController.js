@@ -50,6 +50,43 @@ const updateModelOptions = {
   runValidators: true,
 };
 
+exports.getTweets = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user._id)
+    .populate('likes')
+    .populate('retweets')
+    .populate({
+      path: 'following',
+      select:
+        'name at photo tweets likes retweets following followers description town link city',
+      populate: 'likes retweets',
+    });
+
+  user.tweets = user.tweets.slice(Math.max(user.tweets.length - 10, 0));
+
+  const followedPeople = user.following.map((followedPerson) => {
+    followedPerson.tweets = followedPerson.tweets.slice(
+      Math.max(followedPerson.tweets.length - 10, 0)
+    );
+    followedPerson.likes = followedPerson.likes.slice(
+      Math.max(followedPerson.likes.length - 3, 0)
+    );
+    followedPerson.retweets = followedPerson.retweets.slice(
+      Math.max(followedPerson.retweets.length - 3, 0)
+    );
+
+    return followedPerson;
+  });
+
+  const allPeopleTweets = [user, ...followedPeople];
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      data: allPeopleTweets,
+    },
+  });
+});
+
 exports.createTweet = catchAsync(async (req, res, next) => {
   if (req.file) req.body.photo = req.file.location;
 

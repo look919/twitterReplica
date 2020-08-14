@@ -22,6 +22,23 @@ const config = {
   },
 };
 
+export const getTweets = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/v1/tweets`);
+
+    dispatch({
+      type: GET_TWEETS_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch(setAlert('There was a problem while loading tweets', 'danger'));
+    console.log(err.response);
+    dispatch({
+      type: GET_TWEETS_FAIL,
+      payload: err.message,
+    });
+  }
+};
 export const createTweet = ({
   userId,
   message,
