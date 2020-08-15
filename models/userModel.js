@@ -55,7 +55,10 @@ const userSchema = new mongoose.Schema({
   city: String,
   town: String,
   link: String,
-  description: String,
+  description: {
+    type: String,
+    default: '',
+  },
   createdAt: {
     type: Date,
     default: moment(),

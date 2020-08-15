@@ -70,18 +70,36 @@ exports.getTweets = catchAsync(async (req, res, next) => {
     followedPerson.likes = followedPerson.likes.slice(
       Math.max(followedPerson.likes.length - 3, 0)
     );
+
     followedPerson.retweets = followedPerson.retweets.slice(
       Math.max(followedPerson.retweets.length - 3, 0)
     );
-    return followedPerson;
+
+    //organising data
+    followedPerson.retweets.forEach((retweet) => {
+      retweet.retweet = true;
+      retweet.actionUserName = followedPerson.name;
+      retweet.actionUserAt = followedPerson.at;
+    });
+    followedPerson.likes.forEach((like) => {
+      like.liked = true;
+      like.actionUserName = followedPerson.name;
+      like.actionUserNameAt = followedPerson.at;
+    });
+
+    return [
+      ...followedPerson.tweets,
+      ...followedPerson.retweets,
+      ...followedPerson.likes,
+    ];
   });
 
-  const allPeopleFollowedTweets = [user, ...followedPeople];
+  const followedPeopleAndMe = [...user.tweets].concat(...followedPeople);
 
   res.status(201).json({
     status: 'success',
     data: {
-      data: allPeopleFollowedTweets,
+      data: followedPeopleAndMe,
     },
   });
 });
