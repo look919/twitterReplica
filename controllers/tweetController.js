@@ -113,6 +113,8 @@ exports.createTweet = catchAsync(async (req, res, next) => {
 
   const doc = await Tweet.create(req.body);
 
+  doc.user = req.user;
+
   //update refering tweet
 
   // 1) if its a comment to another tweet
@@ -150,7 +152,7 @@ exports.createTweet = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     data: {
-      data: updateUserTweets,
+      data: doc,
     },
   });
 });
@@ -182,8 +184,7 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      data: updateUserTweets,
-      doc,
+      data: doc,
     },
   });
 });

@@ -31,12 +31,17 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case CREATE_TWEET_SUCCESS:
+      return {
+        ...state,
+        loadedTweets: [...state.loadedTweets, payload.data],
+        loading: false,
+      };
     case DELETE_TWEET_SUCCESS:
       return {
         ...state,
-        loadedTweets: state.loadedTweets
-          .filter((person) => person._id !== payload.data._id)
-          .concat([payload.data]),
+        loadedTweets: state.loadedTweets.filter(
+          (tweet) => tweet._id !== payload.data._id
+        ),
         loading: false,
       };
 
