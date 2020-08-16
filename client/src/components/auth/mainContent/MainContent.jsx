@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CreateTweet from './tweet/CreateTweet';
-import Tweet from './tweet/Tweet';
-import GetAllTweets from './tweet/GetTweets';
+import GetTweets from './tweet/GetTweets';
 
 import { Star } from '../../../img/Svgs';
 
@@ -19,7 +18,7 @@ const MainContent = ({ user: { user } }) => {
       </div>
       <CreateTweet placeholder='Whats happening?' />
       <div className='breakline'>&nbsp;</div>
-      <GetAllTweets user={user} />
+      <GetTweets user={user} />
     </main>
   );
 };
