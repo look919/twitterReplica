@@ -22,6 +22,7 @@ import {
   Retweets,
   OtherOptions,
   ArrowDown,
+  LikesFilled,
 } from '../../../../img/Svgs';
 
 const Tweet = ({
@@ -130,14 +131,20 @@ const Tweet = ({
   return (
     <div className='tweet'>
       <div className='tweet__img'>
-        {tweet.retweet && <Retweets className='tweet__img__retweetIcon' />}
+        {tweet.retweet && <Retweets className='tweet__img__icon' />}
+        {tweet.liked && <LikesFilled className='tweet__img__icon' />}
         <img src={tweet.user.photo} className='tweet__img__photo' alt='user' />
         <HoverTweetBox user={tweet.user} idClass='tweet__img__photo__hover' />
       </div>
       <div className='tweet__content'>
         {tweet.retweet && (
           <span className='tweet__content__retweeted'>
-            {tweet.user.name + ' Retweeted'}
+            {tweet.actionUserName + ' Retweeted'}
+          </span>
+        )}
+        {tweet.liked && (
+          <span className='tweet__content__retweeted'>
+            {tweet.actionUserName + ' liked'}
           </span>
         )}
         <div className='tweet__content__author'>
@@ -155,11 +162,22 @@ const Tweet = ({
           </span>
           <input
             type='checkbox'
-            id={tweet._id}
+            id={
+              retweet
+                ? tweet._id + tweet.actionUserName
+                : tweet._id + tweet.actionUserAt
+            }
             className='tweet__content__author__checkbox'
             onChange={onReportChange}
           />
-          <label htmlFor={tweet._id} className='tweet__content__author__input'>
+          <label
+            htmlFor={
+              retweet
+                ? tweet._id + tweet.actionUserName
+                : tweet._id + tweet.actionUserAt
+            }
+            className='tweet__content__author__input'
+          >
             {!options.reportChecked ? (
               <ArrowDown className='tweet__content__author__input__icon' />
             ) : user._id === tweet.user._id ? (
