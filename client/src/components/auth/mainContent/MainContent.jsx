@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CreateTweet from './tweet/CreateTweet';
-import Tweet from './tweet/Tweet';
-//import { deleteTweet } from '../../../actions/tweets';
+import GetTweets from './tweet/GetTweets';
 
 import { Star } from '../../../img/Svgs';
 
@@ -19,10 +18,7 @@ const MainContent = ({ user: { user } }) => {
       </div>
       <CreateTweet placeholder='Whats happening?' />
       <div className='breakline'>&nbsp;</div>
-      {user &&
-        user.tweets.map((tweet) => (
-          <Tweet tweet={tweet} user={user} key={tweet._id} />
-        ))}
+      <GetTweets user={user} />
     </main>
   );
 };
@@ -35,7 +31,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {})(MainContent);
-
-// {testTweets.tweets.map((tweet) => (
-//   <Tweet tweet={tweet} key={tweet.id} />
-// ))}

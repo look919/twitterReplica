@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const randomize = require('randomatic');
 const validator = require('validator');
+const moment = require('moment');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -54,10 +55,13 @@ const userSchema = new mongoose.Schema({
   city: String,
   town: String,
   link: String,
-  description: String,
+  description: {
+    type: String,
+    default: '',
+  },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: moment(),
   },
   following: {
     type: [

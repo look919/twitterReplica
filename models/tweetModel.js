@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const tweetSchema = new mongoose.Schema({
   user: {
@@ -15,8 +16,22 @@ const tweetSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: moment(),
   },
+  retweet: {
+    type: Boolean,
+    default: false,
+  },
+  liked: {
+    type: Boolean,
+    default: false,
+  },
+  ref: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Tweet',
+  },
+  actionUserName: String,
+  actionUserAt: String,
   comments: {
     type: [
       {
@@ -43,14 +58,6 @@ const tweetSchema = new mongoose.Schema({
       },
     ],
     default: [],
-  },
-  retweet: {
-    type: Boolean,
-    default: false,
-  },
-  ref: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Tweet',
   },
 });
 

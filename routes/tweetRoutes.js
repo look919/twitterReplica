@@ -10,9 +10,10 @@ router.route('/:id').get(tweetController.getTweet);
 router.use(authController.protect);
 router
   .route('/')
-  .get(tweetController.getAllTweets)
+  .get(tweetController.getTweets)
   .post(tweetController.uploadImage, tweetController.createTweet);
 
+router.route('/getTweets').get(tweetController.getTweets);
 router.route('/:tweetId').patch(tweetController.deleteTweet);
 router.route('/:tweetId/retweet').patch(tweetController.addRetweet);
 router.route('/:tweetId/delete-retweet').patch(tweetController.deleteRetweet);

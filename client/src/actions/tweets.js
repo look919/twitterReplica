@@ -2,6 +2,8 @@ import axios from 'axios';
 import { setAlert } from './alert';
 
 import {
+  GET_TWEETS_SUCCESS,
+  GET_TWEETS_FAIL,
   CREATE_TWEET_SUCCESS,
   CREATE_TWEET_FAIL,
   DELETE_TWEET_SUCCESS,
@@ -22,6 +24,23 @@ const config = {
   },
 };
 
+export const getTweets = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/v1/tweets`);
+
+    dispatch({
+      type: GET_TWEETS_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (err) {
+    dispatch(setAlert('There was a problem while loading tweets', 'danger'));
+    console.log(err.response);
+    dispatch({
+      type: GET_TWEETS_FAIL,
+      payload: err.message,
+    });
+  }
+};
 export const createTweet = ({
   userId,
   message,
@@ -45,7 +64,7 @@ export const createTweet = ({
 
     dispatch({
       type: CREATE_TWEET_SUCCESS,
-      payload: res.data,
+      payload: res.data.data,
     });
   } catch (err) {
     dispatch(setAlert('There was a problem while creating tweet', 'danger'));
@@ -65,7 +84,7 @@ export const deleteTweet = (user, tweetId) => async (dispatch) => {
 
     dispatch({
       type: DELETE_TWEET_SUCCESS,
-      payload: res.data,
+      payload: res.data.data,
     });
   } catch (err) {
     dispatch(setAlert('There was a problem while deleting tweet', 'danger'));
