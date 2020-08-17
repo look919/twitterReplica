@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -268,6 +269,14 @@ const Tweet = ({
           </div>
         </div>
       </div>
+      {tweet.ref && (
+        <Link
+          to={`/tweet/${tweet.user.at}/${tweet.ref}`}
+          className='tweet__ref'
+        >
+          Show this thread
+        </Link>
+      )}
     </div>
   );
 };
