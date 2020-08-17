@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const HoverTweetBox = ({ user, idClass }) => {
+const HoverTweetBox = ({ user, idClass, styles }) => {
   if (typeof user !== 'object') return null;
 
   return (
-    <div className={`tweetHoverBox ${idClass}`}>
+    <div style={styles} className={`tweetHoverBox ${idClass}`}>
       <Link to='/dev' className='tweetHoverBox__header'>
         <img
           src={user.photo}

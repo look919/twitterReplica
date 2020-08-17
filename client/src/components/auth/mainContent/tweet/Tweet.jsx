@@ -41,6 +41,8 @@ const Tweet = ({
     reportOption: '',
     tweetLiked: false,
     tweetRetweeted: false,
+    hoverBoxText: 'none',
+    hoverBoxImg: 'none',
   });
   const likeSvg = useRef(0);
   const likeText = useRef(0);
@@ -128,14 +130,60 @@ const Tweet = ({
       reportOption: e.target.value,
     });
   };
+  const onHoverName = () => {
+    if (options.hoverBoxText === 'none') {
+      setOptions({
+        ...options,
+        hoverBoxText: 'flex',
+      });
+      setTimeout(() => {
+        setOptions({
+          ...options,
+          hoverBoxImg: 'none',
+        });
+      }, 7000);
+    } else {
+      setTimeout(() => {
+        setOptions({
+          ...options,
+          hoverBoxText: 'none',
+        });
+      }, 100);
+    }
+  };
+  const onHoverImg = () => {
+    if (options.hoverBoxImg === 'none') {
+      setOptions({
+        ...options,
+        hoverBoxImg: 'flex',
+      });
+    } else {
+      setTimeout(() => {
+        setOptions({
+          ...options,
+          hoverBoxImg: 'none',
+        });
+      }, 100);
+    }
+  };
 
   return (
     <div className='tweet'>
       <div className='tweet__img'>
         {tweet.retweet && <Retweets className='tweet__img__icon' />}
         {tweet.liked && <LikesFilled className='tweet__img__icon' />}
-        <img src={tweet.user.photo} className='tweet__img__photo' alt='user' />
-        <HoverTweetBox user={tweet.user} idClass='tweet__img__photo__hover' />
+        <img
+          src={tweet.user.photo}
+          className='tweet__img__photo'
+          alt='user'
+          onMouseEnter={onHoverImg}
+          onMouseLeave={onHoverImg}
+        />
+        <HoverTweetBox
+          user={tweet.user}
+          idClass='tweet__img__photo__hover'
+          styles={{ display: `${options.hoverBoxImg}` }}
+        />
       </div>
       <div className='tweet__content'>
         {tweet.retweet && (
@@ -149,10 +197,15 @@ const Tweet = ({
           </span>
         )}
         <div className='tweet__content__author'>
-          <span className='tweet__content__author__name'>
+          <span
+            className='tweet__content__author__name'
+            onMouseEnter={onHoverName}
+            onMouseLeave={onHoverName}
+          >
             {tweet.user.name}
           </span>
           <HoverTweetBox
+            styles={{ display: `${options.hoverBoxText}` }}
             user={tweet.user}
             idClass='tweet__content__author__name__hover'
           />

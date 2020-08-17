@@ -78,7 +78,6 @@ exports.getTweets = catchAsync(async (req, res, next) => {
     //organising data
     //removing comments to another tweets
     followedPerson.tweets = followedPerson.tweets.filter((tweet) => {
-      console.log(tweet.message, tweet.ref);
       return !tweet.ref;
     });
     //setting up retweets
