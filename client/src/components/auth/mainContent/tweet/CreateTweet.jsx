@@ -91,7 +91,7 @@ const CreateTweet = ({
 
     await createTweet(tweet);
 
-    await setTweet({
+    setTweet({
       ...tweet,
       message: '',
       emojiPicker: false,
