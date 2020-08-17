@@ -62,14 +62,16 @@ exports.followUser = catchAsync(async (req, res, next) => {
     return next(new AppError('No document found with that ID', 404));
   }
 
-  const updateAnotherUserFollowers = await User.findByIdAndUpdate(
-    req.body.user._id,
-    { followers: [...req.body.user.followers, req.user._id] },
-    updateModelOptions
-  );
+  const updateAnotherUserFollowers = await User.findById(req.body.user._id);
+
   if (!updateAnotherUserFollowers) {
     return next(new AppError('No document found with that ID', 404));
   }
+  updateAnotherUserFollowers.followers = [
+    ...updateAnotherUserFollowers.followers,
+    req.user._id,
+  ];
+  updateAnotherUserFollowers.save();
 
   res.status(200).json({
     status: 'success',

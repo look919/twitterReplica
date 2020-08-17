@@ -136,6 +136,13 @@ const Tweet = ({
         ...options,
         hoverBoxText: 'flex',
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setTimeout(() => {
+        setOptions({
+          ...options,
+          hoverBoxImg: 'none',
+        });
+      }, 2000);
     } else {
       setTimeout(() => {
         setOptions({

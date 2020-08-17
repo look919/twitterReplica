@@ -121,24 +121,19 @@ exports.createTweet = catchAsync(async (req, res, next) => {
 
   doc.user = req.user;
 
-  //update refering tweet
-
   // 1) if its a comment to another tweet
   if (req.body.ref && !req.body.retweet) {
     const updateRefferedTweet = await Tweet.findById(req.body.ref);
-    await Tweet.findByIdAndUpdate(
-      req.body.ref,
-      { comments: [...updateRefferedTweet.comments, doc._id] },
-      updateModelOptions
-    );
+    updateRefferedTweet.comments = [...updateRefferedTweet.comments, doc._id];
+    updateRefferedTweet.save();
   } else if (req.body.ref && req.body.retweet) {
     // 2) if its actual retweet
     const updateRefferedTweet = await Tweet.findById(req.body.ref);
-    await Tweet.findByIdAndUpdate(
-      req.body.ref,
-      { retweets: [...updateRefferedTweet.retweets, req.user._id] },
-      updateModelOptions
-    );
+    updateRefferedTweet.retweets = [
+      ...updateRefferedTweet.retweets,
+      req.user._id,
+    ];
+    updateRefferedTweet.save();
   }
 
   //update user
@@ -151,9 +146,6 @@ exports.createTweet = catchAsync(async (req, res, next) => {
   if (!updateUserTweets) {
     return next(new AppError('No document found with that ID', 404));
   }
-
-  //I dont actualy send tweet data to json response,
-  //because i load tweets from people followed, so i send users there
 
   res.status(201).json({
     status: 'success',
@@ -170,20 +162,17 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
 
   const doc = await Tweet.findByIdAndDelete(req.params.tweetId);
 
-  const userTweetsAfterDelete = req.user.tweets.filter(
-    (tweet) => tweet.id !== req.params.tweetId
-  );
-
   const updateUserTweets = await User.findByIdAndUpdate(
     req.user.id,
-    { tweets: userTweetsAfterDelete },
+    {
+      tweets: req.user.tweets.filter(
+        (tweet) => tweet.id !== req.params.tweetId
+      ),
+    },
     updateModelOptions
   );
 
-  if (
-    !updateUserTweets ||
-    userTweetsAfterDelete.length === req.user.tweets.length
-  ) {
+  if (!updateUserTweets) {
     return next(new AppError('No document found with that ID', 404));
   }
 
@@ -196,25 +185,25 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
 });
 
 exports.addRetweet = catchAsync(async (req, res, next) => {
-  const updateTweetRetweets = await Tweet.findByIdAndUpdate(
-    req.body.tweet._id,
-    { retweets: [...req.body.tweet.retweets, req.user._id] },
-    updateModelOptions
-  );
-
+  const updateTweetRetweets = await Tweet.findById(req.body.tweet._id);
   if (!updateTweetRetweets) {
     return next(new AppError('No document found with that ID', 404));
   }
+  updateTweetRetweets.retweets = [
+    ...updateTweetRetweets.retweets,
+    req.user._id,
+  ];
 
   const updateUserTweetRetweets = await User.findByIdAndUpdate(
     req.user.id,
     { retweets: [...req.user.retweets, updateTweetRetweets._id] },
     updateModelOptions
   );
-
   if (!updateUserTweetRetweets) {
     return next(new AppError('No document found with that ID', 404));
   }
+
+  await updateTweetRetweets.save();
 
   res.status(200).json({
     status: 'success',
@@ -225,19 +214,14 @@ exports.addRetweet = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteRetweet = catchAsync(async (req, res, next) => {
-  const updateTweetRetweets = await Tweet.findByIdAndUpdate(
-    req.body.tweet._id,
-    {
-      retweets: req.body.tweet.retweets.filter(
-        (tweet) => tweet !== req.user.id
-      ),
-    },
-    updateModelOptions
-  );
-
+  const updateTweetRetweets = await Tweet.findById(req.body.tweet._id);
   if (!updateTweetRetweets) {
     return next(new AppError('No document found with that ID', 404));
   }
+  console.log(updateTweetRetweets.retweets[0], req.user.id);
+  updateTweetRetweets.retweets = updateTweetRetweets.retweets.filter(
+    (id) => JSON.stringify(id) !== JSON.stringify(req.user._id)
+  );
 
   const updateUserTweetRetweets = await User.findByIdAndUpdate(
     req.user.id,
@@ -248,10 +232,11 @@ exports.deleteRetweet = catchAsync(async (req, res, next) => {
     },
     updateModelOptions
   );
-
   if (!updateUserTweetRetweets) {
     return next(new AppError('No document found with that ID', 404));
   }
+
+  await updateTweetRetweets.save();
 
   res.status(200).json({
     status: 'success',
@@ -262,11 +247,8 @@ exports.deleteRetweet = catchAsync(async (req, res, next) => {
 });
 
 exports.addLikeToTweet = catchAsync(async (req, res, next) => {
-  const updateTweetLikes = await Tweet.findByIdAndUpdate(
-    req.body.tweet._id,
-    { likes: [...req.body.tweet.likes, req.user._id] },
-    updateModelOptions
-  );
+  const updateTweetLikes = await Tweet.findById(req.body.tweet._id);
+  updateTweetLikes.likes = [...updateTweetLikes.likes, req.user._id];
   if (!updateTweetLikes) {
     return next(new AppError('No document found with that ID', 404));
   }
@@ -276,10 +258,11 @@ exports.addLikeToTweet = catchAsync(async (req, res, next) => {
     { likes: [...req.user.likes, updateTweetLikes._id] },
     updateModelOptions
   );
-
   if (!updateUserTweetLikes) {
     return next(new AppError('No document found with that ID', 404));
   }
+
+  await updateTweetLikes.save();
 
   res.status(200).json({
     status: 'success',
@@ -290,24 +273,24 @@ exports.addLikeToTweet = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteLikeFromTweet = catchAsync(async (req, res, next) => {
-  const updateTweetLikes = await Tweet.findByIdAndUpdate(
-    req.body.tweet._id,
-    { likes: req.body.tweet.likes.filter((like) => like !== req.user._id) },
-    updateModelOptions
-  );
+  const updateTweetLikes = await Tweet.findById(req.body.tweet._id);
   if (!updateTweetLikes) {
     return next(new AppError('No document found with that ID', 404));
   }
+  updateTweetLikes.likes = updateTweetLikes.likes.filter(
+    (id) => JSON.stringify(id) !== JSON.stringify(req.user._id)
+  );
 
   const updateUserTweetLikes = await User.findByIdAndUpdate(
     req.user.id,
     { likes: req.user.likes.filter((like) => like !== req.body.tweet._id) },
     updateModelOptions
   );
-
   if (!updateUserTweetLikes) {
     return next(new AppError('No document found with that ID', 404));
   }
+
+  await updateTweetLikes.save();
 
   res.status(200).json({
     status: 'success',

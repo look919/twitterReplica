@@ -86,10 +86,10 @@ const CreateTweet = ({
     setFillPercentage((tweet.message.length / 240) * 100);
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
-    await createTweet(tweet);
+    createTweet(tweet);
 
     setTweet({
       ...tweet,
