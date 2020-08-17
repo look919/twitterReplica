@@ -45,3 +45,36 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+const updateModelOptions = {
+  new: true,
+  runValidators: true,
+};
+
+exports.followUser = catchAsync(async (req, res, next) => {
+  const updateUserFollwingUsers = await User.findByIdAndUpdate(
+    req.user._id,
+    { following: [...req.user.following, req.body.user._id] },
+    updateModelOptions
+  );
+
+  if (!updateUserFollwingUsers) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  const updateAnotherUserFollowers = await User.findByIdAndUpdate(
+    req.body.user._id,
+    { followers: [...req.body.user.followers, req.user._id] },
+    updateModelOptions
+  );
+  if (!updateAnotherUserFollowers) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      data: updateUserFollwingUsers,
+    },
+  });
+});

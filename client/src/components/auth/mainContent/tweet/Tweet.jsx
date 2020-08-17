@@ -141,7 +141,7 @@ const Tweet = ({
           ...options,
           hoverBoxImg: 'none',
         });
-      }, 7000);
+      }, 2000);
     } else {
       setTimeout(() => {
         setOptions({

@@ -16,6 +16,8 @@ import {
   FORGOT_PASSWORD_FAIL,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  FOLLOW_SUCCESS,
+  FOLLOW_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -28,6 +30,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
+
   switch (type) {
     case AUTH_SUCCESS:
       return {
@@ -65,6 +68,7 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case UPDATE_USER_SUCCESS:
+    case FOLLOW_SUCCESS:
       return {
         ...state,
         user: payload,
@@ -79,6 +83,7 @@ export default function (state = initialState, action) {
     case RESET_PASSWORD_FAIL:
     case UPDATE_USER_FAIL:
     case UPDATE_PASSWORD_FAIL:
+    case FOLLOW_FAIL:
       return {
         ...state,
         loading: false,

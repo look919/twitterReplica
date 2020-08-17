@@ -14,6 +14,12 @@ import {
   LOGOUT,
 } from './types';
 
+const config = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
+
 // Load User
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
@@ -49,11 +55,6 @@ export const register = (
     dateOfBirth,
   });
 
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
   try {
     const res = await axios.post('/api/v1/users/signup', body, config);
     dispatch({
@@ -74,11 +75,7 @@ export const register = (
 //login user
 export const activate = ({ email, activationCode }) => async (dispatch) => {
   const body = JSON.stringify({ email, activationCode });
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
+
   try {
     const res = await axios.patch('/api/v1/users/activate', body, config);
 
@@ -101,11 +98,6 @@ export const activate = ({ email, activationCode }) => async (dispatch) => {
 export const login = ({ email, password }) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
 
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
   try {
     const res = await axios.post('/api/v1/users/login', body, config);
 
@@ -134,6 +126,7 @@ export const logout = () => async (dispatch) => {
     dispatch(setAlert(err.response.data.message, 'danger'));
   }
 };
+
 //update user
 
 // export const updateUser = (name, email, phone, address) => async (dispatch) => {

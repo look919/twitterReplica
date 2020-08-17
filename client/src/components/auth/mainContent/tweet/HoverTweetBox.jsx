@@ -1,8 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const HoverTweetBox = ({ user, idClass, styles }) => {
-  if (typeof user !== 'object') return null;
+import { follow } from '../../../../actions/user';
+
+import PropTypes from 'prop-types';
+
+const HoverTweetBox = ({ auth, user, follow, idClass, styles }) => {
+  if (typeof user !== 'object' || (!auth.user && !auth.loading)) return null;
+
+  const onFollow = (e) => {
+    e.preventDefault();
+
+    follow(user);
+    user.followers.push(auth.user._id);
+  };
 
   return (
     <div style={styles} className={`tweetHoverBox ${idClass}`}>
@@ -12,7 +24,17 @@ const HoverTweetBox = ({ user, idClass, styles }) => {
           className='tweetHoverBox__header__img'
           alt='user'
         />
-        <button className='btn tweetHoverBox__header__btn'>Following</button>
+        {auth.user._id === user._id ? (
+          <div>&nbsp;</div>
+        ) : auth.user.following.includes(user._id) ? (
+          <button className='btn tweetHoverBox__header__btn btn--dark'>
+            Following
+          </button>
+        ) : (
+          <button onClick={onFollow} className='btn tweetHoverBox__header__btn'>
+            Follow
+          </button>
+        )}
       </Link>
       <div className='tweetHoverBox__userName'>
         <Link to='/dev' className='tweetHoverBox__userName__name'>
@@ -39,4 +61,15 @@ const HoverTweetBox = ({ user, idClass, styles }) => {
   );
 };
 
-export default HoverTweetBox;
+HoverTweetBox.propTypes = {
+  auth: PropTypes.object.isRequired,
+  follow: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {
+  follow,
+})(HoverTweetBox);

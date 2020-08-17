@@ -14,6 +14,7 @@ router.post('/logout', authController.logout);
 //USERS AUTHENTICATED
 router.use(authController.protect);
 router.patch('/updatepassword', authController.updatePassword);
+router.patch('/follow', userController.followUser);
 
 //RESTRICTED TO ADMIN
 router.use(authController.restrictTo('admin'));
