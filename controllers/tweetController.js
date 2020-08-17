@@ -11,6 +11,7 @@ const AppError = require('../utils/appError');
 exports.createTweet - factory.createOne(Tweet);
 exports.getAllTweets = factory.getAll(Tweet);
 exports.getTweet = factory.getOne(Tweet, { path: 'user' });
+exports.updateTweet = factory.updateOne(Tweet);
 
 //const multerStorage = multer.memoryStorage();
 const multerFilter = (req, file, cb) => {

@@ -246,10 +246,26 @@ const Tweet = ({
             )}
           </label>
         </div>
-
-        <div className='tweet__content__text'>
-          <div>{findLinksInText(emoji(tweet.message))}</div>
+        <div className='tweet__content__message'>
+          <div className='tweet__content__message__text'>
+            <div>{findLinksInText(emoji(tweet.message))}</div>
+          </div>
+          {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (
+            <img
+              src={tweet.imgOrGif}
+              className='tweet__content__message__img'
+              alt='user input data'
+            />
+          )}
+          {tweet.imgOrGif && !tweet.imgOrGif.startsWith('https://') && (
+            <img
+              src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
+              className='tweet__content__message__img'
+              alt='user input data'
+            />
+          )}
         </div>
+
         <div className='tweet__content__options'>
           <button onClick={addComment} className='tweet__content__option'>
             <Comments className='tweet__content__option__icon' />

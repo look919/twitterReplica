@@ -170,13 +170,26 @@
       }
     }
 
-    &__text {
-      font-size: 1.5rem;
-      line-height: 1.3125;
+    &__message {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
 
-      &:link,
-      &:visited {
-        color: rgb(27, 149, 224);
+      &__text {
+        font-size: 1.5rem;
+        line-height: 1.3125;
+
+        &:link,
+        &:visited {
+          color: rgb(27, 149, 224);
+        }
+      }
+      &__img,
+      &__gif {
+        width: 100%;
+        border-radius: 1.5rem;
+        padding: 1rem 0.5rem;
+        padding-bottom: 0;
       }
     }
 

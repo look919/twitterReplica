@@ -62,7 +62,7 @@ const CreateTweet = ({
   const addGifToTweet = (item) => {
     setTweet({
       ...tweet,
-      imgOrGif: item.url,
+      imgOrGif: item.id,
       gifPicker: false,
     });
   };
