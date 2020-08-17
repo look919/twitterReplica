@@ -136,12 +136,6 @@ const Tweet = ({
         ...options,
         hoverBoxText: 'flex',
       });
-      setTimeout(() => {
-        setOptions({
-          ...options,
-          hoverBoxImg: 'none',
-        });
-      }, 2000);
     } else {
       setTimeout(() => {
         setOptions({

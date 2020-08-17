@@ -52,13 +52,13 @@ const updateModelOptions = {
 };
 
 exports.followUser = catchAsync(async (req, res, next) => {
-  const updateUserFollwingUsers = await User.findByIdAndUpdate(
+  const updateUserFollowingUsers = await User.findByIdAndUpdate(
     req.user._id,
     { following: [...req.user.following, req.body.user._id] },
     updateModelOptions
   );
 
-  if (!updateUserFollwingUsers) {
+  if (!updateUserFollowingUsers) {
     return next(new AppError('No document found with that ID', 404));
   }
 
@@ -74,7 +74,40 @@ exports.followUser = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      data: updateUserFollwingUsers,
+      data: updateUserFollowingUsers,
+    },
+  });
+});
+exports.unFollowUser = catchAsync(async (req, res, next) => {
+  const updateFollowingUsers = await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      //_id is an object so i need to replace it to string for that purpose
+      following: req.user.following.filter(
+        (id) => JSON.stringify(id) !== JSON.stringify(req.body.user._id)
+      ),
+    },
+    updateModelOptions
+  );
+
+  if (!updateFollowingUsers) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  const updateAnotherUserFollowers = await User.findById(req.body.user._id);
+  if (!updateAnotherUserFollowers) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  updateAnotherUserFollowers.followers = updateAnotherUserFollowers.followers.filter(
+    (id) => JSON.stringify(id) !== JSON.stringify(req.user._id)
+  );
+  await updateAnotherUserFollowers.save();
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      data: updateFollowingUsers,
     },
   });
 });
