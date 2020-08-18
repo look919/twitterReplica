@@ -219,7 +219,7 @@ exports.deleteRetweet = catchAsync(async (req, res, next) => {
   if (!updateTweetRetweets) {
     return next(new AppError('No document found with that ID', 404));
   }
-  console.log(updateTweetRetweets.retweets[0], req.user.id);
+
   updateTweetRetweets.retweets = updateTweetRetweets.retweets.filter(
     (id) => JSON.stringify(id) !== JSON.stringify(req.user._id)
   );

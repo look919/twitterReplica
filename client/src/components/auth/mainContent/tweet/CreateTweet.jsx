@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 
 import ReactGiphySearchbox from 'react-giphy-searchbox';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -113,7 +112,7 @@ const CreateTweet = ({
       loading: false,
       message: '',
       emojiPicker: false,
-      gifName: '',
+      imgOrGifName: '',
       gifPicker: false,
       imgOrGif: '',
       ref: '',
@@ -137,9 +136,9 @@ const CreateTweet = ({
             maxLength={240}
           />
           {tweet.imgOrGifName && (
-            <p className='createTweet__tweet__attached'>
+            <span className='createTweet__tweet__attached'>
               Attached: {tweet.imgOrGifName}
-            </p>
+            </span>
           )}
         </div>
       </div>
@@ -172,9 +171,9 @@ const CreateTweet = ({
           />
         )}
 
-        <Link to='/dev' className='createTweet__options__iconHandler'>
-          <AddPool className='createTweet__options__icon' />
-        </Link>
+        <button className='createTweet__options__iconHandler' disabled>
+          <AddPool className='createTweet__options__icon createTweet__options__icon--disabled' />
+        </button>
         {!tweet.emojiPicker ? (
           <button
             onClick={openEmojiPicker}
@@ -188,9 +187,12 @@ const CreateTweet = ({
             onSelect={(emoji) => addToMessage(emoji.native)}
           />
         )}
-        <Link to='/dev' className='createTweet__options__iconHandler'>
-          <AddSchedule className='createTweet__options__icon' />
-        </Link>
+        <button
+          className='createTweet__options__iconHandler createTweet__options__iconHandler--last'
+          disabled
+        >
+          <AddSchedule className='createTweet__options__icon createTweet__options__icon--disabled' />
+        </button>
         {tweet.message && (
           <Fragment>
             <CircularProgressbar
