@@ -22,13 +22,16 @@
     grid-column: 2 / 3;
 
     &__text {
+      display: flex;
+      flex-direction: column;
+
       padding: 1rem;
       padding-left: 0;
+      padding-bottom: 0.8rem;
       font-size: 1.7rem;
 
-      padding-bottom: 2rem;
-
       &__textarea {
+        margin-bottom: 2.5rem;
         width: 100%;
         height: max-content;
         background: $color-background;
@@ -54,6 +57,12 @@
         }
       }
     }
+    &__attached {
+      align-self: flex-start;
+      font-size: 1.2rem;
+      color: $color-primary;
+      font-weight: 400;
+    }
   }
 
   &__options {
@@ -63,6 +72,24 @@
     display: flex;
     align-items: center;
 
+    &__iconHandler {
+      position: relative;
+      height: 3.5rem !important;
+      width: 3.5rem !important;
+
+      &--last {
+        margin-right: auto;
+      }
+      &:disabled {
+        background: none;
+        border: none;
+      }
+      &--label {
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+    }
     &__icon {
       position: relative;
 
@@ -72,6 +99,10 @@
       fill: $color-primary;
       cursor: pointer;
 
+      &--disabled {
+        fill: $color-grey;
+        cursor: default;
+      }
       &__btn {
         background: none;
         border: none;
@@ -81,15 +112,10 @@
         }
       }
     }
-    &__iconHandler {
-      position: relative;
-      height: 3.5rem !important;
-      width: 3.5rem !important;
-
-      &:last-of-type {
-        margin-right: auto;
-      }
+    &__fileInput {
+      display: none;
     }
+
     &__line {
       width: 1px;
       height: calc(100% - 1.2rem);
@@ -107,6 +133,18 @@
       height: 3.5rem;
       align-self: center;
       padding: 0.6rem;
+    }
+    &__btn {
+      width: 7.5rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &__loading {
+        width: 3.5rem;
+        height: 3.5rem;
+      }
     }
   }
 }

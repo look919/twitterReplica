@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { getTweets } from '../../../../actions/tweets';
 import { v4 as uuidv4 } from 'uuid';
 
-import loadTweets from '../../../../selectors/loadTweets';
+import loadTweets from '../../../../selectors/selectTweets';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import Tweet from './Tweet';
@@ -28,17 +28,20 @@ const GetAllTweets = ({
       return;
     }
 
-    setRenderedAmount(renderedAmount + 5);
+    setRenderedAmount(renderedAmount + 10);
   };
-
   return loading ? (
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>
+  ) : !loading && loadedTweets.length === 0 ? (
+    <h2 className='heading-3 getTweets__endMessage'>
+      For more tweets follow more users!
+    </h2>
   ) : (
     <Fragment>
       <InfiniteScroll
-        dataLength={renderedAmount - 5}
+        dataLength={renderedAmount}
         next={fetchMoreData}
         hasMore={isMore}
         loader={

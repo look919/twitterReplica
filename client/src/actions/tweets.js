@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import { setAlert } from './alert';
 
 import {
@@ -51,6 +52,7 @@ export const createTweet = ({
   const formData = new FormData();
   formData.append('user', userId);
   formData.append('message', message);
+  formData.append('createdAt', moment());
   if (retweet) formData.append('retweet', retweet);
   if (ref) formData.append('ref', ref);
   if (imgOrGif) formData.append('imgOrGif', imgOrGif);

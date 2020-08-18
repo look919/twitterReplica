@@ -1,18 +1,49 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const HoverTweetBox = ({ user, idClass }) => {
-  if (typeof user !== 'object') return null;
+import { follow, unFollow } from '../../../../actions/user';
+
+import PropTypes from 'prop-types';
+
+const HoverTweetBox = ({ auth, user, follow, unFollow, idClass, styles }) => {
+  if (typeof user !== 'object' || (!auth.user && !auth.loading)) return null;
+
+  const onFollow = async (e) => {
+    e.preventDefault();
+
+    await follow(user);
+    user.followers.push(auth.user._id);
+  };
+  const onUnFollow = async (e) => {
+    e.preventDefault();
+
+    await unFollow(user);
+    user.followers.filter((id) => id !== auth.user._id);
+  };
 
   return (
-    <div className={`tweetHoverBox ${idClass}`}>
+    <div style={styles} className={`tweetHoverBox ${idClass}`}>
       <Link to='/dev' className='tweetHoverBox__header'>
         <img
           src={user.photo}
           className='tweetHoverBox__header__img'
           alt='user'
         />
-        <button className='btn tweetHoverBox__header__btn'>Following</button>
+        {auth.user._id === user._id ? (
+          <div>&nbsp;</div>
+        ) : auth.user.following.includes(user._id) ? (
+          <button
+            onClick={onUnFollow}
+            className='btn tweetHoverBox__header__btn btn--dark'
+          >
+            Following
+          </button>
+        ) : (
+          <button onClick={onFollow} className='btn tweetHoverBox__header__btn'>
+            Follow
+          </button>
+        )}
       </Link>
       <div className='tweetHoverBox__userName'>
         <Link to='/dev' className='tweetHoverBox__userName__name'>
@@ -39,4 +70,17 @@ const HoverTweetBox = ({ user, idClass }) => {
   );
 };
 
-export default HoverTweetBox;
+HoverTweetBox.propTypes = {
+  auth: PropTypes.object.isRequired,
+  follow: PropTypes.func.isRequired,
+  unFollow: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {
+  follow,
+  unFollow,
+})(HoverTweetBox);

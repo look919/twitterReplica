@@ -1,20 +1,24 @@
 .tweet {
   padding: 0.6rem 1.2rem;
 
-  display: flex;
-  grid-column-gap: 0.5rem;
+  display: grid;
+  grid-template-rows: min-content;
+  grid-template-columns: 6rem 1fr;
+
   border-bottom: 1px solid $color-line;
   cursor: pointer;
 
   &:hover {
     background-color: $color-background-input;
   }
-
   &:last-of-type {
     border-bottom: none;
   }
 
   &__img {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+
     width: 6rem;
     grid-row: 1 / -1;
     grid-column: 1 / 2;
@@ -38,11 +42,14 @@
       }
 
       &:hover + &__hover {
-        display: flex;
+        transition: 1s;
       }
     }
   }
   &__content {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+
     position: relative;
     width: 100%;
 
@@ -69,7 +76,7 @@
         }
 
         &:hover + &__hover {
-          display: flex;
+          transition: 1s;
         }
       }
       &__at,
@@ -163,13 +170,26 @@
       }
     }
 
-    &__text {
-      font-size: 1.5rem;
-      line-height: 1.3125;
+    &__message {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
 
-      &:link,
-      &:visited {
-        color: rgb(27, 149, 224);
+      &__text {
+        font-size: 1.5rem;
+        line-height: 1.3125;
+
+        &:link,
+        &:visited {
+          color: rgb(27, 149, 224);
+        }
+      }
+      &__img,
+      &__gif {
+        width: 100%;
+        border-radius: 2.5rem;
+        padding: 1rem 0.5rem;
+        padding-bottom: 0;
       }
     }
 
@@ -241,6 +261,23 @@
         color: $color-grey;
         font-size: 1.3rem;
       }
+    }
+  }
+  &__ref {
+    grid-row: 2 / 3;
+    grid-column: 1 / 3;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    padding: 0.6rem 0;
+    padding-left: 6rem;
+    font-size: 1.5rem;
+    color: $color-primary !important;
+
+    &:hover {
+      background-color: lighten($color-background-input, 5%);
     }
   }
   &__delete {

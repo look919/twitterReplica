@@ -23,4 +23,5 @@ router
   .patch(tweetController.deleteLikeFromTweet);
 
 router.use(authController.restrictTo('admin'));
+router.route('/update/:id').patch(tweetController.updateTweet);
 module.exports = router;

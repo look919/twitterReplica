@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -40,6 +41,8 @@ const Tweet = ({
     reportOption: '',
     tweetLiked: false,
     tweetRetweeted: false,
+    hoverBoxText: 'none',
+    hoverBoxImg: 'none',
   });
   const likeSvg = useRef(0);
   const likeText = useRef(0);
@@ -127,14 +130,61 @@ const Tweet = ({
       reportOption: e.target.value,
     });
   };
+  const onHoverName = () => {
+    if (options.hoverBoxText === 'none') {
+      setOptions({
+        ...options,
+        hoverBoxText: 'flex',
+      });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setTimeout(() => {
+        setOptions({
+          ...options,
+          hoverBoxImg: 'none',
+        });
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        setOptions({
+          ...options,
+          hoverBoxText: 'none',
+        });
+      }, 100);
+    }
+  };
+  const onHoverImg = () => {
+    if (options.hoverBoxImg === 'none') {
+      setOptions({
+        ...options,
+        hoverBoxImg: 'flex',
+      });
+    } else {
+      setTimeout(() => {
+        setOptions({
+          ...options,
+          hoverBoxImg: 'none',
+        });
+      }, 100);
+    }
+  };
 
   return (
     <div className='tweet'>
       <div className='tweet__img'>
         {tweet.retweet && <Retweets className='tweet__img__icon' />}
         {tweet.liked && <LikesFilled className='tweet__img__icon' />}
-        <img src={tweet.user.photo} className='tweet__img__photo' alt='user' />
-        <HoverTweetBox user={tweet.user} idClass='tweet__img__photo__hover' />
+        <img
+          src={tweet.user.photo}
+          className='tweet__img__photo'
+          alt='user'
+          onMouseEnter={onHoverImg}
+          onMouseLeave={onHoverImg}
+        />
+        <HoverTweetBox
+          user={tweet.user}
+          idClass='tweet__img__photo__hover'
+          styles={{ display: `${options.hoverBoxImg}` }}
+        />
       </div>
       <div className='tweet__content'>
         {tweet.retweet && (
@@ -148,10 +198,15 @@ const Tweet = ({
           </span>
         )}
         <div className='tweet__content__author'>
-          <span className='tweet__content__author__name'>
+          <span
+            className='tweet__content__author__name'
+            onMouseEnter={onHoverName}
+            onMouseLeave={onHoverName}
+          >
             {tweet.user.name}
           </span>
           <HoverTweetBox
+            styles={{ display: `${options.hoverBoxText}` }}
             user={tweet.user}
             idClass='tweet__content__author__name__hover'
           />
@@ -191,10 +246,26 @@ const Tweet = ({
             )}
           </label>
         </div>
-
-        <div className='tweet__content__text'>
-          <div>{findLinksInText(emoji(tweet.message))}</div>
+        <div className='tweet__content__message'>
+          <div className='tweet__content__message__text'>
+            <div>{findLinksInText(emoji(tweet.message))}</div>
+          </div>
+          {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (
+            <img
+              src={tweet.imgOrGif}
+              className='tweet__content__message__img'
+              alt='user input data'
+            />
+          )}
+          {tweet.imgOrGif && !tweet.imgOrGif.startsWith('https://') && (
+            <img
+              src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
+              className='tweet__content__message__img'
+              alt='user input data'
+            />
+          )}
         </div>
+
         <div className='tweet__content__options'>
           <button onClick={addComment} className='tweet__content__option'>
             <Comments className='tweet__content__option__icon' />
@@ -268,6 +339,14 @@ const Tweet = ({
           </div>
         </div>
       </div>
+      {tweet.ref && tweet.user._id === user._id && (
+        <Link
+          to={`/tweet/${tweet.user.at}/${tweet.ref}`}
+          className='tweet__ref'
+        >
+          Show this thread
+        </Link>
+      )}
     </div>
   );
 };
