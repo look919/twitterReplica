@@ -44,7 +44,7 @@ upload = multer({
   fileFilter: multerFilter,
 });
 
-exports.uploadImage = upload.single('photo');
+exports.uploadImage = upload.single('imgOrGif');
 
 const updateModelOptions = {
   new: true,
@@ -112,7 +112,7 @@ exports.getTweets = catchAsync(async (req, res, next) => {
 });
 
 exports.createTweet = catchAsync(async (req, res, next) => {
-  if (req.file) req.body.photo = req.file.location;
+  if (req.file) req.body.imgOrGif = req.file.location;
 
   if (req.user.id !== req.body.user) {
     return next(new AppError('There was an error with verification user', 404));

@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { createTweet } from '../../../../actions/tweets';
 import PropTypes from 'prop-types';
 
+import LoadingGif from '../../../../img/loading.gif';
 import defaultUser from '../../../../utils/defaultUser';
 import {
   AddImage,
@@ -35,8 +36,10 @@ const CreateTweet = ({
     emojiPicker: false,
     gifPicker: false,
     imgOrGif: '',
+    imgOrGifName: '',
     ref: reply,
     retweet: false,
+    loading: false,
   });
   const [fillPercentage, setFillPercentage] = useState(
     (tweet.message.length / 240) * 100
@@ -63,9 +66,18 @@ const CreateTweet = ({
     setTweet({
       ...tweet,
       imgOrGif: item.id,
+      imgOrGifName: item.title,
       gifPicker: false,
     });
   };
+  const addImgToTweet = (e) => {
+    setTweet({
+      ...tweet,
+      imgOrGif: e.target.files[0],
+      imgOrGifName: e.target.files[0].name,
+    });
+  };
+
   const openEmojiPicker = () => {
     setTweet({
       ...tweet,
@@ -86,15 +98,22 @@ const CreateTweet = ({
     setFillPercentage((tweet.message.length / 240) * 100);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    createTweet(tweet);
-
-    setTweet({
+    await setTweet({
       ...tweet,
+      loading: true,
+    });
+
+    await createTweet(tweet);
+
+    await setTweet({
+      ...tweet,
+      loading: false,
       message: '',
       emojiPicker: false,
+      gifName: '',
       gifPicker: false,
       imgOrGif: '',
       ref: '',
@@ -117,12 +136,27 @@ const CreateTweet = ({
             placeholder={placeholder}
             maxLength={240}
           />
+          {tweet.imgOrGifName && (
+            <p className='createTweet__tweet__attached'>
+              Attached: {tweet.imgOrGifName}
+            </p>
+          )}
         </div>
       </div>
       <div className='createTweet__options'>
-        <Link to='/dev' className='createTweet__options__iconHandler'>
+        <input
+          type='file'
+          accept='image/*'
+          id='file'
+          onChange={addImgToTweet}
+          className='createTweet__options__fileInput'
+        />
+        <label
+          htmlFor='file'
+          className='createTweet__options__iconHandler createTweet__options__iconHandler--label'
+        >
           <AddImage className='createTweet__options__icon' />
-        </Link>
+        </label>
 
         {!tweet.gifPicker ? (
           <button
@@ -176,14 +210,21 @@ const CreateTweet = ({
             <Plus className='createTweet__options__icon' />
           </Fragment>
         )}
-
-        <button
-          onClick={(e) => onSubmit(e)}
-          className='btn mainContent__createTweet__options__btn'
-          disabled={!tweet.message}
-        >
-          {!reply ? 'Tweet' : 'Reply'}
-        </button>
+        {!tweet.loading ? (
+          <button
+            onClick={(e) => onSubmit(e)}
+            className='btn createTweet__options__btn'
+            disabled={!tweet.message}
+          >
+            {!reply ? 'Tweet' : 'Reply'}
+          </button>
+        ) : (
+          <img
+            src={LoadingGif}
+            className='createTweet__options__btn__loading'
+            alt='loading..'
+          />
+        )}
       </div>
     </div>
   );

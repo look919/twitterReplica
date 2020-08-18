@@ -22,11 +22,12 @@
     grid-column: 2 / 3;
 
     &__text {
+      display: flex;
+      flex-direction: column;
+
       padding: 1rem;
       padding-left: 0;
       font-size: 1.7rem;
-
-      padding-bottom: 2rem;
 
       &__textarea {
         width: 100%;
@@ -53,6 +54,13 @@
           outline: none;
         }
       }
+    }
+    &__attached {
+      align-self: flex-start;
+      margin-top: 3.5rem;
+      font-size: 1.2rem;
+      color: $color-primary;
+      font-weight: 400;
     }
   }
 
@@ -81,6 +89,9 @@
         }
       }
     }
+    &__fileInput {
+      display: none;
+    }
     &__iconHandler {
       position: relative;
       height: 3.5rem !important;
@@ -88,6 +99,11 @@
 
       &:last-of-type {
         margin-right: auto;
+      }
+      &--label {
+        &:last-of-type {
+          margin-right: 0;
+        }
       }
     }
     &__line {
@@ -107,6 +123,17 @@
       height: 3.5rem;
       align-self: center;
       padding: 0.6rem;
+    }
+    &__btn {
+      width: 7.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &__loading {
+        width: 3.5rem;
+        height: 3.5rem;
+      }
     }
   }
 }
