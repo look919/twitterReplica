@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -34,6 +34,7 @@ const Tweet = ({
   deleteRetweet,
   likeTweet,
   deleteLikeFromTweet,
+  history,
 }) => {
   const [options, setOptions] = useState({
     addCommentChecked: false,
@@ -44,24 +45,34 @@ const Tweet = ({
     hoverBoxText: 'none',
     hoverBoxImg: 'none',
   });
+
   const likeSvg = useRef(0);
   const likeText = useRef(0);
   const retweetSvg = useRef(0);
   const retweetText = useRef(0);
 
-  const addComment = () => {
+  const addComment = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     setOptions({
       ...options,
       addCommentChecked: true,
     });
   };
-  const closeModal = () =>
+  const closeModal = (e) => {
+    e.stopPropagation();
+
     setOptions({
       ...options,
       addCommentChecked: false,
     });
+  };
 
-  const onReportChange = () => {
+  const onReportChange = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     setOptions({
       ...options,
       reportChecked: true,
@@ -69,10 +80,13 @@ const Tweet = ({
   };
   const onTweetDelete = (e) => {
     e.preventDefault();
+    e.stopPropagation();
+
     deleteTweet(user._id, tweet._id);
   };
   const onTweetLike = (e) => {
     e.preventDefault();
+    e.stopPropagation();
 
     if (!tweet.likes.includes(user._id)) {
       likeTweet(tweet);
@@ -97,6 +111,7 @@ const Tweet = ({
   };
   const onRetweetClicked = (e) => {
     e.preventDefault();
+    e.stopPropagation();
 
     if (!tweet.retweets.includes(user._id)) {
       retweet(tweet);
@@ -124,6 +139,7 @@ const Tweet = ({
   };
   const onReportOptionChoosed = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setOptions({
       ...options,
       reportChecked: false,
@@ -131,46 +147,75 @@ const Tweet = ({
     });
   };
   const onHoverName = () => {
+    let unmounted = false;
+
     if (options.hoverBoxText === 'none') {
       setOptions({
         ...options,
         hoverBoxText: 'flex',
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      setTimeout(() => {
-        setOptions({
-          ...options,
-          hoverBoxImg: 'none',
-        });
-      }, 2000);
+      if (!unmounted) {
+        setTimeout(() => {
+          setOptions({
+            ...options,
+            hoverBoxImg: 'none',
+          });
+        }, 100);
+      }
     } else {
-      setTimeout(() => {
-        setOptions({
-          ...options,
-          hoverBoxText: 'none',
-        });
-      }, 100);
+      if (!unmounted) {
+        setTimeout(() => {
+          setOptions({
+            ...options,
+            hoverBoxText: 'none',
+          });
+        }, 100);
+      }
     }
+
+    return () => {
+      unmounted = true;
+    };
   };
   const onHoverImg = () => {
+    let unmounted = false;
+
     if (options.hoverBoxImg === 'none') {
       setOptions({
         ...options,
         hoverBoxImg: 'flex',
       });
     } else {
-      setTimeout(() => {
-        setOptions({
-          ...options,
-          hoverBoxImg: 'none',
-        });
-      }, 100);
+      if (!unmounted) {
+        setTimeout(() => {
+          setOptions({
+            ...options,
+            hoverBoxImg: 'none',
+          });
+        }, 100);
+      }
+    }
+  };
+  const onTweetClicked = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (e.target.id === 'tweetRedirect') {
+      return history.push(`/${tweet.user.at}/status/${tweet._id}`);
+    } else if (e.target.id === 'tweetImgRedirect') {
+      return history.push(`/${tweet.user.at}/status/${tweet._id}/photo`);
+    } else {
+      return;
     }
   };
 
   return (
-    <div className='tweet'>
-      <div className='tweet__img'>
+    <div
+      onClick={(e) => onTweetClicked(e)}
+      className='tweet'
+      id='tweetRedirect'
+    >
+      <div className='tweet__img' id='tweetRedirect'>
         {tweet.retweet && <Retweets className='tweet__img__icon' />}
         {tweet.liked && <LikesFilled className='tweet__img__icon' />}
         <img
@@ -179,6 +224,7 @@ const Tweet = ({
           alt='user'
           onMouseEnter={onHoverImg}
           onMouseLeave={onHoverImg}
+          id='tweetRedirect'
         />
         <HoverTweetBox
           user={tweet.user}
@@ -186,7 +232,7 @@ const Tweet = ({
           styles={{ display: `${options.hoverBoxImg}` }}
         />
       </div>
-      <div className='tweet__content'>
+      <div className='tweet__content' id='tweetRedirect'>
         {tweet.retweet && (
           <span className='tweet__content__retweeted'>
             {tweet.actionUserName + ' Retweeted'}
@@ -197,14 +243,19 @@ const Tweet = ({
             {tweet.actionUserName + ' liked'}
           </span>
         )}
-        <div className='tweet__content__author'>
-          <span
+        <div
+          className='tweet__content__author'
+          name='tweetRedirect'
+          id='tweetRedirect'
+        >
+          <Link
+            to='/dev'
             className='tweet__content__author__name'
             onMouseEnter={onHoverName}
             onMouseLeave={onHoverName}
           >
             {tweet.user.name}
-          </span>
+          </Link>
           <HoverTweetBox
             styles={{ display: `${options.hoverBoxText}` }}
             user={tweet.user}
@@ -215,39 +266,30 @@ const Tweet = ({
           <span className='tweet__content__author__time'>
             {moment(tweet.createdAt).fromNow()}
           </span>
-          <input
-            type='checkbox'
-            id={
-              retweet
-                ? tweet._id + tweet.actionUserName
-                : tweet._id + tweet.actionUserAt
-            }
-            className='tweet__content__author__checkbox'
-            onChange={onReportChange}
-          />
-          <label
-            htmlFor={
-              retweet
-                ? tweet._id + tweet.actionUserName
-                : tweet._id + tweet.actionUserAt
-            }
-            className='tweet__content__author__input'
-          >
-            {!options.reportChecked ? (
-              <ArrowDown className='tweet__content__author__input__icon' />
-            ) : user._id === tweet.user._id ? (
-              <ReportBox
-                eventListener={onReportOptionChoosed}
-                deleteFunc={onTweetDelete}
-                del={true}
-              />
-            ) : (
-              <ReportBox eventListener={onReportOptionChoosed} />
-            )}
-          </label>
+          {!options.reportChecked ? (
+            <button
+              id={
+                retweet
+                  ? tweet._id + tweet.actionUserName
+                  : tweet._id + tweet.actionUserAt
+              }
+              className='tweet__content__author__btn'
+              onClick={(e) => onReportChange(e)}
+            >
+              <ArrowDown className='tweet__content__author__btn__icon' />
+            </button>
+          ) : user._id === tweet.user._id ? (
+            <ReportBox
+              eventListener={onReportOptionChoosed}
+              deleteFunc={onTweetDelete}
+              del={true}
+            />
+          ) : (
+            <ReportBox eventListener={onReportOptionChoosed} />
+          )}
         </div>
-        <div className='tweet__content__message'>
-          <div className='tweet__content__message__text'>
+        <div className='tweet__content__message' id='tweetRedirect'>
+          <div className='tweet__content__message__text' id='tweetRedirect'>
             <div>{findLinksInText(emoji(tweet.message))}</div>
           </div>
           {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (
@@ -255,6 +297,7 @@ const Tweet = ({
               src={tweet.imgOrGif}
               className='tweet__content__message__img'
               alt='user input data'
+              id='tweetImgRedirect'
             />
           )}
           {tweet.imgOrGif && !tweet.imgOrGif.startsWith('https://') && (
@@ -262,6 +305,7 @@ const Tweet = ({
               src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
               className='tweet__content__message__img'
               alt='user input data'
+              id='tweetImgRedirect'
             />
           )}
         </div>
@@ -361,10 +405,12 @@ Tweet.propTypes = {
   deleteRetweet: PropTypes.func.isRequired,
 };
 
-export default connect(null, {
-  deleteTweet,
-  retweet,
-  deleteRetweet,
-  likeTweet,
-  deleteLikeFromTweet,
-})(Tweet);
+export default withRouter(
+  connect(null, {
+    deleteTweet,
+    retweet,
+    deleteRetweet,
+    likeTweet,
+    deleteLikeFromTweet,
+  })(Tweet)
+);

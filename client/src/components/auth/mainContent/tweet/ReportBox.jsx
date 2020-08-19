@@ -19,6 +19,7 @@ const ReportBox = ({ eventListener, deleteFunc, del = false }) => {
 
   const openModalAndHideBtn = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
 
     setBtnStyle('none');
     setIsOpen(true);

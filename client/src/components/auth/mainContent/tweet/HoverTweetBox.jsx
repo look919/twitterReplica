@@ -11,12 +11,14 @@ const HoverTweetBox = ({ auth, user, follow, unFollow, idClass, styles }) => {
 
   const onFollow = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
 
     await follow(user);
     user.followers.push(auth.user._id);
   };
   const onUnFollow = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
 
     await unFollow(user);
     user.followers.filter((id) => id !== auth.user._id);
