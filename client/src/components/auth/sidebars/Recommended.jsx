@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Search, ArrowDown } from '../../img/Svgs';
+import { Search, ArrowDown } from '../../../img/Svgs';
 import RecommendedTrends from './RecommendedTrends';
 import RecommendedToFollow from './RecommendedToFollow';
 

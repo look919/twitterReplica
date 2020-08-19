@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import defaultUser from '../../utils/defaultUser.js';
+import defaultUser from '../../../utils/defaultUser.js';
 
 import {
   TwitterLogo,
@@ -14,7 +14,7 @@ import {
   More,
   ArrowDown,
   Approved,
-} from '../../img/Svgs';
+} from '../../../img/Svgs';
 
 const NavBar = ({ user, logout }) => {
   if (!user) user = defaultUser;

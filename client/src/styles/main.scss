@@ -16,11 +16,13 @@
 @import 'components/nonAuth/registerPage';
 
 @import 'components/auth//auth';
-@import 'components/auth/mainContent';
 @import 'components/auth/createTweet';
 @import 'components/auth/tweet';
 @import 'components/auth/tweetHoverBox';
 @import 'components/auth/getTweets';
 @import 'components/auth/comment';
+
+@import 'pages/mainContent';
+@import 'pages/singleTweetView';
 
 @import 'layout/inDevPage';

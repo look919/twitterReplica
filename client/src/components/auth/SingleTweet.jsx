@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
 import NavBar from './sidebars/NavBar';
-import MainContent from './mainContent/MainContent';
+import SingleTweetView from './SingleTweetView/SingleTweetView';
 import Recommended from './sidebars/Recommended';
 
 const ExploreAuth = ({ user, logout }) => {
   return (
     <section className='auth'>
       <NavBar user={user} logout={logout} />
-      <MainContent user={user} />
+      <SingleTweetView user={user} />
       <Recommended />
     </section>
   );
