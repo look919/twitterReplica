@@ -6,8 +6,8 @@ import LoginPage from '../nonAuth/LoginPage';
 import DevInfo from '../layout/DevInfo';
 import NotFoundPage from '../layout/NotFoundPage';
 import ExploreNonAuth from '../nonAuth/ExploreNonAuth';
-import ExploreAuth from '../auth/ExploreAuth';
-import SingleTweet from '../auth/SingleTweet';
+import ExploreAuth from '../auth/HomePage';
+import SingleTweet from '../auth/SingleTweetPage';
 
 const App = () => (
   <section className='container'>

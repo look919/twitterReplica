@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getSingleTweet, getTweets } from '../../../actions/tweets';
+import { getSingleTweet } from '../../../actions/tweets';
 import { v4 as uuidv4 } from 'uuid';
 
 import loadTweets from '../../../selectors/selectTweets';
@@ -12,23 +12,21 @@ import SingleTweet from './SingleTweet';
 import Tweet from '../mainContent/tweet/Tweet';
 import LoadingGif from '../../../img/loading.gif';
 
-const GetAllTweets = ({
+const GetTweet = ({
   user,
   paramTweet,
   getSingleTweet,
-  getTweets,
   tweets: { loadedTweets, singleTweet, loading },
 }) => {
   useEffect(() => {
     getSingleTweet(paramTweet);
-    getTweets();
-  }, [getTweets, getSingleTweet]);
+  }, [loadedTweets, getSingleTweet, paramTweet]);
 
   const [isMore, setIsMore] = useState(true);
   const [renderedAmount, setRenderedAmount] = useState(10);
   if (!user) return null;
   const fetchMoreData = () => {
-    if (renderedAmount >= loadedTweets.length) {
+    if (renderedAmount >= singleTweet.comments.length) {
       setIsMore(false);
       return;
     }
@@ -70,13 +68,11 @@ const GetAllTweets = ({
   );
 };
 
-GetAllTweets.propTypes = {
+GetTweet.propTypes = {
   tweets: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   tweets: state.tweets,
 });
 
-export default connect(mapStateToProps, { getSingleTweet, getTweets })(
-  GetAllTweets
-);
+export default connect(mapStateToProps, { getSingleTweet })(GetTweet);

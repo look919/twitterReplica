@@ -29,7 +29,6 @@ const config = {
 
 export const getSingleTweet = (tweetId) => async (dispatch) => {
   try {
-    console.log(tweetId);
     const res = await axios.get(`/api/v1/tweets/${tweetId}`);
 
     dispatch({

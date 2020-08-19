@@ -8,7 +8,7 @@ import NavBar from './sidebars/NavBar';
 import MainContent from './mainContent/MainContent';
 import Recommended from './sidebars/Recommended';
 
-const ExploreAuth = ({ user, logout }) => {
+const HomePage = ({ user, logout }) => {
   return (
     <section className='auth'>
       <NavBar user={user} logout={logout} />
@@ -18,11 +18,11 @@ const ExploreAuth = ({ user, logout }) => {
   );
 };
 
-ExploreAuth.propTypes = {
+HomePage.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, { logout })(ExploreAuth);
+export default connect(mapStateToProps, { logout })(HomePage);

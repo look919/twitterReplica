@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 // import CreateTweet from './tweet/CreateTweet';
 import GetTweet from './GetTweet';
-import SingleTweet from './SingleTweet';
 
 import { GoBack } from '../../../img/Svgs';
 

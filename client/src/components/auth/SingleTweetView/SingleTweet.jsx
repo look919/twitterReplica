@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -12,7 +12,6 @@ import {
   deleteLikeFromTweet,
 } from '../../../actions/tweets';
 
-import testPhoto from '../../../img/explore-mask.jpg';
 import findLinksInText from '../../../utils/findLinksInText';
 import emoji from 'react-easy-emoji';
 
@@ -192,7 +191,7 @@ const SingleTweet = ({ auth: { user, loading }, tweet }) => {
     }
   };
   return (
-    <div className='tweet tweet--singleTweet'>
+    <div className='tweet'>
       <div className='tweet__img'>
         {tweet.retweet && <Retweets className='tweet__img__icon' />}
         {tweet.liked && <LikesFilled className='tweet__img__icon' />}
