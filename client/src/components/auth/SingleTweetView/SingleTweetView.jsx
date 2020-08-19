@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // import CreateTweet from './tweet/CreateTweet';
-// import GetTweets from './tweet/GetTweets';
+import GetTweet from './GetTweet';
+import SingleTweet from './SingleTweet';
 
 import { GoBack } from '../../../img/Svgs';
 
-const singleTweetView = ({ user: { user }, history }) => {
+const SingleTweetView = ({ auth: { user, loading }, history }) => {
   return (
     <main className='singleTweetView'>
       <div className='singleTweetView__header'>
@@ -22,19 +23,17 @@ const singleTweetView = ({ user: { user }, history }) => {
           <h2 className='heading-2'>Tweet</h2>
         </div>
       </div>
+      <SingleTweet user={user} />
     </main>
   );
 };
 
-singleTweetView.propTypes = {
-  user: PropTypes.object.isRequired,
+SingleTweetView.propTypes = {
+  auth: PropTypes.object.isRequired,
 };
+
 const mapStateToProps = (state) => ({
-  user: state.auth,
+  auth: state.auth,
 });
 
-export default withRouter(connect(mapStateToProps, {})(singleTweetView));
-
-// <CreateTweet placeholder='Whats happening?' />
-//       <div className='breakline'>&nbsp;</div>
-//       <GetTweets user={user} />
+export default withRouter(connect(mapStateToProps, {})(SingleTweetView));
