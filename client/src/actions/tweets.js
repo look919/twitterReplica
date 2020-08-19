@@ -3,6 +3,8 @@ import moment from 'moment';
 import { setAlert } from './alert';
 
 import {
+  GET_SINGLE_TWEET_SUCCESS,
+  GET_SINGLE_TWEET_FAIL,
   GET_TWEETS_SUCCESS,
   GET_TWEETS_FAIL,
   CREATE_TWEET_SUCCESS,
@@ -25,6 +27,24 @@ const config = {
   },
 };
 
+export const getSingleTweet = (tweetId) => async (dispatch) => {
+  try {
+    console.log(tweetId);
+    const res = await axios.get(`/api/v1/tweets/${tweetId}`);
+
+    dispatch({
+      type: GET_SINGLE_TWEET_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (err) {
+    dispatch(setAlert('There was a problem while loading tweet', 'danger'));
+    console.log(err.response);
+    dispatch({
+      type: GET_SINGLE_TWEET_FAIL,
+      payload: err.message,
+    });
+  }
+};
 export const getTweets = () => async (dispatch) => {
   try {
     const res = await axios.get(`/api/v1/tweets`);

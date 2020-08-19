@@ -15,7 +15,10 @@ const App = () => (
       <Route path='/' component={ExploreNonAuth} exact />
       <Route path='/login' component={LoginPage} exact />
       <Route path='/dev' component={DevInfo} exact />
-      <Route path='/:at/status/:tweetId' component={SingleTweet} exact />
+      <Route
+        path='/:at/status/:tweetId'
+        render={(props) => <SingleTweet {...props} isAuthed={true} />}
+      />
       <PrivateRoute path='/home' component={ExploreAuth} />
       <Route component={NotFoundPage} />
     </Switch>

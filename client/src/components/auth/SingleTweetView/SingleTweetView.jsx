@@ -9,7 +9,7 @@ import SingleTweet from './SingleTweet';
 
 import { GoBack } from '../../../img/Svgs';
 
-const SingleTweetView = ({ auth: { user, loading }, history }) => {
+const SingleTweetView = ({ auth: { user, loading }, history, paramTweet }) => {
   return (
     <main className='singleTweetView'>
       <div className='singleTweetView__header'>
@@ -23,7 +23,7 @@ const SingleTweetView = ({ auth: { user, loading }, history }) => {
           <h2 className='heading-2'>Tweet</h2>
         </div>
       </div>
-      <SingleTweet user={user} />
+      <GetTweet user={user} paramTweet={paramTweet} />
     </main>
   );
 };

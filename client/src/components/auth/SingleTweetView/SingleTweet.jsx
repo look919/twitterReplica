@@ -28,30 +28,7 @@ import {
   LikesFilled,
 } from '../../../img/Svgs';
 
-//tweet for testign purposes
-const tweet = {
-  message:
-    'Nikt nie pytał, ale i tak powiem - trzymam kciuki, ale mógłby Białek (mogłoby Zagłębie) jeszcze rok poczekać. Z koroną na głowie (albo przynajmniej po walnięciu kilkunastu goli) przyjmują cię trochę inaczej',
-  _id: 'dsadas',
-  retweet: false,
-  liked: false,
-  following: [],
-  followers: [],
-  likes: ['32', '3232'],
-  retweets: ['1', '2', '3'],
-  comments: ['8', '4', '5', '7'],
-  user: {
-    photo: testPhoto,
-    at: '@testAt',
-    name: 'testUser',
-    _id: 'fdsfsdfds',
-    id: 'dasdas',
-    following: [],
-    followers: [],
-  },
-};
-
-const SingleTweet = ({ auth: { user, loading } }) => {
+const SingleTweet = ({ auth: { user, loading }, tweet }) => {
   const [options, setOptions] = useState({
     addCommentChecked: false,
     reportChecked: false,
@@ -215,7 +192,7 @@ const SingleTweet = ({ auth: { user, loading } }) => {
     }
   };
   return (
-    <div className='tweet'>
+    <div className='tweet tweet--singleTweet'>
       <div className='tweet__img'>
         {tweet.retweet && <Retweets className='tweet__img__icon' />}
         {tweet.liked && <LikesFilled className='tweet__img__icon' />}
@@ -333,7 +310,7 @@ const SingleTweet = ({ auth: { user, loading } }) => {
         )}
         <div className='tweet__content__options'>
           <button onClick={addComment} className='tweet__content__option'>
-            <Comments className='tweet__content__option__icon' />
+            <Comments className='tweet__content__option__icon tweet__content__option__icon--singleTweet' />
             <span className='tweet__content__option__amount'>
               {tweet.comments.length !== 0 && tweet.comments.length}
             </span>
@@ -350,7 +327,7 @@ const SingleTweet = ({ auth: { user, loading } }) => {
             <svg
               viewBox='0 0 24 24'
               ref={retweetSvg}
-              className='tweet__content__option__icon'
+              className='tweet__content__option__icon tweet__content__option__icon--singleTweet'
               style={
                 tweet.retweets.includes(user._id)
                   ? { fill: '#17bf63' }
@@ -378,7 +355,7 @@ const SingleTweet = ({ auth: { user, loading } }) => {
             <svg
               ref={likeSvg}
               viewBox='0 0 24 24'
-              className='tweet__content__option__icon'
+              className='tweet__content__option__icon tweet__content__option__icon--singleTweet'
               style={
                 tweet.likes.includes(user._id)
                   ? { fill: '#e2245e' }
@@ -400,7 +377,7 @@ const SingleTweet = ({ auth: { user, loading } }) => {
             </span>
           </button>
           <div className='tweet__content__option'>
-            <OtherOptions className='tweet__content__option__icon' />
+            <OtherOptions className='tweet__content__option__icon tweet__content__option__icon--singleTweet' />
           </div>
         </div>
       </div>

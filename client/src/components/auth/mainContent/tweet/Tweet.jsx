@@ -385,7 +385,7 @@ const Tweet = ({
       </div>
       {tweet.ref && tweet.user._id === user._id && (
         <Link
-          to={`/tweet/${tweet.user.at}/${tweet.ref}`}
+          to={`/${tweet.user.at}/status/${tweet.ref}`}
           className='tweet__ref'
         >
           Show this thread

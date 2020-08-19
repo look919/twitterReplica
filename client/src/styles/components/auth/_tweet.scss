@@ -10,9 +10,6 @@
   &:hover {
     background-color: $color-background-input;
   }
-  &:last-of-type {
-    border-bottom: none;
-  }
 
   &__img {
     grid-row: 1 / 2;
@@ -290,6 +287,12 @@
         padding: 0.5rem;
         fill: $color-grey;
         margin-right: 2px;
+
+        &--singleTweet {
+          height: 3.75rem;
+          width: 3.75rem;
+          padding: 0.75rem;
+        }
       }
       &__amount {
         color: $color-grey;

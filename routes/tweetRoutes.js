@@ -4,7 +4,7 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
-router.route('/:id').get(tweetController.getTweet);
+router.route('/:tweetId').get(tweetController.getTweet);
 
 //RESTRICTED TO ADMIN
 router.use(authController.protect);

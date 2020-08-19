@@ -1,4 +1,6 @@
 import {
+  GET_SINGLE_TWEET_SUCCESS,
+  GET_SINGLE_TWEET_FAIL,
   GET_TWEETS_SUCCESS,
   GET_TWEETS_FAIL,
   CREATE_TWEET_SUCCESS,
@@ -13,6 +15,7 @@ import {
 
 const initialState = {
   loadedTweets: [],
+  singleTweet: null,
   loading: true,
 };
 
@@ -20,13 +23,27 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case GET_SINGLE_TWEET_SUCCESS:
+      return {
+        ...state,
+        singleTweet: payload.data,
+        loading: false,
+      };
+    case GET_SINGLE_TWEET_FAIL:
+      return {
+        ...state,
+        singleTweet: null,
+        loading: false,
+      };
     case GET_TWEETS_SUCCESS:
       return {
+        ...state,
         loadedTweets: payload.data,
         loading: false,
       };
     case GET_TWEETS_FAIL:
       return {
+        ...state,
         loadedTweets: [],
         loading: false,
       };

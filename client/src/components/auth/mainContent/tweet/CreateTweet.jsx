@@ -100,14 +100,14 @@ const CreateTweet = ({
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await setTweet({
+    setTweet({
       ...tweet,
       loading: true,
     });
 
     await createTweet(tweet);
 
-    await setTweet({
+    setTweet({
       ...tweet,
       loading: false,
       message: '',

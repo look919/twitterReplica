@@ -10,7 +10,6 @@ const AppError = require('../utils/appError');
 
 exports.createTweet - factory.createOne(Tweet);
 exports.getAllTweets = factory.getAll(Tweet);
-exports.getTweet = factory.getOne(Tweet, { path: 'user' });
 exports.updateTweet = factory.updateOne(Tweet);
 
 //const multerStorage = multer.memoryStorage();
@@ -51,6 +50,7 @@ const updateModelOptions = {
   runValidators: true,
 };
 
+exports.getTweet = factory.getOne(Tweet, { path: 'comments' });
 exports.getTweets = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user._id)
     .populate('likes')
