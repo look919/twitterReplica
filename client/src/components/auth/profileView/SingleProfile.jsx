@@ -16,28 +16,13 @@ import {
   ProfileBell,
 } from '../../../img/Svgs';
 
-const defaultProfile = {
-  name: 'Tomasz Wirkus',
-  at: '@tomaszwirkus',
-  _id: 'dasdas',
-  photo:
-    'https://twitterreplica.s3.eu-central-1.amazonaws.com/default_profile.png',
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et porttitor ipsum. Proin non imperdiet metus. Praesent molestie risus ac nisl commodo iaculis. Proin nec erat vestibulum, dignissim nisl non, posuere lacus. Phasellus ac molestie mi, et venenatis mauris. Praesent eu tincidunt nisi, ac ullamcorper orci.',
-  city: 'Poznań, Polska',
-  link: 'https://www.tomaszwirkus.com/',
-  createdAt: moment.now(),
-  following: ['1', '2', '3'],
-  followers: ['1', '2'],
-};
-
-const SingleProfile = (
-  { auth: { user, loading }, profile },
+const SingleProfile = ({
+  auth: { user, loading },
+  profile,
   follow,
-  unFollow
-) => {
+  unFollow,
+}) => {
   if (loading || !user) return null;
-  if (!profile) profile = defaultProfile;
 
   const onFollow = async (e) => {
     e.preventDefault();

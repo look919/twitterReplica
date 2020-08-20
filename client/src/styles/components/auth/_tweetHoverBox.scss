@@ -31,9 +31,15 @@
     display: flex;
     flex-direction: column;
     font-size: 1.5rem;
+
     &__name {
       height: 1.7rem;
       font-weight: 700;
+      color: $color-white;
+
+      &:hover {
+        text-decoration: underline !important;
+      }
     }
     &__at {
       height: 2rem;

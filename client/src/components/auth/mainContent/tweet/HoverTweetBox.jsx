@@ -26,12 +26,14 @@ const HoverTweetBox = ({ auth, user, follow, unFollow, idClass, styles }) => {
 
   return (
     <div style={styles} className={`tweetHoverBox ${idClass}`}>
-      <Link to='/dev' className='tweetHoverBox__header'>
-        <img
-          src={user.photo}
-          className='tweetHoverBox__header__img'
-          alt='user'
-        />
+      <div className='tweetHoverBox__header'>
+        <Link to={`/${user.at}`}>
+          <img
+            src={user.photo}
+            className='tweetHoverBox__header__img'
+            alt='user'
+          />
+        </Link>
         {auth.user._id === user._id ? (
           <div>&nbsp;</div>
         ) : auth.user.following.includes(user._id) ? (
@@ -46,9 +48,9 @@ const HoverTweetBox = ({ auth, user, follow, unFollow, idClass, styles }) => {
             Follow
           </button>
         )}
-      </Link>
+      </div>
       <div className='tweetHoverBox__userName'>
-        <Link to='/dev' className='tweetHoverBox__userName__name'>
+        <Link to={`/${user.at}`} className='tweetHoverBox__userName__name'>
           {user.name}
         </Link>
         <span className='tweetHoverBox__userName__at'>{user.at}</span>

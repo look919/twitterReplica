@@ -218,14 +218,16 @@ const Tweet = ({
       <div className='tweet__img' id='tweetRedirect'>
         {tweet.retweet && <Retweets className='tweet__img__icon' />}
         {tweet.liked && <LikesFilled className='tweet__img__icon' />}
-        <img
-          src={tweet.user.photo}
-          className='tweet__img__photo'
-          alt='user'
-          onMouseEnter={onHoverImg}
-          onMouseLeave={onHoverImg}
-          id='tweetRedirect'
-        />
+        <Link to={`/${tweet.user.at}`}>
+          <img
+            src={tweet.user.photo}
+            className='tweet__img__photo'
+            alt='user'
+            onMouseEnter={onHoverImg}
+            onMouseLeave={onHoverImg}
+          />
+        </Link>
+
         <HoverTweetBox
           user={tweet.user}
           idClass='tweet__img__photo__hover'
@@ -234,9 +236,12 @@ const Tweet = ({
       </div>
       <div className='tweet__content' id='tweetRedirect'>
         {tweet.retweet && (
-          <span className='tweet__content__retweeted'>
+          <Link
+            to={`/${tweet.actionUserAt}`}
+            className='tweet__content__retweeted'
+          >
             {tweet.actionUserName + ' Retweeted'}
-          </span>
+          </Link>
         )}
         {tweet.liked && (
           <span className='tweet__content__retweeted'>
@@ -249,7 +254,7 @@ const Tweet = ({
           id='tweetRedirect'
         >
           <Link
-            to='/dev'
+            to={`${tweet.user.at}`}
             className='tweet__content__author__name'
             onMouseEnter={onHoverName}
             onMouseLeave={onHoverName}

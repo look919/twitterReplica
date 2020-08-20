@@ -45,6 +45,7 @@ export const follow = (user) => async (dispatch) => {
       type: FOLLOW_SUCCESS,
       payload: res.data.data.data,
     });
+    dispatch(setAlert(`${user.name} followed`, 'success', 1500));
   } catch (err) {
     dispatch(setAlert(err.response.data.message, 'danger'));
     dispatch({
@@ -64,6 +65,7 @@ export const unFollow = (user) => async (dispatch) => {
       type: UNFOLLOW_SUCCESS,
       payload: res.data.data.data,
     });
+    dispatch(setAlert(`${user.name} unfollowed`, 'success', 1500));
   } catch (err) {
     dispatch(setAlert(err.response.data.message, 'danger'));
     dispatch({

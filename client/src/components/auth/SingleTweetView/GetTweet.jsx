@@ -12,6 +12,8 @@ import SingleTweet from './SingleTweet';
 import Tweet from '../mainContent/tweet/Tweet';
 import LoadingGif from '../../../img/loading.gif';
 
+import defaultUser from '../../../utils/defaultUser';
+
 const GetTweet = ({
   user,
   paramTweet,
@@ -26,8 +28,6 @@ const GetTweet = ({
   const [isMore, setIsMore] = useState(true);
   const [renderedAmount, setRenderedAmount] = useState(10);
 
-  if (!user || !tweet) return null;
-
   const fetchMoreData = () => {
     if (renderedAmount >= tweet.comments.length) {
       setIsMore(false);
@@ -36,7 +36,7 @@ const GetTweet = ({
     setRenderedAmount(renderedAmount + 10);
   };
 
-  return loading || paramTweet !== tweet._id ? (
+  return loading || paramTweet !== tweet._id || !user ? (
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>

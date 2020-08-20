@@ -53,6 +53,10 @@
       font-size: 1.4rem;
       line-height: 1.2;
       color: $color-grey;
+
+      &:hover {
+        text-decoration: underline !important;
+      }
     }
     &__author {
       display: flex;
@@ -72,6 +76,7 @@
         font-size: 1.5rem;
         margin-right: 5px;
         position: relative;
+        color: $color-white;
 
         &__hover {
           display: none;
@@ -80,6 +85,9 @@
           margin-top: 4rem !important;
         }
 
+        &:hover {
+          text-decoration: underline !important;
+        }
         &:hover + &__hover {
           transition: 1s;
         }

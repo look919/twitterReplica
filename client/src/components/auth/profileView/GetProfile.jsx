@@ -26,8 +26,6 @@ const GetProfile = ({
   const [isMore, setIsMore] = useState(true);
   const [renderedAmount, setRenderedAmount] = useState(10);
 
-  if (!user || !data) return null;
-
   const fetchMoreData = () => {
     if (renderedAmount >= data.tweets.length) {
       setIsMore(false);
@@ -36,9 +34,7 @@ const GetProfile = ({
     setRenderedAmount(renderedAmount + 10);
   };
 
-  console.log(data);
-
-  return loading || paramUser !== data.at ? (
+  return loading || paramUser !== data.at || !user ? (
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>
