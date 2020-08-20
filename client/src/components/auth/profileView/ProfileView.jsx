@@ -8,11 +8,10 @@ import GetProfile from './GetProfile';
 
 import { GoBack } from '../../../img/Svgs';
 
-const ProfileView = ({ auth: { user }, history, paramUser }) => {
+const ProfileView = ({ auth: { user }, history, paramUser, editProfile }) => {
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
-
   return (
     <main className='profile'>
       <div className='profile__header'>
@@ -28,7 +27,7 @@ const ProfileView = ({ auth: { user }, history, paramUser }) => {
           </button>
         </div>
       </div>
-      <GetProfile user={user} paramUser={paramUser} />
+      <GetProfile user={user} paramUser={paramUser} editProfile={editProfile} />
     </main>
   );
 };

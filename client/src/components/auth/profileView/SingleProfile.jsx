@@ -21,6 +21,7 @@ const SingleProfile = ({
   profile,
   follow,
   unFollow,
+  editProfile,
 }) => {
   if (loading || !user) return null;
 
@@ -122,14 +123,18 @@ const SingleProfile = ({
           </div>
         </div>
       </div>
-      <div className='profile__btns'>
-        <div className='profile__btns__item profile__btns__item--active'>
-          Tweets
+      {!editProfile ? (
+        <div className='profile__btns'>
+          <div className='profile__btns__item profile__btns__item--active'>
+            Tweets
+          </div>
+          <div className='profile__btns__item'>Tweets & replies</div>
+          <div className='profile__btns__item'>Media</div>
+          <div className='profile__btns__item'>Likes</div>
         </div>
-        <div className='profile__btns__item'>Tweets & replies</div>
-        <div className='profile__btns__item'>Media</div>
-        <div className='profile__btns__item'>Likes</div>
-      </div>
+      ) : (
+        <div className='breakline'>&nbsp;</div>
+      )}
     </div>
   );
 };

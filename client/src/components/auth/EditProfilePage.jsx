@@ -15,7 +15,7 @@ const ProfilePage = ({ user, logout, ...props }) => {
       <ProfileView
         user={user}
         paramUser={props.match.params.userAt}
-        editProfile={false}
+        editProfile={true}
       />
       <Recommended />
     </section>

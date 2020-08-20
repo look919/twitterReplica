@@ -9,6 +9,7 @@ import ExploreNonAuth from '../nonAuth/ExploreNonAuth';
 import HomePage from '../auth/HomePage';
 import SingleTweetPage from '../auth/SingleTweetPage';
 import ProfilePage from '../auth/ProfilePage.jsx';
+import EditProfilePage from '../auth/EditProfilePage';
 
 const App = () => (
   <section className='container'>
@@ -24,10 +25,16 @@ const App = () => (
         component={SingleTweetPage}
       />
       <PrivateRoute
+        path='/edit/:userAt'
+        render={(props) => <EditProfilePage {...props} isAuthed={true} />}
+        component={EditProfilePage}
+      />
+      <PrivateRoute
         path='/:userAt'
         render={(props) => <ProfilePage {...props} isAuthed={true} />}
         component={ProfilePage}
       />
+
       <Route component={NotFoundPage} />
     </Switch>
   </section>

@@ -18,6 +18,7 @@ const GetProfile = ({
   getProfile,
   tweets: { loadedTweets },
   profile: { data, loading },
+  editProfile,
 }) => {
   useEffect(() => {
     getProfile(paramUser);
@@ -44,9 +45,9 @@ const GetProfile = ({
     </h2>
   ) : (
     <Fragment>
-      <SingleProfile profile={data} user={user} />
+      <SingleProfile profile={data} user={user} editProfile={editProfile} />
 
-      {data.tweets.length > 0 && (
+      {data.tweets.length > 0 && !editProfile && (
         <InfiniteScroll
           dataLength={renderedAmount}
           next={fetchMoreData}
