@@ -16,8 +16,14 @@ const App = () => (
       <Route path='/login' component={LoginPage} exact />
       <Route path='/dev' component={DevInfo} exact />
       <PrivateRoute path='/home' component={HomePage} />
+
       <PrivateRoute
         path='/:at/status/:tweetId'
+        render={(props) => <SingleTweetPage {...props} isAuthed={true} />}
+        component={SingleTweetPage}
+      />
+      <PrivateRoute
+        path='/:at'
         render={(props) => <SingleTweetPage {...props} isAuthed={true} />}
         component={SingleTweetPage}
       />

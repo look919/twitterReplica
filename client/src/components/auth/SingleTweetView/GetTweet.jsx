@@ -16,7 +16,8 @@ const GetTweet = ({
   user,
   paramTweet,
   getSingleTweet,
-  tweets: { loadedTweets, singleTweet, loading },
+  tweets: { loadedTweets },
+  singleTweet: { tweet, loading },
 }) => {
   useEffect(() => {
     getSingleTweet(paramTweet);
@@ -25,28 +26,28 @@ const GetTweet = ({
   const [isMore, setIsMore] = useState(true);
   const [renderedAmount, setRenderedAmount] = useState(10);
 
-  if (!user || !singleTweet) return null;
+  if (!user || !tweet) return null;
 
   const fetchMoreData = () => {
-    if (renderedAmount >= singleTweet.comments.length) {
+    if (renderedAmount >= tweet.comments.length) {
       setIsMore(false);
       return;
     }
     setRenderedAmount(renderedAmount + 10);
   };
 
-  return loading || paramTweet !== singleTweet._id ? (
+  return loading || paramTweet !== tweet._id ? (
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>
-  ) : !loading && singleTweet === null ? (
+  ) : !loading && tweet === null ? (
     <h2 className='heading-3 getTweets__endMessage'>
       There was a problem while loading tweet
     </h2>
   ) : (
     <Fragment>
-      <SingleTweet tweet={singleTweet} user={user} />
-      {singleTweet.comments.length > 0 && (
+      <SingleTweet tweet={tweet} user={user} />
+      {tweet.comments.length > 0 && (
         <InfiniteScroll
           dataLength={renderedAmount}
           next={fetchMoreData}
@@ -61,7 +62,7 @@ const GetTweet = ({
             </div>
           }
         >
-          {loadTweets(renderedAmount, singleTweet.comments).map((tweet) => (
+          {loadTweets(renderedAmount, tweet.comments).map((tweet) => (
             <Tweet tweet={tweet} user={user} key={uuidv4()} />
           ))}
         </InfiniteScroll>
@@ -75,6 +76,7 @@ GetTweet.propTypes = {
 };
 const mapStateToProps = (state) => ({
   tweets: state.tweets,
+  singleTweet: state.singleTweet,
 });
 
 export default connect(mapStateToProps, { getSingleTweet })(GetTweet);
