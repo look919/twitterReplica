@@ -115,7 +115,6 @@ const CreateTweet = ({
       imgOrGifName: '',
       gifPicker: false,
       imgOrGif: '',
-      ref: '',
     });
   };
 

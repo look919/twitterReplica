@@ -1,4 +1,5 @@
 .singleTweetView {
+  position: relative;
   width: 100%;
   height: max-content;
   border: 1px solid $color-line;
@@ -6,8 +7,14 @@
   border-bottom: none;
 
   &__header {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    left: 0;
+
     height: 5.5rem;
     border-bottom: 1px solid $color-line;
+    background-color: $color-background;
 
     &__content {
       height: 100%;
@@ -34,6 +41,9 @@
         border-radius: 50%;
         background-color: $color-background-input;
       }
+    }
+    &__heading {
+      cursor: pointer;
     }
   }
 }

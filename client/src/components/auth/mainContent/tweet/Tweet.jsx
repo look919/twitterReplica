@@ -383,14 +383,16 @@ const Tweet = ({
           </div>
         </div>
       </div>
-      {tweet.ref && tweet.user._id === user._id && (
-        <Link
-          to={`/${tweet.ref.user.at}/status/${tweet.ref._id}`}
-          className='tweet__ref'
-        >
-          Show this thread
-        </Link>
-      )}
+      {tweet.ref &&
+        typeof tweet.ref === 'object' &&
+        tweet.user._id === user._id && (
+          <Link
+            to={`/${tweet.ref.user.at}/status/${tweet.ref._id}`}
+            className='tweet__ref'
+          >
+            Show this thread
+          </Link>
+        )}
     </div>
   );
 };

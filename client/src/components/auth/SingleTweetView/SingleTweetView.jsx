@@ -1,4 +1,5 @@
 import React from 'react';
+import { animateScroll as scroll } from 'react-scroll';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,7 +9,11 @@ import GetTweet from './GetTweet';
 
 import { GoBack } from '../../../img/Svgs';
 
-const SingleTweetView = ({ auth: { user, loading }, history, paramTweet }) => {
+const SingleTweetView = ({ auth: { user }, history, paramTweet }) => {
+  const scrollToTop = () => {
+    scroll.scrollToTop();
+  };
+
   return (
     <main className='singleTweetView'>
       <div className='singleTweetView__header'>
@@ -19,7 +24,12 @@ const SingleTweetView = ({ auth: { user, loading }, history, paramTweet }) => {
           >
             <GoBack className='singleTweetView__header__icon' />
           </button>
-          <h2 className='heading-2'>Tweet</h2>
+          <a
+            onClick={scrollToTop}
+            className='heading-2 singleTweetView__header__heading'
+          >
+            Tweet
+          </a>
         </div>
       </div>
       <GetTweet user={user} paramTweet={paramTweet} />

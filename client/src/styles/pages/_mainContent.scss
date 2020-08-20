@@ -1,4 +1,5 @@
 .mainContent {
+  position: relative;
   width: 100%;
   height: max-content;
   border: 1px solid $color-line;
@@ -6,10 +7,17 @@
   border-bottom: none;
 
   &__header {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    left: 0;
     height: 5.5rem;
-    border-bottom: 1px solid $color-line;
+    width: 100%;
+    background-color: $color-background;
 
     &__content {
+      border-bottom: 1px solid $color-line;
+
       padding: 0.6rem 1.5rem;
       padding-right: 0.5rem;
       padding-top: 0.8rem;
@@ -17,6 +25,9 @@
       justify-content: space-between;
       align-items: center;
 
+      &__heading {
+        cursor: pointer;
+      }
       &__icon {
         height: 4.2rem;
         width: 4.2rem;
@@ -40,8 +51,6 @@
   background-color: $color-white;
 }
 
-.emoji-mart-search {
-}
 .emoji-mart {
   margin-top: 40rem;
 }
