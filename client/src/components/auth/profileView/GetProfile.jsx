@@ -9,6 +9,7 @@ import loadTweets from '../../../selectors/selectTweets';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import SingleProfile from './SingleProfile';
+import EditProfile from './EditProfile';
 import Tweet from '../mainContent/tweet/Tweet';
 import LoadingGif from '../../../img/loading.gif';
 
@@ -47,7 +48,7 @@ const GetProfile = ({
     <Fragment>
       <SingleProfile profile={data} user={user} editProfile={editProfile} />
 
-      {data.tweets.length > 0 && !editProfile && (
+      {data.tweets.length > 0 && !editProfile ? (
         <InfiniteScroll
           dataLength={renderedAmount}
           next={fetchMoreData}
@@ -66,6 +67,8 @@ const GetProfile = ({
             <Tweet tweet={tweet} user={user} key={uuidv4()} />
           ))}
         </InfiniteScroll>
+      ) : (
+        <EditProfile profile={data} />
       )}
     </Fragment>
   );

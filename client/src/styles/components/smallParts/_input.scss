@@ -25,6 +25,17 @@
   &--borderBlue {
     border-bottom: 2px solid $color-primary;
   }
+  &--file {
+    display: none;
+
+    &__icon {
+      height: 2rem;
+      width: 2rem;
+      fill: $color-primary;
+      margin-top: 3px;
+      margin-right: 1rem;
+    }
+  }
 
   &:focus {
     outline: none;
@@ -33,4 +44,9 @@
   &:focus + .input-container__p {
     color: $color-primary;
   }
+}
+.label {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
 }

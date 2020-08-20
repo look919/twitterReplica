@@ -62,7 +62,9 @@ const SingleProfile = ({
             </Fragment>
           )}
 
-          {user._id === profile._id ? (
+          {editProfile ? (
+            <div>&nbsp;</div>
+          ) : user._id === profile._id ? (
             <button className='btn btn--dark'>Set up profile</button>
           ) : user.following.includes(profile._id) ? (
             <button onClick={onUnFollow} className='btn'>

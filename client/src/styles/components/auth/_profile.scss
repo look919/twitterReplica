@@ -136,3 +136,22 @@
     }
   }
 }
+
+.editProfile {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+
+  &__heading {
+    padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
+    &__btn {
+      margin: 0 !important;
+      padding: 0.6rem 3rem !important;
+    }
+  }
+}
