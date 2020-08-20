@@ -24,7 +24,9 @@ const GetTweet = ({
 
   const [isMore, setIsMore] = useState(true);
   const [renderedAmount, setRenderedAmount] = useState(10);
-  if (!user) return null;
+
+  if (!user || !singleTweet) return null;
+
   const fetchMoreData = () => {
     if (renderedAmount >= singleTweet.comments.length) {
       setIsMore(false);
@@ -33,7 +35,7 @@ const GetTweet = ({
     setRenderedAmount(renderedAmount + 10);
   };
 
-  return loading ? (
+  return loading || paramTweet !== singleTweet._id ? (
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>

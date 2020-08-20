@@ -3,7 +3,7 @@ const aws = require('aws-sdk');
 const multerS3 = require('multer-s3');
 
 const Tweet = require('./../models/tweetModel');
-const User = require('./../models/userModel');
+const User = require('../models/userModel');
 const factory = require('./handlerFactory');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -55,6 +55,10 @@ exports.getTweets = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user._id)
     .populate('likes')
     .populate('retweets')
+    .populate({
+      path: 'tweets',
+      pupulate: 'ref',
+    })
     .populate({
       path: 'following',
       select:

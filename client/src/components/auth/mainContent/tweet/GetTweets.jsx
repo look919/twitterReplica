@@ -30,11 +30,11 @@ const GetAllTweets = ({
 
     setRenderedAmount(renderedAmount + 10);
   };
-  return loading ? (
+  return loading || !loadedTweets ? (
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>
-  ) : !loading && loadedTweets.length === 0 ? (
+  ) : !loading && !loadedTweets ? (
     <h2 className='heading-3 getTweets__endMessage'>
       For more tweets follow more users!
     </h2>

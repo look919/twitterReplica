@@ -71,8 +71,6 @@ tweetSchema.pre(/^find/, function (next) {
 });
 
 tweetSchema.pre(/^find/, function (next) {
-  if (!this.ref) return next();
-
   this.populate({
     path: 'ref',
   });
