@@ -8,6 +8,7 @@ import NotFoundPage from '../layout/NotFoundPage';
 import ExploreNonAuth from '../nonAuth/ExploreNonAuth';
 import HomePage from '../auth/HomePage';
 import SingleTweetPage from '../auth/SingleTweetPage';
+import ProfilePage from '../auth/ProfilePage.jsx';
 
 const App = () => (
   <section className='container'>
@@ -23,9 +24,9 @@ const App = () => (
         component={SingleTweetPage}
       />
       <PrivateRoute
-        path='/:at'
-        render={(props) => <SingleTweetPage {...props} isAuthed={true} />}
-        component={SingleTweetPage}
+        path='/:userAt'
+        render={(props) => <ProfilePage {...props} isAuthed={true} />}
+        component={ProfilePage}
       />
       <Route component={NotFoundPage} />
     </Switch>

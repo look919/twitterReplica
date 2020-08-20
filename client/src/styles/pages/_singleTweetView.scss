@@ -1,4 +1,5 @@
-.singleTweetView {
+.singleTweetView,
+.profile {
   position: relative;
   width: 100%;
   height: max-content;
@@ -44,6 +45,8 @@
     }
     &__heading {
       cursor: pointer;
+      background: none;
+      border: none;
     }
   }
 }

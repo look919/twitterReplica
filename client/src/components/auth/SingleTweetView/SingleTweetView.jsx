@@ -24,12 +24,12 @@ const SingleTweetView = ({ auth: { user }, history, paramTweet }) => {
           >
             <GoBack className='singleTweetView__header__icon' />
           </button>
-          <a
+          <button
             onClick={scrollToTop}
             className='heading-2 singleTweetView__header__heading'
           >
             Tweet
-          </a>
+          </button>
         </div>
       </div>
       <GetTweet user={user} paramTweet={paramTweet} />

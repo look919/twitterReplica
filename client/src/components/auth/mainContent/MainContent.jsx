@@ -17,12 +17,12 @@ const MainContent = ({ user: { user } }) => {
     <main className='mainContent'>
       <div className='mainContent__header'>
         <div className='mainContent__header__content'>
-          <a
+          <button
             onClick={scrollToTop}
             className='heading-2 mainContent__header__content__heading'
           >
             Home
-          </a>
+          </button>
           <Star className='mainContent__header__content__icon' />
         </div>
       </div>
