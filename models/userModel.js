@@ -51,10 +51,6 @@ const userSchema = new mongoose.Schema({
     },
     select: false,
   },
-  dateOfBirth: Date,
-  city: String,
-  town: String,
-  link: String,
   description: {
     type: String,
     default: '',
