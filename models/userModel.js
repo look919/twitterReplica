@@ -15,11 +15,12 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: [true, 'login is required'],
-    unique: [true, 'login already taken'],
+    required: [true, 'name is required'],
+    unique: [true, 'name already taken'],
   },
   at: {
     type: String,
+    unique: [true, '@ already taken'],
   },
   photo: {
     type: String,
@@ -59,6 +60,8 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: moment(),
   },
+  city: String,
+  link: String,
   following: {
     type: [
       {

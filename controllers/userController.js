@@ -113,3 +113,40 @@ exports.unFollowUser = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.getProfile = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ at: req.params.userAt })
+    .populate('likes')
+    .populate('retweets')
+    .populate({
+      path: 'tweets',
+      pupulate: 'ref',
+    });
+
+  //organising data
+  //removing comments to another tweets
+  user.tweets = user.tweets.filter((tweet) => {
+    return !tweet.ref;
+  });
+  //setting up retweets
+  user.retweets.forEach((retweet) => {
+    retweet.retweet = true;
+    retweet.actionUserName = user.name;
+    retweet.actionUserAt = user.at;
+  });
+  //setting up likes
+  user.likes.forEach((like) => {
+    like.liked = true;
+    like.actionUserName = user.name;
+    like.actionUserNameAt = user.at;
+  });
+
+  user.tweets = [...user.tweets, ...user.retweets, ...user.likes];
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      data: user,
+    },
+  });
+});

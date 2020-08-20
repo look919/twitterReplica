@@ -12,7 +12,7 @@ const ProfilePage = ({ user, logout, ...props }) => {
   return (
     <section className='auth'>
       <NavBar user={user} logout={logout} />
-      <ProfileView user={user} paramTweet={props.match.params.userAt} />
+      <ProfileView user={user} paramUser={props.match.params.userAt} />
       <Recommended />
     </section>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getSingleTweet } from '../../../actions/tweets';
+import { getProfile } from '../../../actions/user';
 import { v4 as uuidv4 } from 'uuid';
 
 import loadTweets from '../../../selectors/selectTweets';
@@ -14,40 +14,43 @@ import LoadingGif from '../../../img/loading.gif';
 
 const GetProfile = ({
   user,
-  paramTweet,
-  getSingleTweet,
+  paramUser,
+  getProfile,
   tweets: { loadedTweets },
-  singleTweet: { tweet, loading },
+  profile: { data, loading },
 }) => {
   useEffect(() => {
-    //getSingleTweet(paramTweet);
-  }, [loadedTweets, getSingleTweet, paramTweet]);
+    getProfile(paramUser);
+  }, [loadedTweets, getProfile, paramUser]);
 
   const [isMore, setIsMore] = useState(true);
   const [renderedAmount, setRenderedAmount] = useState(10);
 
-  if (!user || !tweet) return null;
+  if (!user || !data) return null;
 
   const fetchMoreData = () => {
-    if (renderedAmount >= tweet.comments.length) {
+    if (renderedAmount >= data.tweets.length) {
       setIsMore(false);
       return;
     }
     setRenderedAmount(renderedAmount + 10);
   };
 
-  return loading || paramTweet !== tweet._id ? (
+  console.log(data);
+
+  return loading || paramUser !== data.at ? (
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>
-  ) : !loading && tweet === null ? (
+  ) : !loading && data === null ? (
     <h2 className='heading-3 getTweets__endMessage'>
       There was a problem while loading tweet
     </h2>
   ) : (
     <Fragment>
-      <SingleProfile tweet={tweet} user={user} />
-      {tweet.comments.length > 0 && (
+      <SingleProfile profile={data} user={user} />
+
+      {data.tweets.length > 0 && (
         <InfiniteScroll
           dataLength={renderedAmount}
           next={fetchMoreData}
@@ -62,7 +65,7 @@ const GetProfile = ({
             </div>
           }
         >
-          {loadTweets(renderedAmount, tweet.comments).map((tweet) => (
+          {loadTweets(renderedAmount, data.tweets).map((tweet) => (
             <Tweet tweet={tweet} user={user} key={uuidv4()} />
           ))}
         </InfiniteScroll>
@@ -76,7 +79,7 @@ GetProfile.propTypes = {
 };
 const mapStateToProps = (state) => ({
   tweets: state.tweets,
-  singleTweet: state.singleTweet,
+  profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getSingleTweet })(GetProfile);
+export default connect(mapStateToProps, { getProfile })(GetProfile);

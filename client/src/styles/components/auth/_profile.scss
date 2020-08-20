@@ -120,6 +120,7 @@
   }
   &__btns {
     display: flex;
+    border-bottom: 1px solid $color-line;
 
     &__item {
       color: $color-grey;

@@ -11,6 +11,8 @@ router.patch('/activate', authController.activate);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 
+router.route('/:userAt').get(userController.getProfile);
+
 //USERS AUTHENTICATED
 router.use(authController.protect);
 router.patch('/updatepassword', authController.updatePassword);
@@ -23,7 +25,6 @@ router.use(authController.restrictTo('admin'));
 router.route('/').get(userController.getAllUsers);
 router
   .route('/:id')
-  .get(userController.getUser)
   .delete(userController.deleteUser)
   .patch(userController.updateUser);
 

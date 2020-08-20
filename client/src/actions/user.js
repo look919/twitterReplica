@@ -2,6 +2,8 @@ import axios from 'axios';
 import { setAlert } from './alert';
 
 import {
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAIL,
   FOLLOW_SUCCESS,
   FOLLOW_FAIL,
   UNFOLLOW_SUCCESS,
@@ -12,6 +14,24 @@ const config = {
   headers: {
     'Content-Type': 'application/json',
   },
+};
+
+//follow
+export const getProfile = (paramUser) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/v1/users/${paramUser}`);
+
+    dispatch({
+      type: GET_PROFILE_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (err) {
+    dispatch(setAlert(err.response.data.message, 'danger'));
+    dispatch({
+      type: GET_PROFILE_FAIL,
+      payload: err.message,
+    });
+  }
 };
 
 //follow

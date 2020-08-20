@@ -5,11 +5,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import GetProfile from './GetProfile';
-import SingleProfile from './SingleProfile';
 
 import { GoBack } from '../../../img/Svgs';
 
-const ProfileView = ({ auth: { user }, history, paramTweet }) => {
+const ProfileView = ({ auth: { user }, history, paramUser }) => {
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
@@ -29,7 +28,7 @@ const ProfileView = ({ auth: { user }, history, paramTweet }) => {
           </button>
         </div>
       </div>
-      <SingleProfile />
+      <GetProfile user={user} paramUser={paramUser} />
     </main>
   );
 };
@@ -43,5 +42,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default withRouter(connect(mapStateToProps, {})(ProfileView));
-
-//<GetProfile user={user} paramTweet={paramTweet} />
