@@ -1,27 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
-import NavBar from './NavBar';
+import NavBar from './sidebars/NavBar';
 import MainContent from './mainContent/MainContent';
-import Recommended from './Recommended';
+import Recommended from './sidebars/Recommended';
 
-const ExploreAuth = ({ user, logout }) => {
+const HomePage = ({ user, logout }) => {
   return (
     <section className='auth'>
       <NavBar user={user} logout={logout} />
-      <MainContent user={user} />
+      <MainContent />
       <Recommended />
     </section>
   );
 };
 
-ExploreAuth.propTypes = {
+HomePage.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, { logout })(ExploreAuth);
+export default connect(mapStateToProps, { logout })(HomePage);

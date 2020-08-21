@@ -30,7 +30,7 @@ const GetAllTweets = ({
 
     setRenderedAmount(renderedAmount + 10);
   };
-  return loading ? (
+  return loading || !loadedTweets ? (
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>

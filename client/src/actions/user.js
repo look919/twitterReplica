@@ -2,6 +2,10 @@ import axios from 'axios';
 import { setAlert } from './alert';
 
 import {
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAIL,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAIL,
   FOLLOW_SUCCESS,
   FOLLOW_FAIL,
   UNFOLLOW_SUCCESS,
@@ -15,6 +19,58 @@ const config = {
 };
 
 //follow
+export const getProfile = (paramUser) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/v1/users/${paramUser}`);
+
+    dispatch({
+      type: GET_PROFILE_SUCCESS,
+      payload: res.data.data.data,
+    });
+  } catch (err) {
+    dispatch(setAlert(err.response.data.message, 'danger'));
+    dispatch({
+      type: GET_PROFILE_FAIL,
+      payload: err.message,
+    });
+  }
+};
+
+//update user
+export const updateUser = ({
+  name,
+  photo,
+  backgroundImage,
+  description,
+  city,
+  link,
+}) => async (dispatch) => {
+  const formData = new FormData();
+  if (name) formData.append('name', name);
+  if (photo) formData.append('photo', photo);
+  if (backgroundImage) formData.append('backgroundImage', backgroundImage);
+  if (description) formData.append('description', description);
+  if (city) formData.append('city', city);
+  if (link) formData.append('link', link);
+
+  try {
+    const res = await axios.patch('/api/v1/users/updateMe', formData, config);
+
+    dispatch({
+      type: UPDATE_USER_SUCCESS,
+      payload: res.data.data.user,
+    });
+    dispatch(setAlert('Profile updated', 'success'));
+  } catch (err) {
+    dispatch(setAlert(err.response.data.message, 'danger'));
+    dispatch({
+      type: UPDATE_USER_FAIL,
+      payload: err.message,
+    });
+  }
+};
+
+//follow
 export const follow = (user) => async (dispatch) => {
   const body = JSON.stringify({ user });
 
@@ -25,6 +81,7 @@ export const follow = (user) => async (dispatch) => {
       type: FOLLOW_SUCCESS,
       payload: res.data.data.data,
     });
+    dispatch(setAlert(`${user.name} followed`, 'success', 1500));
   } catch (err) {
     dispatch(setAlert(err.response.data.message, 'danger'));
     dispatch({
@@ -44,6 +101,7 @@ export const unFollow = (user) => async (dispatch) => {
       type: UNFOLLOW_SUCCESS,
       payload: res.data.data.data,
     });
+    dispatch(setAlert(`${user.name} unfollowed`, 'success', 1500));
   } catch (err) {
     dispatch(setAlert(err.response.data.message, 'danger'));
     dispatch({

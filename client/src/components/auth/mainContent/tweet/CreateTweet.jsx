@@ -100,14 +100,14 @@ const CreateTweet = ({
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await setTweet({
+    setTweet({
       ...tweet,
       loading: true,
     });
 
     await createTweet(tweet);
 
-    await setTweet({
+    setTweet({
       ...tweet,
       loading: false,
       message: '',
@@ -115,7 +115,6 @@ const CreateTweet = ({
       imgOrGifName: '',
       gifPicker: false,
       imgOrGif: '',
-      ref: '',
     });
   };
 
@@ -160,7 +159,7 @@ const CreateTweet = ({
         {!tweet.gifPicker ? (
           <button
             onClick={openGifPicker}
-            className='createTweet__options__icon__btn mainContent__createTweet__options__iconHandler'
+            className='createTweet__options__icon__btn createTweet__options__iconHandler'
           >
             <AddGif className='createTweet__options__icon' />
           </button>
@@ -177,7 +176,7 @@ const CreateTweet = ({
         {!tweet.emojiPicker ? (
           <button
             onClick={openEmojiPicker}
-            className='createTweet__options__icon__btn mainContent__createTweet__options__iconHandler'
+            className='createTweet__options__icon__btn createTweet__options__iconHandler'
           >
             <AddEmoji className='createTweet__options__icon' />
           </button>

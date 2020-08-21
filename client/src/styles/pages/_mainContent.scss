@@ -1,0 +1,66 @@
+.mainContent {
+  position: relative;
+  width: 100%;
+  height: max-content;
+  border: 1px solid $color-line;
+  border-top: none;
+  border-bottom: none;
+
+  &__header {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    height: 5.5rem;
+    width: 100%;
+    background-color: $color-background;
+
+    &__content {
+      border-bottom: 1px solid $color-line;
+
+      padding: 0.6rem 1.5rem;
+      padding-right: 0.5rem;
+      padding-top: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &__heading {
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+      &__icon {
+        height: 4.2rem;
+        width: 4.2rem;
+        fill: $color-primary;
+        padding: 1rem;
+
+        &:hover {
+          border-radius: 50%;
+          background-color: $color-background-input;
+        }
+      }
+    }
+  }
+}
+
+.emoji-mart-search,
+.emoji-mart-scroll,
+.emoji-mart-bar {
+  position: relative;
+  z-index: 100;
+  background-color: $color-white;
+}
+
+.emoji-mart {
+  margin-top: 40rem;
+}
+.es_componentWrapper__3KEkn {
+  margin-top: 30rem;
+
+  position: relative;
+  background-color: $color-white;
+
+  z-index: 100;
+}

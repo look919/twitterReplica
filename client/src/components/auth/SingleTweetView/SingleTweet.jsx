@@ -1,22 +1,23 @@
 import React, { useState, useRef } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import {
   deleteTweet,
   retweet,
   deleteRetweet,
   likeTweet,
   deleteLikeFromTweet,
-} from '../../../../actions/tweets';
+} from '../../../actions/tweets';
 
-import moment from 'moment';
-import findLinksInText from '../../../../utils/findLinksInText';
+import findLinksInText from '../../../utils/findLinksInText';
 import emoji from 'react-easy-emoji';
 
-import AddCommentTweet from './AddCommentTweet';
-import HoverTweetBox from './HoverTweetBox';
-import ReportBox from './ReportBox';
+import AddCommentTweet from '../mainContent/tweet/AddCommentTweet';
+import HoverTweetBox from '../mainContent/tweet/HoverTweetBox';
+import ReportBox from '../mainContent/tweet/ReportBox';
 
 import {
   Comments,
@@ -24,18 +25,9 @@ import {
   OtherOptions,
   ArrowDown,
   LikesFilled,
-} from '../../../../img/Svgs';
+} from '../../../img/Svgs';
 
-const Tweet = ({
-  tweet,
-  user,
-  deleteTweet,
-  retweet,
-  deleteRetweet,
-  likeTweet,
-  deleteLikeFromTweet,
-  history,
-}) => {
+const SingleTweet = ({ auth: { user, loading }, tweet }) => {
   const [options, setOptions] = useState({
     addCommentChecked: false,
     reportChecked: false,
@@ -50,6 +42,8 @@ const Tweet = ({
   const likeText = useRef(0);
   const retweetSvg = useRef(0);
   const retweetText = useRef(0);
+
+  if (loading || !user) return null;
 
   const addComment = (e) => {
     e.preventDefault();
@@ -160,7 +154,7 @@ const Tweet = ({
             ...options,
             hoverBoxImg: 'none',
           });
-        }, 100);
+        }, 300);
       }
     } else {
       if (!unmounted) {
@@ -196,26 +190,9 @@ const Tweet = ({
       }
     }
   };
-  const onTweetClicked = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (e.target.id === 'tweetRedirect') {
-      return history.push(`/${tweet.user.at}/status/${tweet._id}`);
-    } else if (e.target.id === 'tweetImgRedirect') {
-      return history.push(`/${tweet.user.at}/status/${tweet._id}/photo`);
-    } else {
-      return;
-    }
-  };
-
   return (
-    <div
-      onClick={(e) => onTweetClicked(e)}
-      className='tweet'
-      id='tweetRedirect'
-    >
-      <div className='tweet__img' id='tweetRedirect'>
+    <div className='tweet'>
+      <div className='tweet__img'>
         {tweet.retweet && <Retweets className='tweet__img__icon' />}
         {tweet.liked && <LikesFilled className='tweet__img__icon' />}
         <Link to={`/${tweet.user.at}`}>
@@ -234,14 +211,11 @@ const Tweet = ({
           styles={{ display: `${options.hoverBoxImg}` }}
         />
       </div>
-      <div className='tweet__content' id='tweetRedirect'>
+      <div className='tweet__content'>
         {tweet.retweet && (
-          <Link
-            to={`/${tweet.actionUserAt}`}
-            className='tweet__content__retweeted'
-          >
+          <span className='tweet__content__retweeted'>
             {tweet.actionUserName + ' Retweeted'}
-          </Link>
+          </span>
         )}
         {tweet.liked && (
           <span className='tweet__content__retweeted'>
@@ -249,32 +223,30 @@ const Tweet = ({
           </span>
         )}
         <div
-          className='tweet__content__author'
+          className='tweet__content__author tweet__content__author--singleTweet'
           name='tweetRedirect'
-          id='tweetRedirect'
         >
-          <Link
-            to={`${tweet.user.at}`}
-            className='tweet__content__author__name'
-            onMouseEnter={onHoverName}
-            onMouseLeave={onHoverName}
-          >
-            {tweet.user.name}
-          </Link>
-          <HoverTweetBox
-            styles={{ display: `${options.hoverBoxText}` }}
-            user={tweet.user}
-            idClass='tweet__content__author__name__hover'
-          />
-          <span className='tweet__content__author__at'>{tweet.user.at}</span>
-          <span className='tweet__content__author__dot'>{' · '}</span>
-          <span className='tweet__content__author__time'>
-            {moment(tweet.createdAt).fromNow()}
-          </span>
+          <div className='tweet__content__author__nameContainer'>
+            <Link
+              to={`/${tweet.user.at}`}
+              className='tweet__content__author__name'
+              onMouseEnter={onHoverName}
+              onMouseLeave={onHoverName}
+            >
+              {tweet.user.name}
+            </Link>
+            <HoverTweetBox
+              styles={{ display: `${options.hoverBoxText}` }}
+              user={tweet.user}
+              idClass='tweet__content__author__name__hover'
+            />
+            <span className='tweet__content__author__at'>{tweet.user.at}</span>
+          </div>
+
           {!options.reportChecked ? (
             <button
               id={
-                retweet
+                tweet.retweet
                   ? tweet._id + tweet.actionUserName
                   : tweet._id + tweet.actionUserAt
               }
@@ -293,8 +265,8 @@ const Tweet = ({
             <ReportBox eventListener={onReportOptionChoosed} />
           )}
         </div>
-        <div className='tweet__content__message' id='tweetRedirect'>
-          <div className='tweet__content__message__text' id='tweetRedirect'>
+        <div className='tweet__content__message tweet__content__message--singleTweet'>
+          <div className='tweet__content__message__text tweet__content__message__text--singleTweet'>
             <div>{findLinksInText(emoji(tweet.message))}</div>
           </div>
           {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (
@@ -314,10 +286,33 @@ const Tweet = ({
             />
           )}
         </div>
-
+        <div className='tweet__content__author__time tweet__content__author__time--singleTweet'>
+          {moment(tweet.createdAt).format('h:mm A · MMMM DD YYYY')} {' · '}{' '}
+          <Link to='/dev' className='tweet__content__author__time__link'>
+            Twitter Web App
+          </Link>
+        </div>
+        {tweet.likes.length > 0 && (
+          <div className='tweet__content__clicksNum'>
+            {tweet.comments.length + tweet.retweets.length > 0 && (
+              <div className='tweet__content__clicksNum__box'>
+                <span className='tweet__content__clicksNum__box__num'>
+                  {tweet.comments.length + tweet.retweets.length + ' '}
+                </span>
+                Retweets and comments
+              </div>
+            )}
+            <div className='tweet__content__clicksNum__box'>
+              <span className='tweet__content__clicksNum__box__num'>
+                {tweet.likes.length + ' '}
+              </span>
+              Likes
+            </div>
+          </div>
+        )}
         <div className='tweet__content__options'>
           <button onClick={addComment} className='tweet__content__option'>
-            <Comments className='tweet__content__option__icon' />
+            <Comments className='tweet__content__option__icon tweet__content__option__icon--singleTweet' />
             <span className='tweet__content__option__amount'>
               {tweet.comments.length !== 0 && tweet.comments.length}
             </span>
@@ -334,7 +329,7 @@ const Tweet = ({
             <svg
               viewBox='0 0 24 24'
               ref={retweetSvg}
-              className='tweet__content__option__icon'
+              className='tweet__content__option__icon tweet__content__option__icon--singleTweet'
               style={
                 tweet.retweets.includes(user._id)
                   ? { fill: '#17bf63' }
@@ -362,7 +357,7 @@ const Tweet = ({
             <svg
               ref={likeSvg}
               viewBox='0 0 24 24'
-              className='tweet__content__option__icon'
+              className='tweet__content__option__icon tweet__content__option__icon--singleTweet'
               style={
                 tweet.likes.includes(user._id)
                   ? { fill: '#e2245e' }
@@ -384,40 +379,20 @@ const Tweet = ({
             </span>
           </button>
           <div className='tweet__content__option'>
-            <OtherOptions className='tweet__content__option__icon' />
+            <OtherOptions className='tweet__content__option__icon tweet__content__option__icon--singleTweet' />
           </div>
         </div>
       </div>
-      {tweet.ref &&
-        typeof tweet.ref === 'object' &&
-        tweet.user._id === user._id && (
-          <Link
-            to={`/${tweet.ref.user.at}/status/${tweet.ref._id}`}
-            className='tweet__ref'
-          >
-            Show this thread
-          </Link>
-        )}
     </div>
   );
 };
 
-Tweet.propTypes = {
-  user: PropTypes.object.isRequired,
-  tweet: PropTypes.object.isRequired,
-  deleteTweet: PropTypes.func.isRequired,
-  likeTweet: PropTypes.func.isRequired,
-  deleteLikeFromTweet: PropTypes.func.isRequired,
-  retweet: PropTypes.func.isRequired,
-  deleteRetweet: PropTypes.func.isRequired,
+SingleTweet.propTypes = {
+  auth: PropTypes.object.isRequired,
 };
 
-export default withRouter(
-  connect(null, {
-    deleteTweet,
-    retweet,
-    deleteRetweet,
-    likeTweet,
-    deleteLikeFromTweet,
-  })(Tweet)
-);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(SingleTweet);

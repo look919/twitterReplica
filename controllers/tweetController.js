@@ -3,14 +3,13 @@ const aws = require('aws-sdk');
 const multerS3 = require('multer-s3');
 
 const Tweet = require('./../models/tweetModel');
-const User = require('./../models/userModel');
+const User = require('../models/userModel');
 const factory = require('./handlerFactory');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 exports.createTweet - factory.createOne(Tweet);
 exports.getAllTweets = factory.getAll(Tweet);
-exports.getTweet = factory.getOne(Tweet, { path: 'user' });
 exports.updateTweet = factory.updateOne(Tweet);
 
 //const multerStorage = multer.memoryStorage();
@@ -45,16 +44,25 @@ upload = multer({
 });
 
 exports.uploadImage = upload.single('imgOrGif');
+exports.uploadUserPhotos = upload.fields([
+  { name: 'photo', maxCount: 1 },
+  { name: 'backgroundImage', maxCount: 1 },
+]);
 
 const updateModelOptions = {
   new: true,
   runValidators: true,
 };
 
+exports.getTweet = factory.getOne(Tweet, { path: 'comments' });
 exports.getTweets = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user._id)
     .populate('likes')
     .populate('retweets')
+    .populate({
+      path: 'tweets',
+      pupulate: 'ref',
+    })
     .populate({
       path: 'following',
       select:
@@ -101,12 +109,39 @@ exports.getTweets = catchAsync(async (req, res, next) => {
     ];
   });
 
-  const followedPeopleAndMe = [...user.tweets].concat(...followedPeople);
+  let finalTweetResults = [];
+
+  //concating user and following ppl tweets,
+  let followedPeopleAndMe = [...user.tweets].concat(...followedPeople);
+
+  followedPeopleAndMe.forEach((item) => {
+    //then removing similar tweets(like retweets and likes) if there are more than 2 copies of them
+    let sameTweets = followedPeopleAndMe.filter(
+      (tweet) => JSON.stringify(item._id) === JSON.stringify(tweet._id)
+    );
+
+    //if there is already a tweet with same id in final array - do nothing
+    if (
+      finalTweetResults.find(
+        (tweet) => JSON.stringify(item._id) === JSON.stringify(tweet._id)
+      )
+    ) {
+      return;
+    }
+    //if there are more than 2 docs with the same id but not added to final array just get first and the last one
+    else if (sameTweets.length > 2) {
+      sameTweets = [sameTweets[0], sameTweets[sameTweets.length - 1]];
+      finalTweetResults = [...finalTweetResults, ...sameTweets];
+      //rest of the cases - 1 or 2 tweets
+    } else {
+      finalTweetResults.push(item);
+    }
+  });
 
   res.status(201).json({
     status: 'success',
     data: {
-      data: followedPeopleAndMe,
+      data: finalTweetResults,
     },
   });
 });

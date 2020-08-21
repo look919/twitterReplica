@@ -37,7 +37,6 @@ const createSendToken = (user, statusCode, req, res) => {
 };
 exports.isLoggedIn = catchAsync(async (req, res, next) => {
   const token = req.header('Authentication');
-
   if (token) {
     // 1) verify token
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
@@ -57,7 +56,7 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
     return res.status(200).json({ user: currentUser });
   }
 
-  return next();
+  return next(new AppError('You are not logged in', 404));
 });
 
 exports.signup = catchAsync(async (req, res, next) => {
@@ -181,7 +180,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
-    // roles: admin user
+    // roles: admin user test
     if (!roles.includes(req.user.role)) {
       return next(
         new AppError('You do not have permission to perform this action', 403)

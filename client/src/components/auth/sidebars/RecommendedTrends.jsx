@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { SettingsTwo } from '../../img/Svgs';
+import { SettingsTwo } from '../../../img/Svgs';
 
 const RecommendedTrends = () => {
   return (

@@ -6,15 +6,35 @@ import LoginPage from '../nonAuth/LoginPage';
 import DevInfo from '../layout/DevInfo';
 import NotFoundPage from '../layout/NotFoundPage';
 import ExploreNonAuth from '../nonAuth/ExploreNonAuth';
-import ExploreAuth from '../auth/ExploreAuth';
+import HomePage from '../auth/HomePage';
+import SingleTweetPage from '../auth/SingleTweetPage';
+import ProfilePage from '../auth/ProfilePage.jsx';
+import EditProfilePage from '../auth/EditProfilePage';
 
 const App = () => (
   <section className='container'>
     <Switch>
       <Route path='/' component={ExploreNonAuth} exact />
-      <PrivateRoute path='/home' component={ExploreAuth} />
       <Route path='/login' component={LoginPage} exact />
       <Route path='/dev' component={DevInfo} exact />
+      <PrivateRoute path='/home' component={HomePage} />
+
+      <PrivateRoute
+        path='/:at/status/:tweetId'
+        render={(props) => <SingleTweetPage {...props} isAuthed={true} />}
+        component={SingleTweetPage}
+      />
+      <PrivateRoute
+        path='/edit/:userAt'
+        render={(props) => <EditProfilePage {...props} isAuthed={true} />}
+        component={EditProfilePage}
+      />
+      <PrivateRoute
+        path='/:userAt'
+        render={(props) => <ProfilePage {...props} isAuthed={true} />}
+        component={ProfilePage}
+      />
+
       <Route component={NotFoundPage} />
     </Switch>
   </section>

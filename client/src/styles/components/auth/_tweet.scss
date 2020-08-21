@@ -1,6 +1,5 @@
 .tweet {
   padding: 0.6rem 1.2rem;
-
   display: grid;
   grid-template-rows: min-content;
   grid-template-columns: 6rem 1fr;
@@ -10,9 +9,6 @@
 
   &:hover {
     background-color: $color-background-input;
-  }
-  &:last-of-type {
-    border-bottom: none;
   }
 
   &__img {
@@ -57,16 +53,30 @@
       font-size: 1.4rem;
       line-height: 1.2;
       color: $color-grey;
+
+      &:hover {
+        text-decoration: underline !important;
+      }
     }
     &__author {
       display: flex;
       align-items: center;
+
+      &--singleTweet {
+        padding-top: 0.6rem;
+      }
+      &__nameContainer {
+        display: flex;
+        flex-direction: column;
+        margin-right: auto;
+      }
 
       &__name {
         font-weight: 700;
         font-size: 1.5rem;
         margin-right: 5px;
         position: relative;
+        color: $color-white;
 
         &__hover {
           display: none;
@@ -75,6 +85,9 @@
           margin-top: 4rem !important;
         }
 
+        &:hover {
+          text-decoration: underline !important;
+        }
         &:hover + &__hover {
           transition: 1s;
         }
@@ -86,6 +99,21 @@
       }
       &__time {
         margin-right: auto;
+
+        &--singleTweet {
+          padding-top: 1.5rem;
+          padding-bottom: 1rem;
+          margin-left: -6rem;
+          border-bottom: 1px solid $color-line;
+        }
+
+        &__link {
+          color: $color-primary !important;
+
+          &:hover {
+            text-decoration: underline !important;
+          }
+        }
       }
       &__dot {
         padding: 0 5px;
@@ -97,7 +125,9 @@
         z-index: 5;
         display: none;
       }
-      &__input {
+      &__btn {
+        background: none;
+        border: none;
         &__icon {
           fill: $color-grey;
           height: 2.5rem;
@@ -175,9 +205,18 @@
       flex-direction: column;
       align-items: flex-start;
 
+      &--singleTweet {
+        margin-top: 1rem;
+        margin-left: -6rem;
+      }
+
       &__text {
         font-size: 1.5rem;
         line-height: 1.3125;
+
+        &--singleTweet {
+          font-size: 2.4rem;
+        }
 
         &:link,
         &:visited {
@@ -256,10 +295,40 @@
         padding: 0.5rem;
         fill: $color-grey;
         margin-right: 2px;
+
+        &--singleTweet {
+          height: 3.75rem;
+          width: 3.75rem;
+          padding: 0.75rem;
+        }
       }
       &__amount {
         color: $color-grey;
         font-size: 1.3rem;
+      }
+    }
+
+    &__clicksNum {
+      margin-left: -6rem;
+      padding: 1rem 2px;
+
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid $color-line;
+
+      &__box {
+        color: $color-grey;
+        font-size: 1.5rem;
+
+        &:last-of-type {
+          margin-left: 2rem;
+        }
+
+        &__num {
+          margin-right: 1px;
+          font-weight: 600;
+          color: $color-white;
+        }
       }
     }
   }
@@ -282,7 +351,7 @@
   }
   &__delete {
     position: fixed;
-    z-index: 1000;
+    z-index: 200;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

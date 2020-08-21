@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import defaultUser from '../../utils/defaultUser.js';
+import defaultUser from '../../../utils/defaultUser.js';
 
 import {
   TwitterLogo,
@@ -14,7 +14,7 @@ import {
   More,
   ArrowDown,
   Approved,
-} from '../../img/Svgs';
+} from '../../../img/Svgs';
 
 const NavBar = ({ user, logout }) => {
   if (!user) user = defaultUser;
@@ -50,7 +50,7 @@ const NavBar = ({ user, logout }) => {
             </h2>
           </NavLink>
           <NavLink
-            to='/test'
+            to='/dev'
             className='auth__nav__content__nav__item'
             activeClassName='auth__nav__content__nav__item--active'
           >
@@ -60,7 +60,7 @@ const NavBar = ({ user, logout }) => {
             </h2>
           </NavLink>
           <NavLink
-            to='/test'
+            to='/dev'
             className='auth__nav__content__nav__item'
             activeClassName='auth__nav__content__nav__item--active'
           >
@@ -70,7 +70,7 @@ const NavBar = ({ user, logout }) => {
             </h2>
           </NavLink>
           <NavLink
-            to='/test'
+            to='/dev'
             className='auth__nav__content__nav__item'
             activeClassName='auth__nav__content__nav__item--active'
           >
@@ -80,7 +80,7 @@ const NavBar = ({ user, logout }) => {
             </h2>
           </NavLink>
           <NavLink
-            to='/test'
+            to='/dev'
             className='auth__nav__content__nav__item'
             activeClassName='auth__nav__content__nav__item--active'
           >
@@ -90,7 +90,7 @@ const NavBar = ({ user, logout }) => {
             </h2>
           </NavLink>
           <NavLink
-            to='/test'
+            to='/dev'
             className='auth__nav__content__nav__item'
             activeClassName='auth__nav__content__nav__item--active'
           >
@@ -100,7 +100,7 @@ const NavBar = ({ user, logout }) => {
             </h2>
           </NavLink>
           <NavLink
-            to='/test'
+            to={`/${user.at}`}
             className='auth__nav__content__nav__item'
             activeClassName='auth__nav__content__nav__item--active'
           >
@@ -110,7 +110,7 @@ const NavBar = ({ user, logout }) => {
             </h2>
           </NavLink>
           <NavLink
-            to='/test'
+            to='/dev'
             className='auth__nav__content__nav__item'
             activeClassName='auth__nav__content__nav__item--active'
           >

@@ -22,11 +22,13 @@ export default function (state = initialState, action) {
   switch (type) {
     case GET_TWEETS_SUCCESS:
       return {
+        ...state,
         loadedTweets: payload.data,
         loading: false,
       };
     case GET_TWEETS_FAIL:
       return {
+        ...state,
         loadedTweets: [],
         loading: false,
       };

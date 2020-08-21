@@ -12,7 +12,26 @@ exports.getUser = factory.getOne(User, { path: 'room' });
 exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
 
+const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach((el) => {
+    if (allowedFields.includes(el)) newObj[el] = obj[el];
+  });
+
+  return newObj;
+};
+const updateModelOptions = {
+  new: true,
+  runValidators: true,
+};
+
 exports.updateMe = catchAsync(async (req, res, next) => {
+  if (req.files) {
+    if (req.files.photo) req.body.photo = req.files.photo[0].location;
+    if (req.files.backgroundImage)
+      req.body.backgroundImage = req.files.backgroundImage[0].location;
+  }
+
   // 1) Create error if user POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(
@@ -22,21 +41,24 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       )
     );
   }
-
   // 2) Filtered out unwanted fields names that are not allowed to be updated
   const filteredBody = filterObj(
     req.body,
-    'tweet',
-    'likes',
-    'following',
-    'followers'
+    'name',
+    'at',
+    'photo',
+    'backgroundImage',
+    'description',
+    'link',
+    'city'
   );
 
   // 3) Update user document
-  const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
-    new: true,
-    runValidators: true,
-  });
+  const updatedUser = await User.findOneAndUpdate(
+    { at: req.user.at },
+    filteredBody,
+    updateModelOptions
+  );
 
   res.status(200).json({
     status: 'success',
@@ -45,11 +67,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     },
   });
 });
-
-const updateModelOptions = {
-  new: true,
-  runValidators: true,
-};
 
 exports.followUser = catchAsync(async (req, res, next) => {
   const updateUserFollowingUsers = await User.findByIdAndUpdate(
@@ -110,6 +127,42 @@ exports.unFollowUser = catchAsync(async (req, res, next) => {
     status: 'success',
     data: {
       data: updateFollowingUsers,
+    },
+  });
+});
+
+exports.getProfile = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ at: req.params.userAt })
+    .populate('likes')
+    .populate('retweets')
+    .populate('tweets');
+
+  if (user) {
+    //organising data
+    //removing comments to another tweets
+    user.tweets = user.tweets.filter((tweet) => {
+      return !tweet.ref;
+    });
+    //setting up retweets
+    user.retweets.forEach((retweet) => {
+      retweet.retweet = true;
+      retweet.actionUserName = user.name;
+      retweet.actionUserAt = user.at;
+    });
+    //setting up likes
+    user.likes.forEach((like) => {
+      like.liked = true;
+      like.actionUserName = user.name;
+      like.actionUserNameAt = user.at;
+    });
+
+    user.tweets = [...user.tweets, ...user.retweets, ...user.likes];
+  }
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      data: user,
     },
   });
 });

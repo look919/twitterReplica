@@ -127,31 +127,6 @@ export const logout = () => async (dispatch) => {
   }
 };
 
-//update user
-
-// export const updateUser = (name, email, phone, address) => async (dispatch) => {
-//   const body = JSON.stringify({ name, email, address, phone });
-
-//   const config = {
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   };
-//   try {
-//     const res = await axios.patch('/api/v1/users/updateme', body, config);
-//     dispatch({
-//       type: UPDATE_USER_SUCCESS,
-//       payload: res.data.data.user,
-//     });
-//     dispatch(setAlert('Data successfully updated', 'success'));
-//   } catch (err) {
-//     dispatch(setAlert(err.response.data.message, 'danger'));
-//     dispatch({
-//       type: UPDATE_USER_FAIL,
-//       payload: err.message,
-//     });
-//   }
-// };
 // export const forgotPassword = (email) => async (dispatch) => {
 //   const body = JSON.stringify({ email });
 

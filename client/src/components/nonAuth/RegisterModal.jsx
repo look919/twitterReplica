@@ -147,6 +147,7 @@ const RegisterModal = ({
           text={'Password'}
           value={formData.password}
           onChange={onChange}
+          lengthMin={8}
         />
         <Input
           type='password'
@@ -154,6 +155,7 @@ const RegisterModal = ({
           text={'Password confirm'}
           value={formData.passwordConfirm}
           onChange={onChange}
+          lengthMin={8}
         />
         <h3 className='heading-3 registerPage__heading'>Date of birth</h3>
         <p className='registerPage__p'>

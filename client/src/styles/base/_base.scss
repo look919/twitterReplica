@@ -68,3 +68,7 @@ body {
   height: 1.2rem;
   background-color: $color-grey-dark;
 }
+
+.ReactModal__Overlay--after-open {
+  background-color: rgba(110, 118, 125, 0.4) !important;
+}
