@@ -197,7 +197,6 @@ const Tweet = ({
     }
   };
   const onTweetClicked = (e) => {
-    e.preventDefault();
     e.stopPropagation();
 
     if (e.target.id === 'tweetRedirect') {
@@ -254,7 +253,7 @@ const Tweet = ({
           id='tweetRedirect'
         >
           <Link
-            to={`${tweet.user.at}`}
+            to={`/${tweet.user.at}`}
             className='tweet__content__author__name'
             onMouseEnter={onHoverName}
             onMouseLeave={onHoverName}
@@ -294,7 +293,7 @@ const Tweet = ({
           )}
         </div>
         <div className='tweet__content__message' id='tweetRedirect'>
-          <div className='tweet__content__message__text' id='tweetRedirect'>
+          <div className='tweet__content__message__text'>
             <div>{findLinksInText(emoji(tweet.message))}</div>
           </div>
           {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (

@@ -12,8 +12,6 @@ import SingleTweet from './SingleTweet';
 import Tweet from '../mainContent/tweet/Tweet';
 import LoadingGif from '../../../img/loading.gif';
 
-import defaultUser from '../../../utils/defaultUser';
-
 const GetTweet = ({
   user,
   paramTweet,

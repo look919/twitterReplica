@@ -41,7 +41,7 @@ const GetProfile = ({
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>
-  ) : (!loading && data === null) || paramUser !== data.at ? (
+  ) : !loading && data === null ? (
     <h2 className='heading-3 getTweets__endMessage'>
       There was a problem while loading tweet
     </h2>

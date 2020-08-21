@@ -61,20 +61,20 @@ const EditProfile = ({ profile, updateUser }) => {
     <div className='editProfile'>
       <div className='editProfile__heading'>
         <h2 className='heading-2'>Edit your profile</h2>
-        <button
-          onClick={(e) => handleUpdate(e)}
-          className='btn editProfile__heading__btn'
-        >
-          {!formData.loading ? (
-            'Update'
-          ) : (
-            <img
-              src={LoadingGif}
-              className='editProfile__heading__btn__loading'
-              alt='loading..'
-            />
-          )}
-        </button>
+        {!formData.loading ? (
+          <button
+            onClick={(e) => handleUpdate(e)}
+            className='btn editProfile__heading__btn'
+          >
+            Update
+          </button>
+        ) : (
+          <img
+            src={LoadingGif}
+            className='editProfile__heading__btn__loading'
+            alt='loading..'
+          />
+        )}
       </div>
       <Input
         type='text'

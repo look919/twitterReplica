@@ -7,7 +7,7 @@ let config = [
     fn: (key, result) => (
       <span key={key}>
         <a
-          className='mainContent__tweet__content__text'
+          className='tweet__content__text'
           target='_blank'
           rel='noopener noreferrer'
           href={`${result[1]}://${result[2]}.${result[3]}${
