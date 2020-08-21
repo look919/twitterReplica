@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -65,7 +66,9 @@ const SingleProfile = ({
           {editProfile ? (
             <div>&nbsp;</div>
           ) : user._id === profile._id ? (
-            <button className='btn btn--dark'>Set up profile</button>
+            <Link to={`/edit/${profile.at}`} className='btn btn--dark'>
+              Set up profile
+            </Link>
           ) : user.following.includes(profile._id) ? (
             <button onClick={onUnFollow} className='btn'>
               Following

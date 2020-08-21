@@ -1,6 +1,14 @@
 import React from 'react';
 
-const Input = ({ type, name, text, value, length = 0, onChange }) => {
+const Input = ({
+  type,
+  name,
+  text,
+  value,
+  length = 50,
+  onChange,
+  lengthMin = 0,
+}) => {
   return (
     <div className='input-container'>
       <input
@@ -9,7 +17,8 @@ const Input = ({ type, name, text, value, length = 0, onChange }) => {
         value={value}
         name={name}
         onChange={onChange}
-        minLength={length}
+        maxLength={length}
+        minLength={lengthMin}
       />
       <p className='input-container__p'>{text}</p>
     </div>

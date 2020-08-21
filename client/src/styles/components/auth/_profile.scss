@@ -150,8 +150,15 @@
     margin-bottom: 2rem;
 
     &__btn {
+      display: flex;
+      justify-content: center;
       margin: 0 !important;
       padding: 0.6rem 3rem !important;
+
+      &__loading {
+        height: 2.25rem;
+        width: 2.25rem;
+      }
     }
   }
 }

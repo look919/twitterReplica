@@ -34,7 +34,7 @@ const GetAllTweets = ({
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>
-  ) : !loading && !loadedTweets ? (
+  ) : !loading && loadedTweets.length === 0 ? (
     <h2 className='heading-3 getTweets__endMessage'>
       For more tweets follow more users!
     </h2>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getProfile } from '../../../actions/user';
+import { getProfile, updateUser } from '../../../actions/user';
 import { v4 as uuidv4 } from 'uuid';
 
 import loadTweets from '../../../selectors/selectTweets';
@@ -17,13 +17,14 @@ const GetProfile = ({
   user,
   paramUser,
   getProfile,
+  updateUser,
   tweets: { loadedTweets },
   profile: { data, loading },
   editProfile,
 }) => {
   useEffect(() => {
     getProfile(paramUser);
-  }, [loadedTweets, getProfile, paramUser]);
+  }, [loadedTweets, getProfile, editProfile, paramUser]);
 
   const [isMore, setIsMore] = useState(true);
   const [renderedAmount, setRenderedAmount] = useState(10);
@@ -36,11 +37,11 @@ const GetProfile = ({
     setRenderedAmount(renderedAmount + 10);
   };
 
-  return loading || paramUser !== data.at || !user ? (
+  return loading || !user ? (
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>
-  ) : !loading && data === null ? (
+  ) : (!loading && data === null) || paramUser !== data.at ? (
     <h2 className='heading-3 getTweets__endMessage'>
       There was a problem while loading tweet
     </h2>
@@ -68,7 +69,7 @@ const GetProfile = ({
           ))}
         </InfiniteScroll>
       ) : (
-        <EditProfile profile={data} />
+        <EditProfile profile={data} updateUser={updateUser} />
       )}
     </Fragment>
   );
@@ -82,4 +83,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getProfile })(GetProfile);
+export default connect(mapStateToProps, { getProfile, updateUser })(GetProfile);

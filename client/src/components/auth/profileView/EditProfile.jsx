@@ -1,12 +1,12 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import Input from '../../smallParts/Input';
 
 import { EditProfilePhoto } from '../../../img/Svgs';
+import LoadingGif from '../../../img/loading.gif';
 
-const EditProfile = ({ profile }) => {
+const EditProfile = ({ profile, updateUser }) => {
   const [formData, setFormData] = useState({
     name: '',
-    at: '',
     photo: '',
     backgroundImage: '',
     description: '',
@@ -34,8 +34,25 @@ const EditProfile = ({ profile }) => {
     });
   };
 
-  const handleUpdate = () => {
-    console.log('test');
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    setFormData({
+      ...formData,
+      loading: true,
+    });
+
+    await updateUser(formData);
+
+    setFormData({
+      name: '',
+      at: '',
+      photo: '',
+      backgroundImage: '',
+      description: '',
+      link: '',
+      city: '',
+      loading: false,
+    });
   };
 
   if (!profile) return null;
@@ -45,10 +62,18 @@ const EditProfile = ({ profile }) => {
       <div className='editProfile__heading'>
         <h2 className='heading-2'>Edit your profile</h2>
         <button
-          onClick={handleUpdate}
+          onClick={(e) => handleUpdate(e)}
           className='btn editProfile__heading__btn'
         >
-          Update
+          {!formData.loading ? (
+            'Update'
+          ) : (
+            <img
+              src={LoadingGif}
+              className='editProfile__heading__btn__loading'
+              alt='loading..'
+            />
+          )}
         </button>
       </div>
       <Input
@@ -56,14 +81,6 @@ const EditProfile = ({ profile }) => {
         name='name'
         text={profile.name}
         value={formData.name}
-        onChange={onChange}
-        length={50}
-      />
-      <Input
-        type='text'
-        name='at'
-        text={profile.at}
-        value={formData.at}
         onChange={onChange}
         length={50}
       />
@@ -91,14 +108,14 @@ const EditProfile = ({ profile }) => {
           type='file'
           accept='image/*'
           className='input--file'
-          text={'Background Photo'}
+          text={'Background photo'}
           onChange={onBackgroundChange}
           id={'background'}
         />
         <label htmlFor={'background'} className='input label'>
           <EditProfilePhoto className={'input--file__icon'} />{' '}
           <span className='input--file__text'>
-            {formData.photo
+            {formData.backgroundImage
               ? `Choosed: ${formData.backgroundImage.name}`
               : 'Choose background photo'}
           </span>

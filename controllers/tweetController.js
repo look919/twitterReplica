@@ -44,6 +44,10 @@ upload = multer({
 });
 
 exports.uploadImage = upload.single('imgOrGif');
+exports.uploadUserPhotos = upload.fields([
+  { name: 'photo', maxCount: 1 },
+  { name: 'backgroundImage', maxCount: 1 },
+]);
 
 const updateModelOptions = {
   new: true,

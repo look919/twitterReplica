@@ -54,7 +54,7 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
         value={formData.password}
         text={'Hasło'}
         onChange={onChange}
-        length={8}
+        lengthMin={8}
       />
       <button
         className='btn btn--wide'

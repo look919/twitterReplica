@@ -1,4 +1,9 @@
-import { GET_PROFILE_SUCCESS, GET_PROFILE_FAIL } from '../actions/types';
+import {
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAIL,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAIL,
+} from '../actions/types';
 
 const initialState = {
   data: null,
@@ -10,8 +15,9 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case GET_PROFILE_SUCCESS:
+    case UPDATE_USER_SUCCESS:
       return {
-        data: payload.data,
+        data: payload,
         loading: false,
       };
     case GET_PROFILE_FAIL:
@@ -20,6 +26,7 @@ export default function (state = initialState, action) {
         loading: false,
       };
 
+    case UPDATE_USER_FAIL:
     default:
       return state;
   }
