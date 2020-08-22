@@ -79,7 +79,7 @@ const EditProfile = ({ profile, updateUser }) => {
       <Input
         type='text'
         name='name'
-        text={profile.name}
+        text={`Name - ${profile.name}`}
         value={formData.name}
         onChange={onChange}
         length={50}
@@ -126,7 +126,7 @@ const EditProfile = ({ profile, updateUser }) => {
       <Input
         type='text'
         name='description'
-        text={'Bio'}
+        text={`Bio - ${profile.description.substr(0, 20)}...`}
         value={formData.description}
         onChange={onChange}
         length={240}
@@ -134,7 +134,7 @@ const EditProfile = ({ profile, updateUser }) => {
       <Input
         type='text'
         name='city'
-        text={'City'}
+        text={`City - ${profile.city}`}
         value={formData.city}
         onChange={onChange}
         length={50}
@@ -142,7 +142,7 @@ const EditProfile = ({ profile, updateUser }) => {
       <Input
         type='website'
         name='link'
-        text={'WWW'}
+        text={`WWW - ${profile.link}`}
         value={formData.link}
         onChange={onChange}
         length={50}

@@ -10,7 +10,7 @@ const Input = ({
   lengthMin = 0,
 }) => {
   return (
-    <div className='input-container'>
+    <div className='input-container' tabIndex='1'>
       <input
         className={value ? 'input input--borderBlue' : 'input'}
         type={type}
@@ -19,6 +19,8 @@ const Input = ({
         onChange={onChange}
         maxLength={length}
         minLength={lengthMin}
+        autoComplete='off'
+        tabIndex='2'
       />
       <p className='input-container__p'>{text}</p>
     </div>

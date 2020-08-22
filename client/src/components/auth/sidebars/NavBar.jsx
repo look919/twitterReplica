@@ -140,7 +140,10 @@ const NavBar = ({ user, logout }) => {
               </div>
               <Approved className='auth__nav__content__userBox__icon' />
             </Link>
-            <Link to='/dev' className='auth__nav__content__userBox__link'>
+            <Link
+              to={`/edit/${user.at}`}
+              className='auth__nav__content__userBox__link'
+            >
               Edit profile
             </Link>
             <button
