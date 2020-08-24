@@ -1,7 +1,7 @@
 import { GET_ALL_USERS_SUCCESS, GET_ALL_USERS_FAIL } from '../actions/types';
 
 const initialState = {
-  data: null,
+  data: [],
   loading: true,
 };
 

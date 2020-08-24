@@ -244,7 +244,6 @@
     //styles for follow component that are not inherited from trends
     &__follow {
       padding: 1rem 0;
-      margin-bottom: 1.5rem;
 
       &__heading,
       &__more {
@@ -301,6 +300,7 @@
       display: flex;
       align-items: center;
       justify-content: space-evenly;
+      margin-top: 1.5rem;
 
       &__item {
         display: flex;

@@ -36,8 +36,6 @@ const SingleProfile = ({
     setActionLoading(true);
     await follow(profile);
     setActionLoading(false);
-
-    profile.followers.push(user._id);
   };
   const onUnFollow = async (e) => {
     e.preventDefault();
@@ -46,8 +44,6 @@ const SingleProfile = ({
     setActionLoading(true);
     await unFollow(profile);
     setActionLoading(false);
-
-    profile.followers.filter((id) => id !== user._id);
   };
 
   return (

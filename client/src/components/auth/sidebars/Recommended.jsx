@@ -1,11 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { Search, ArrowDown } from '../../../img/Svgs';
 import RecommendedTrends from './RecommendedTrends';
 import RecommendedToFollow from './RecommendedToFollow';
 
-const Recommended = () => {
+const Recommended = ({ auth: { loading, user }, users }) => {
+  if (!user && !loading) return null;
+
   return (
     <nav className='auth__recommended'>
       <div className='auth__recommended__content'>
@@ -17,7 +22,10 @@ const Recommended = () => {
           <Search className='input-search-container__icon input-search-container__icon--big' />
         </form>
         <RecommendedTrends />
-        <RecommendedToFollow />
+
+        {!users.loading && users.data && (
+          <RecommendedToFollow loggedAccount={user} users={users.data} />
+        )}
         <div className='auth__recommended__content__footer'>
           <Link to='/dev' className='auth__recommended__content__footer__item'>
             Terms
@@ -48,4 +56,14 @@ const Recommended = () => {
   );
 };
 
-export default Recommended;
+Recommended.propTypes = {
+  users: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  users: state.users,
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(Recommended);

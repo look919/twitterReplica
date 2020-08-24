@@ -1,30 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import defaultUser from '../../../img/default_profile.png';
+
+import selectUsers from '../../../selectors/getWhoToFollowUsers';
 import RecommendedToFollowProfile from './RecommendedToFollowProfile';
 
-const RecommendedToFollow = () => {
+const RecommendedToFollow = ({ loggedAccount, users }) => {
   return (
     <div className='auth__recommended__content__follow'>
       <div className='auth__recommended__content__follow__heading'>
         <h2 className='heading-2'>Who to follow</h2>
       </div>
       <div className='auth__recommended__content__follow__users'>
-        <RecommendedToFollowProfile
-          name='Default Profile1'
-          at='DefaultProfile1'
-          img={defaultUser}
-        />
-        <RecommendedToFollowProfile
-          name='Default Profile2'
-          at='DefaultProfile2'
-          img={defaultUser}
-        />
-        <RecommendedToFollowProfile
-          name='Default Profile3'
-          at='DefaultProfile3'
-          img={defaultUser}
-        />
+        {selectUsers(loggedAccount, users).map((recommendedProfile) => (
+          <RecommendedToFollowProfile
+            user={loggedAccount}
+            profile={recommendedProfile}
+            key={recommendedProfile._id}
+          />
+        ))}
         <Link
           to='/dev'
           className='auth__recommended__content__follow__users__item'

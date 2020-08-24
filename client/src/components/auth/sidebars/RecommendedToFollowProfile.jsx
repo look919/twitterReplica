@@ -1,25 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const RecommendedToFollowProfile = ({ name, at, img }) => {
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { follow, unFollow } from '../../../actions/user';
+import LoadingGif from '../../../img/loading.gif';
+
+const RecommendedToFollowProfile = ({ user, profile, follow, unFollow }) => {
+  const [actionLoading, setActionLoading] = useState(false);
+
+  const onFollow = async (e) => {
+    e.preventDefault();
+
+    setActionLoading(true);
+    await follow(profile);
+    setActionLoading(false);
+  };
+  const onUnFollow = async (e) => {
+    e.preventDefault();
+
+    setActionLoading(true);
+    await unFollow(profile);
+    setActionLoading(false);
+  };
+
   return (
-    <Link to='/dev' className='auth__recommended__content__follow__users__user'>
+    <Link
+      to={`/${profile.at}`}
+      className='auth__recommended__content__follow__users__user'
+    >
       <img
-        src={img}
+        src={profile.photo}
         className='auth__recommended__content__follow__users__user__photo'
         alt='profile'
       />
       <div className='auth__recommended__content__follow__users__user__text'>
         <h3 className='heading-3 auth__recommended__content__follow__users__user__text__name'>
-          {name}
+          {profile.name}
         </h3>
         <p className='auth__recommended__content__follow__users__user__text__p'>
-          {at}
+          {profile.at}
         </p>
       </div>
-      <button className='btn btn--dark'>Follow</button>
+      {actionLoading ? (
+        <img
+          src={LoadingGif}
+          className='editProfile__heading__btn__loading'
+          alt='loading...'
+        />
+      ) : user.following.includes(profile._id) ? (
+        <button onClick={onUnFollow} className='btn'>
+          Following
+        </button>
+      ) : (
+        <button onClick={onFollow} className='btn btn--dark'>
+          Follow
+        </button>
+      )}
     </Link>
   );
 };
+RecommendedToFollowProfile.propTypes = {
+  user: PropTypes.object.isRequired,
+  follow: PropTypes.func.isRequired,
+  unFollow: PropTypes.func.isRequired,
+};
 
-export default RecommendedToFollowProfile;
+export default connect(null, { follow, unFollow })(RecommendedToFollowProfile);

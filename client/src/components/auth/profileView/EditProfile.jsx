@@ -69,11 +69,7 @@ const EditProfile = ({ profile, updateUser }) => {
             Update
           </button>
         ) : (
-          <img
-            src={LoadingGif}
-            className='editProfile__heading__btn__loading'
-            alt='loading..'
-          />
+          <img src={LoadingGif} className='loading' alt='loading..' />
         )}
       </div>
       <Input
