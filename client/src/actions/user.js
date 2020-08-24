@@ -10,12 +10,32 @@ import {
   FOLLOW_FAIL,
   UNFOLLOW_SUCCESS,
   UNFOLLOW_FAIL,
+  GET_ALL_USERS_SUCCESS,
+  GET_ALL_USERS_FAIL,
 } from './types';
 
 const config = {
   headers: {
     'Content-Type': 'application/json',
   },
+};
+
+//follow
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/v1/users?fields=name,at,photo`);
+
+    dispatch({
+      type: GET_ALL_USERS_SUCCESS,
+      payload: res.data.data.data,
+    });
+  } catch (err) {
+    dispatch(setAlert(err.response.data.message, 'danger'));
+    dispatch({
+      type: GET_ALL_USERS_FAIL,
+      payload: err.message,
+    });
+  }
 };
 
 //follow
