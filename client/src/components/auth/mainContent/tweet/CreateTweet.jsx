@@ -26,6 +26,7 @@ const CreateTweet = ({
   user: { user },
   createTweet,
   placeholder,
+  fileUploadId,
   reply = '',
 }) => {
   if (!user) user = defaultUser;
@@ -70,7 +71,6 @@ const CreateTweet = ({
     });
   };
   const addImgToTweet = (e) => {
-    e.preventDefault();
     if (e.target.files[0]) {
       setTweet({
         ...tweet,
@@ -148,12 +148,12 @@ const CreateTweet = ({
         <input
           type='file'
           accept='image/*'
-          id='file'
+          id={fileUploadId}
           onChange={addImgToTweet}
           className='createTweet__options__fileInput'
         />
         <label
-          htmlFor='file'
+          htmlFor={fileUploadId}
           className='createTweet__options__iconHandler createTweet__options__iconHandler--label'
         >
           <AddImage className='createTweet__options__icon' />

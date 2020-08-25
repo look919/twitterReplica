@@ -16,14 +16,16 @@ router.post('/logout', authController.logout);
 
 //USERS AUTHENTICATED
 router.use(authController.protect);
+router.patch('/follow', userController.followUser);
+router.patch('/unfollow', userController.unFollowUser);
+
+router.use(authController.restrictTo('admin', 'user'));
 router.patch(
   '/updateMe',
   tweetController.uploadUserPhotos,
   userController.updateMe
 );
 router.patch('/updatepassword', authController.updatePassword);
-router.patch('/follow', userController.followUser);
-router.patch('/unfollow', userController.unFollowUser);
 
 //RESTRICTED TO ADMIN
 router.use(authController.restrictTo('admin'));

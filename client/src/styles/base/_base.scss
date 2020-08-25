@@ -24,10 +24,10 @@ body {
   width: 100%;
 }
 .devinfo {
-  color: $color-white;
-  font-style: italic;
+  color: $color-grey;
   margin-top: 0.5rem;
   text-align: center;
+  font-size: 1.5rem;
 
   ::selection {
     background-color: $color-primary-dark;

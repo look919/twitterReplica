@@ -8,17 +8,12 @@ import findLinksInText from '../../../../utils/findLinksInText';
 import emoji from 'react-easy-emoji';
 import { Exit } from '../../../../img/Svgs';
 
-const customStyles = {
-  overlay: { zIndex: 1000 },
-};
-
 const AddCommentTweet = ({ isOpen, closeModal, tweet }) => {
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={closeModal}
       className='comment'
-      styles={customStyles}
       ariaHideApp={false}
     >
       <button onClick={closeModal} className='comment__header'>
@@ -58,7 +53,11 @@ const AddCommentTweet = ({ isOpen, closeModal, tweet }) => {
             </div>
           </div>
         </section>
-        <CreateTweet placeholder='Tweet your reply' reply={tweet._id} />
+        <CreateTweet
+          placeholder='Tweet your reply'
+          reply={tweet._id}
+          fileUploadId='comment'
+        />
       </div>
     </Modal>
   );

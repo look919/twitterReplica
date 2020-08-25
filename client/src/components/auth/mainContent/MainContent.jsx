@@ -26,7 +26,7 @@ const MainContent = ({ user: { user } }) => {
           <Star className='mainContent__header__content__icon' />
         </div>
       </div>
-      <CreateTweet placeholder='Whats happening?' />
+      <CreateTweet placeholder='Whats happening?' fileUploadId='mainContent' />
       <div className='breakline'>&nbsp;</div>
       <GetTweets user={user} />
     </main>

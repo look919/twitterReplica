@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import Modal from 'react-modal';
+import CreateTweet from '../mainContent/tweet/CreateTweet';
 import defaultUser from '../../../utils/defaultUser.js';
 
 import {
@@ -14,13 +16,23 @@ import {
   More,
   ArrowDown,
   Approved,
+  Exit,
 } from '../../../img/Svgs';
 
 const NavBar = ({ user, logout }) => {
   if (!user) user = defaultUser;
 
   const [userBox, setUserBox] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = (e) => {
+    e.preventDefault();
+    setIsModalOpen(true);
+  };
+  const closeModal = (e) => {
+    e.preventDefault();
+    setIsModalOpen(false);
+  };
   const handleSetUserBox = () => {
     userBox ? setUserBox(false) : setUserBox(true);
   };
@@ -40,9 +52,10 @@ const NavBar = ({ user, logout }) => {
         </div>
         <nav className='auth__nav__content__nav'>
           <NavLink
-            to='/'
+            to='/home'
             className='auth__nav__content__nav__item'
             activeClassName='auth__nav__content__nav__item--active'
+            exact={true}
           >
             <Home className='auth__nav__content__nav__item__icon' />{' '}
             <h2 className='heading-2 auth__nav__content__nav__item__text'>
@@ -119,7 +132,32 @@ const NavBar = ({ user, logout }) => {
               More
             </h2>
           </NavLink>
-          <button className='btn btn--wide btn--'>Tweet</button>
+
+          <button onClick={openModal} className='btn btn--wide btn--'>
+            Tweet
+          </button>
+          <Modal
+            isOpen={isModalOpen}
+            onRequestClose={closeModal}
+            className='auth__nav__content__createTweet'
+            ariaHideApp={false}
+          >
+            <div className='auth__nav__content__createTweet__header'>
+              <button
+                onClick={closeModal}
+                className='auth__nav__content__createTweet__header__btn'
+              >
+                <Exit className='aut1via1qwwkc2ssfu0sy7c6qhr8e4curh64j8vglc0pz0mglc0pz0m__btn__icon' />
+              </button>
+            </div>
+            <div className='auth__nav__content__createTweet__creator'>
+              <CreateTweet
+                placeholder="What's happening?"
+                modal={true}
+                fileUploadId='modal'
+              />
+            </div>
+          </Modal>
         </nav>
         {userBox && (
           <div className='auth__nav__content__userBox'>

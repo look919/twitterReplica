@@ -293,8 +293,10 @@ const Tweet = ({
           )}
         </div>
         <div className='tweet__content__message' id='tweetRedirect'>
-          <div className='tweet__content__message__text'>
-            <div>{findLinksInText(emoji(tweet.message))}</div>
+          <div id='tweetRedirect' className='tweet__content__message__text'>
+            <div id='tweetRedirect'>
+              {findLinksInText(emoji(tweet.message))}
+            </div>
           </div>
           {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (
             <img

@@ -14,7 +14,6 @@ router
   .post(tweetController.uploadImage, tweetController.createTweet);
 
 router.route('/getTweets').get(tweetController.getTweets);
-router.route('/:tweetId').patch(tweetController.deleteTweet);
 router.route('/:tweetId/retweet').patch(tweetController.addRetweet);
 router.route('/:tweetId/delete-retweet').patch(tweetController.deleteRetweet);
 router.route('/:tweetId/like').patch(tweetController.addLikeToTweet);
@@ -22,6 +21,7 @@ router
   .route('/:tweetId/delete-like')
   .patch(tweetController.deleteLikeFromTweet);
 
-router.use(authController.restrictTo('admin'));
+router.use(authController.restrictTo('admin', 'user'));
+router.route('/:tweetId').patch(tweetController.deleteTweet);
 router.route('/update/:id').patch(tweetController.updateTweet);
 module.exports = router;

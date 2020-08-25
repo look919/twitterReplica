@@ -10,6 +10,7 @@ let config = [
           className='tweet__content__text'
           target='_blank'
           rel='noopener noreferrer'
+          id='randomlinkintext'
           href={`${result[1]}://${result[2]}.${result[3]}${
             result[4] && result[4]
           }
