@@ -1,4 +1,4 @@
-export default (loggedAcc, users) => {
+export default (loggedAcc, users, amount) => {
   return users
     .filter(
       (user) =>
@@ -6,5 +6,5 @@ export default (loggedAcc, users) => {
         !loggedAcc.following.includes(user._id) &&
         loggedAcc._id !== user._id
     )
-    .slice(0, 3);
+    .slice(0, amount);
 };

@@ -208,6 +208,26 @@
       border-radius: 0.5rem;
       box-shadow: 0 0 1rem 2px rgba($color-white, 0.2);
 
+      &__empty {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        background-color: $color-background;
+        box-shadow: 0 0 1rem 2px rgba($color-white, 0.2);
+
+        padding: 1rem;
+
+        &__icon {
+          height: 2rem;
+          width: 2rem;
+          fill: $color-grey;
+          margin-right: 1rem;
+        }
+        &__text {
+          font-size: 1.5rem;
+        }
+      }
+
       &__item {
         padding: 1rem;
         display: flex;
@@ -283,6 +303,12 @@
           cursor: pointer;
         }
       }
+      &__more {
+        padding-top: 0.6rem;
+        font-weight: 700;
+        align-self: flex-start !important;
+      }
+
       &__list {
         display: flex;
         flex-direction: column;
@@ -290,16 +316,11 @@
         font-weight: 700;
 
         &__item {
-          padding-top: 0.6rem;
-          padding-bottom: 0.2rem;
+          padding: 0.6rem;
           color: $color-white;
           font-size: 1.5rem;
           font-weight: 700;
-
-          &:not(:last-of-type) {
-            border-bottom: 1px solid $color-line;
-            padding: 0.6rem 0;
-          }
+          border-bottom: 1px solid $color-line;
 
           &:visited,
           &:link {
@@ -319,8 +340,9 @@
         padding-bottom: 1.2rem;
       }
       &__more {
-        color: $color-primary;
+        padding-bottom: 0;
         font-weight: 700;
+        align-self: flex-start !important;
       }
 
       &__users {

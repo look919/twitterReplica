@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Search, ArrowDown } from '../../../img/Svgs';
+import { Search, ArrowDown, SadFace } from '../../../img/Svgs';
 import RecommendedTrends from './RecommendedTrends';
 import RecommendedToFollow from './RecommendedToFollow';
 import SearchResult from './SearchResult';
@@ -12,9 +12,11 @@ import findUsers from '../../../selectors/findUsers';
 
 const Recommended = ({ auth: { loading, user }, users }) => {
   const [search, setSearch] = useState('');
+  const searchedUsers = findUsers(users.data, search);
 
   if (!user && !loading) return null;
 
+  console.log(search.length, searchedUsers.length);
   return (
     <nav className='auth__recommended'>
       <div className='auth__recommended__content'>
@@ -27,12 +29,22 @@ const Recommended = ({ auth: { loading, user }, users }) => {
           />
           <Search className='input-search-container__icon input-search-container__icon--big' />
         </form>
-        {search.length > 2 && (
+        {search.length > 2 && searchedUsers.length > 0 ? (
           <div className='auth__recommended__content__search-results'>
-            {findUsers(users.data, search).map((profile) => (
+            {searchedUsers.map((profile) => (
               <SearchResult user={user} profile={profile} key={profile._id} />
             ))}
           </div>
+        ) : (
+          search.length > 2 &&
+          searchedUsers.length === 0 && (
+            <div className='auth__recommended__content__search-results__empty'>
+              <SadFace className='auth__recommended__content__search-results__empty__icon' />
+              <span className='auth__recommended__content__search-results__empty__text'>
+                No such user found
+              </span>
+            </div>
+          )
         )}
         <RecommendedTrends />
         {!users.loading && users.data && (
