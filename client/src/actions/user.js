@@ -23,7 +23,9 @@ const config = {
 //follow
 export const getAllUsers = () => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/v1/users?fields=name,at,photo,following`);
+    const res = await axios.get(
+      `/api/v1/users?fields=name,at,photo,following,followers`
+    );
 
     dispatch({
       type: GET_ALL_USERS_SUCCESS,
