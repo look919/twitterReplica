@@ -12,8 +12,6 @@ import SingleTweet from './SingleTweet';
 import Tweet from '../mainContent/tweet/Tweet';
 import LoadingGif from '../../../img/loading.gif';
 
-import defaultUser from '../../../utils/defaultUser';
-
 const GetTweet = ({
   user,
   paramTweet,
@@ -36,17 +34,18 @@ const GetTweet = ({
     setRenderedAmount(renderedAmount + 10);
   };
 
-  return loading || paramTweet !== tweet._id || !user ? (
+  return loading || !user ? (
     <div className='getTweets'>
       <img src={LoadingGif} className='getTweets__loading' alt='loading...' />
     </div>
-  ) : !loading && tweet === null ? (
+  ) : !loading && !tweet ? (
     <h2 className='heading-3 getTweets__endMessage'>
       There was a problem while loading tweet
     </h2>
   ) : (
     <Fragment>
       <SingleTweet tweet={tweet} user={user} />
+
       {tweet.comments.length > 0 && (
         <InfiniteScroll
           dataLength={renderedAmount}

@@ -53,7 +53,11 @@ const AddCommentTweet = ({ isOpen, closeModal, tweet }) => {
             </div>
           </div>
         </section>
-        <CreateTweet placeholder='Tweet your reply' reply={tweet._id} />
+        <CreateTweet
+          placeholder='Tweet your reply'
+          reply={tweet._id}
+          fileUploadId='comment'
+        />
       </div>
     </Modal>
   );

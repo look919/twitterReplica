@@ -331,6 +331,17 @@
         }
       }
     }
+    &__text {
+      position: relative;
+      z-index: 50;
+      &:link,
+      &:visited {
+        color: $color-primary !important;
+      }
+      &:hover {
+        text-decoration: underline !important;
+      }
+    }
   }
   &__ref {
     grid-row: 2 / 3;

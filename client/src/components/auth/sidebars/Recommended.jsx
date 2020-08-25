@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Search, ArrowDown } from '../../../img/Svgs';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import { Search, ArrowDown, SadFace } from '../../../img/Svgs';
 import RecommendedTrends from './RecommendedTrends';
 import RecommendedToFollow from './RecommendedToFollow';
+import SearchResult from './SearchResult';
+import findUsers from '../../../selectors/findUsers';
 
-const Recommended = () => {
+const Recommended = ({ auth: { loading, user }, users }) => {
+  const [search, setSearch] = useState('');
+  const searchedUsers = findUsers(users.data, search);
+
+  if (!user && !loading) return null;
+
   return (
     <nav className='auth__recommended'>
       <div className='auth__recommended__content'>
@@ -13,11 +23,32 @@ const Recommended = () => {
           <input
             className='input-search input-search--big'
             placeholder='Search Twitter'
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
           <Search className='input-search-container__icon input-search-container__icon--big' />
         </form>
+        {search.length > 2 && searchedUsers.length > 0 ? (
+          <div className='auth__recommended__content__search-results'>
+            {searchedUsers.map((profile) => (
+              <SearchResult user={user} profile={profile} key={profile._id} />
+            ))}
+          </div>
+        ) : (
+          search.length > 2 &&
+          searchedUsers.length === 0 && (
+            <div className='auth__recommended__content__search-results__empty'>
+              <SadFace className='auth__recommended__content__search-results__empty__icon' />
+              <span className='auth__recommended__content__search-results__empty__text'>
+                No such user found
+              </span>
+            </div>
+          )
+        )}
         <RecommendedTrends />
-        <RecommendedToFollow />
+        {!users.loading && users.data && (
+          <RecommendedToFollow loggedAccount={user} users={users.data} />
+        )}
         <div className='auth__recommended__content__footer'>
           <Link to='/dev' className='auth__recommended__content__footer__item'>
             Terms
@@ -37,15 +68,26 @@ const Recommended = () => {
             <ArrowDown className='auth__recommended__content__footer__item__icon' />
           </Link>
         </div>
-        <Link
-          to='/dev'
+        <a
+          href='https://www.tomaszwirkus.com/'
+          target='_blanc'
           className='auth__recommended__content__footer__item auth__recommended__content__footer__item--copyright'
         >
           &copy; 2020 Twitter replica by Wirkus Tomasz
-        </Link>
+        </a>
       </div>
     </nav>
   );
 };
 
-export default Recommended;
+Recommended.propTypes = {
+  users: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  users: state.users,
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(Recommended);

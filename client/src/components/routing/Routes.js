@@ -33,6 +33,7 @@ const App = () => (
         path='/:userAt'
         render={(props) => <ProfilePage {...props} isAuthed={true} />}
         component={ProfilePage}
+        exact
       />
 
       <Route component={NotFoundPage} />

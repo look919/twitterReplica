@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import findLinksInText from '../../../utils/findLinksInText';
 import emoji from 'react-easy-emoji';
 
+import LoadingGif from '../../../img/loading.gif';
 import { follow, unFollow } from '../../../actions/user';
 
 import {
@@ -24,22 +25,26 @@ const SingleProfile = ({
   unFollow,
   editProfile,
 }) => {
-  if (loading || !user) return null;
+  const [actionLoading, setActionLoading] = useState(false);
 
   const onFollow = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
+    setActionLoading(true);
     await follow(profile);
-    profile.followers.push(user._id);
+    setActionLoading(false);
   };
   const onUnFollow = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
+    setActionLoading(true);
     await unFollow(profile);
-    profile.followers.filter((id) => id !== user._id);
+    setActionLoading(false);
   };
+
+  if (loading || !user) return null;
 
   return (
     <div className='profile'>
@@ -63,7 +68,13 @@ const SingleProfile = ({
             </Fragment>
           )}
 
-          {editProfile ? (
+          {actionLoading ? (
+            <img
+              src={LoadingGif}
+              className='editProfile__heading__btn__loading'
+              alt='loading...'
+            />
+          ) : !actionLoading && editProfile ? (
             <div>&nbsp;</div>
           ) : user._id === profile._id ? (
             <Link to={`/edit/${profile.at}`} className='btn btn--dark'>
@@ -74,7 +85,7 @@ const SingleProfile = ({
               Following
             </button>
           ) : (
-            <button onClick={onFollow} className='btn'>
+            <button onClick={onFollow} className='btn btn--dark'>
               Follow
             </button>
           )}

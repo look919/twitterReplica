@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get('/auth', authController.isLoggedIn);
 router.route('/:userAt').get(userController.getProfile);
+router.route('/').get(userController.getAllUsers);
 
 router.post('/signup', authController.signup);
 router.patch('/activate', authController.activate);
@@ -15,19 +16,20 @@ router.post('/logout', authController.logout);
 
 //USERS AUTHENTICATED
 router.use(authController.protect);
+router.patch('/follow', userController.followUser);
+router.patch('/unfollow', userController.unFollowUser);
+
+router.use(authController.restrictTo('admin', 'user'));
 router.patch(
   '/updateMe',
   tweetController.uploadUserPhotos,
   userController.updateMe
 );
 router.patch('/updatepassword', authController.updatePassword);
-router.patch('/follow', userController.followUser);
-router.patch('/unfollow', userController.unFollowUser);
 
 //RESTRICTED TO ADMIN
 router.use(authController.restrictTo('admin'));
 
-router.route('/').get(userController.getAllUsers);
 router
   .route('/:id')
   .delete(userController.deleteUser)

@@ -1,8 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import ExploreHeader from './ExploreHeader';
 import ExploreContent from './ExploreContent';
 
-const ExploreNonAuth = () => {
+const ExploreNonAuth = ({ auth: { loading } }) => {
+  if (loading) return null;
+
   return (
     <div className='nonAuth'>
       <ExploreHeader />
@@ -11,5 +16,12 @@ const ExploreNonAuth = () => {
     </div>
   );
 };
+ExploreNonAuth.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
 
-export default ExploreNonAuth;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(ExploreNonAuth);

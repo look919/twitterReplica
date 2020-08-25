@@ -1,15 +1,15 @@
 .loadingScreen {
   width: 100vw;
   height: 100vh;
-  display: flex;
-  margin: -2rem;
   background-color: #15202b;
+  margin: -2rem;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .loadingScreen-logo {
-  height: 4rem;
-  width: 4rem;
+  height: 5rem;
+  width: 5rem;
   fill: #1da1f2;
 }

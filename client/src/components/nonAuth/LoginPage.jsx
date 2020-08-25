@@ -52,7 +52,7 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
         type='password'
         name='password'
         value={formData.password}
-        text={'Hasło'}
+        text={'Password'}
         onChange={onChange}
         lengthMin={8}
       />
@@ -72,6 +72,15 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
           Sign up for Twitter
         </button>
       </div>
+      <span className='devinfo'>
+        If you want to login to a test user account and skip registration
+        process you can use one of the test users
+      </span>
+      <span className='devinfo'>
+        E-mail: user[1-13]@test.com / Example: user7@test.com
+      </span>
+      <span className='devinfo'>Password: qwer1234</span>
+
       <RegisterModal modalIsOpen={modalIsOpen} />
     </form>
   );

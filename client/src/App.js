@@ -6,6 +6,7 @@ import Alert from './components/layout/Alert';
 import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
+import { getAllUsers } from './actions/user';
 import setAuthToken from './utils/setAuthToken';
 import moment from 'moment';
 
@@ -15,17 +16,17 @@ moment.locale('en', {
   relativeTime: {
     future: 'in %s',
     past: '%s',
-    s: 'seconds',
+    s: 'now',
     ss: '%ss',
     m: 'a minute',
     mm: '%dm',
-    h: 'an hour',
+    h: '1h',
     hh: '%dh',
-    d: 'a day',
+    d: '1d',
     dd: '%dd',
-    M: 'a month',
+    M: '1 month',
     MM: '%dM',
-    y: 'a year',
+    y: '1 year',
     yy: '%dY',
   },
 });
@@ -36,6 +37,7 @@ if (localStorage.token) {
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
+    store.dispatch(getAllUsers());
   }, []);
 
   return (

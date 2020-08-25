@@ -128,10 +128,9 @@ exports.getTweets = catchAsync(async (req, res, next) => {
     ) {
       return;
     }
-    //if there are more than 2 docs with the same id but not added to final array just get first and the last one
+    //if there are more than 2 docs with the same id but not added to final array just the last one(propably some retweet or like)
     else if (sameTweets.length > 2) {
-      sameTweets = [sameTweets[0], sameTweets[sameTweets.length - 1]];
-      finalTweetResults = [...finalTweetResults, ...sameTweets];
+      finalTweetResults.push(sameTweets[sameTweets.length - 1]);
       //rest of the cases - 1 or 2 tweets
     } else {
       finalTweetResults.push(item);

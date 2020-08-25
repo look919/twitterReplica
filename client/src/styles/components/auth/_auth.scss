@@ -71,6 +71,51 @@
         }
       }
     }
+    &__createTweet {
+      position: fixed;
+      z-index: 1000;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60rem;
+      height: 32rem;
+      background-color: $color-background;
+      border: none !important;
+      border-radius: 1.5rem;
+
+      display: flex;
+      flex-direction: column;
+
+      &:focus {
+        outline: none;
+      }
+
+      &__header {
+        height: 5rem;
+        margin-bottom: auto;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid $color-line;
+
+        &__btn {
+          background: none;
+          border: none;
+          margin-left: 2rem;
+          height: 2.5rem;
+          width: 2.5rem;
+          fill: $color-primary;
+          cursor: pointer;
+
+          &__icon {
+            height: 2.25rem;
+            width: 2.25rem;
+          }
+        }
+      }
+      &__creator {
+        margin-bottom: 2rem;
+      }
+    }
     &__user {
       display: flex;
       align-items: center;
@@ -193,6 +238,93 @@
     display: flex;
     flex-direction: column;
 
+    &__search-results {
+      position: absolute;
+      z-index: 100;
+      top: 5.8rem;
+      left: 0;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      margin: 0 3rem;
+      width: 34rem;
+
+      border-radius: 0.5rem;
+      box-shadow: 0 0 1rem 2px rgba($color-white, 0.2);
+
+      &__empty {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        background-color: $color-background;
+        box-shadow: 0 0 1rem 2px rgba($color-white, 0.2);
+
+        padding: 1rem;
+
+        &__icon {
+          height: 2rem;
+          width: 2rem;
+          fill: $color-grey;
+          margin-right: 1rem;
+        }
+        &__text {
+          font-size: 1.5rem;
+        }
+      }
+
+      &__item {
+        padding: 1rem;
+        display: flex;
+        background-color: $color-background;
+        cursor: pointer;
+
+        &:hover {
+          background-color: lighten($color-background, 10%);
+        }
+        &:not(:last-child) {
+          border-bottom: 1px solid $color-line;
+        }
+
+        &--followed {
+          padding-top: 0.5rem;
+        }
+
+        &__img {
+          display: flex;
+          flex-direction: column;
+          margin-right: 1rem;
+
+          &__icon {
+            height: 1.2rem;
+            width: 1.2rem;
+            fill: $color-grey;
+            align-self: flex-end;
+            margin: 0.5rem 0;
+          }
+          &__photo {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+          }
+        }
+
+        &__user {
+          &__text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-right: auto;
+
+            &__p {
+              color: $color-grey;
+              font-size: 1.3rem;
+            }
+          }
+        }
+      }
+    }
+
     &__trends,
     &__follow {
       background-color: $color-background-input;
@@ -216,6 +348,12 @@
           cursor: pointer;
         }
       }
+      &__more {
+        padding-top: 0.6rem;
+        font-weight: 700;
+        align-self: flex-start !important;
+      }
+
       &__list {
         display: flex;
         flex-direction: column;
@@ -223,16 +361,11 @@
         font-weight: 700;
 
         &__item {
-          padding-top: 0.6rem;
-          padding-bottom: 0.2rem;
+          padding: 0.6rem;
           color: $color-white;
           font-size: 1.5rem;
           font-weight: 700;
-
-          &:not(:last-of-type) {
-            border-bottom: 1px solid $color-line;
-            padding: 0.6rem 0;
-          }
+          border-bottom: 1px solid $color-line;
 
           &:visited,
           &:link {
@@ -244,7 +377,6 @@
     //styles for follow component that are not inherited from trends
     &__follow {
       padding: 1rem 0;
-      margin-bottom: 1.5rem;
 
       &__heading,
       &__more {
@@ -253,8 +385,9 @@
         padding-bottom: 1.2rem;
       }
       &__more {
-        color: $color-primary;
+        padding-bottom: 0;
         font-weight: 700;
+        align-self: flex-start !important;
       }
 
       &__users {
@@ -301,6 +434,7 @@
       display: flex;
       align-items: center;
       justify-content: space-evenly;
+      margin-top: 1.5rem;
 
       &__item {
         display: flex;

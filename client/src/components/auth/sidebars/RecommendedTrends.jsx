@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { SettingsTwo } from '../../../img/Svgs';
 
 const RecommendedTrends = () => {
+  const [showMore, setShowMore] = useState(false);
+  const buttonText = useRef(0);
+
+  const onShowMoreChange = () => {
+    if (!showMore) {
+      setShowMore(true);
+      buttonText.current.textContent = 'Show less';
+    } else {
+      setShowMore(false);
+      buttonText.current.textContent = 'Show more';
+    }
+  };
+
   return (
     <div className='auth__recommended__content__trends'>
       <div className='auth__recommended__content__trends__heading'>
@@ -43,18 +56,24 @@ const RecommendedTrends = () => {
         >
           #ipsum
         </Link>
-        <Link
-          to='/dev'
-          className='auth__recommended__content__trends__list__item'
+        {showMore && (
+          <Fragment>
+            <Link
+              to='/dev'
+              className='auth__recommended__content__trends__list__item'
+            >
+              There is more #dummy data
+            </Link>
+          </Fragment>
+        )}
+
+        <button
+          onClick={onShowMoreChange}
+          ref={buttonText}
+          className='btn-inline auth__recommended__content__trends__more'
         >
-          #covidi9
-        </Link>
-        <Link
-          to='/dev'
-          className='auth__recommended__content__trends__list__item'
-        >
-          <span className='btn-inline'>Show more</span>
-        </Link>
+          Show more
+        </button>
       </div>
     </div>
   );

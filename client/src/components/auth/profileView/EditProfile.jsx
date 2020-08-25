@@ -61,25 +61,21 @@ const EditProfile = ({ profile, updateUser }) => {
     <div className='editProfile'>
       <div className='editProfile__heading'>
         <h2 className='heading-2'>Edit your profile</h2>
-        <button
-          onClick={(e) => handleUpdate(e)}
-          className='btn editProfile__heading__btn'
-        >
-          {!formData.loading ? (
-            'Update'
-          ) : (
-            <img
-              src={LoadingGif}
-              className='editProfile__heading__btn__loading'
-              alt='loading..'
-            />
-          )}
-        </button>
+        {!formData.loading ? (
+          <button
+            onClick={(e) => handleUpdate(e)}
+            className='btn editProfile__heading__btn'
+          >
+            Update
+          </button>
+        ) : (
+          <img src={LoadingGif} className='loading' alt='loading..' />
+        )}
       </div>
       <Input
         type='text'
         name='name'
-        text={profile.name}
+        text={`Name - ${profile.name}`}
         value={formData.name}
         onChange={onChange}
         length={50}
@@ -126,7 +122,7 @@ const EditProfile = ({ profile, updateUser }) => {
       <Input
         type='text'
         name='description'
-        text={'Bio'}
+        text={`Bio - ${profile.description.substr(0, 20)}...`}
         value={formData.description}
         onChange={onChange}
         length={240}
@@ -134,7 +130,7 @@ const EditProfile = ({ profile, updateUser }) => {
       <Input
         type='text'
         name='city'
-        text={'City'}
+        text={`City - ${profile.city}`}
         value={formData.city}
         onChange={onChange}
         length={50}
@@ -142,7 +138,7 @@ const EditProfile = ({ profile, updateUser }) => {
       <Input
         type='website'
         name='link'
-        text={'WWW'}
+        text={`WWW - ${profile.link}`}
         value={formData.link}
         onChange={onChange}
         length={50}
