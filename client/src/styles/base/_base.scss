@@ -74,4 +74,5 @@ body {
 
 .ReactModal__Overlay--after-open {
   background-color: rgba(110, 118, 125, 0.4) !important;
+  z-index: 1000;
 }

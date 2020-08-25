@@ -43,7 +43,7 @@ const GetProfile = ({
     </div>
   ) : !loading && data === null ? (
     <h2 className='heading-3 getTweets__endMessage'>
-      There was a problem while loading tweet
+      Profile that you are looking for is not aviable
     </h2>
   ) : (
     <Fragment>
@@ -68,8 +68,12 @@ const GetProfile = ({
             <Tweet tweet={tweet} user={user} key={uuidv4()} />
           ))}
         </InfiniteScroll>
-      ) : (
+      ) : paramUser === user.at ? (
         <EditProfile profile={data} updateUser={updateUser} />
+      ) : (
+        <span className='heading-3 getTweets__endMessage'>
+          You can edit only your own profile
+        </span>
       )}
     </Fragment>
   );

@@ -27,8 +27,6 @@ const SingleProfile = ({
 }) => {
   const [actionLoading, setActionLoading] = useState(false);
 
-  if (loading || !user) return null;
-
   const onFollow = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -45,6 +43,8 @@ const SingleProfile = ({
     await unFollow(profile);
     setActionLoading(false);
   };
+
+  if (loading || !user) return null;
 
   return (
     <div className='profile'>

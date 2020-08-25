@@ -8,12 +8,17 @@ import findLinksInText from '../../../../utils/findLinksInText';
 import emoji from 'react-easy-emoji';
 import { Exit } from '../../../../img/Svgs';
 
+const customStyles = {
+  overlay: { zIndex: 1000 },
+};
+
 const AddCommentTweet = ({ isOpen, closeModal, tweet }) => {
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={closeModal}
       className='comment'
+      styles={customStyles}
       ariaHideApp={false}
     >
       <button onClick={closeModal} className='comment__header'>

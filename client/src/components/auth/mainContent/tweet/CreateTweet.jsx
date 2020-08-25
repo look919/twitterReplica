@@ -70,11 +70,14 @@ const CreateTweet = ({
     });
   };
   const addImgToTweet = (e) => {
-    setTweet({
-      ...tweet,
-      imgOrGif: e.target.files[0],
-      imgOrGifName: e.target.files[0].name,
-    });
+    e.preventDefault();
+    if (e.target.files[0]) {
+      setTweet({
+        ...tweet,
+        imgOrGif: e.target.files[0],
+        imgOrGifName: e.target.files[0].name,
+      });
+    }
   };
 
   const openEmojiPicker = () => {

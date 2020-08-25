@@ -16,7 +16,6 @@ const Recommended = ({ auth: { loading, user }, users }) => {
 
   if (!user && !loading) return null;
 
-  console.log(search.length, searchedUsers.length);
   return (
     <nav className='auth__recommended'>
       <div className='auth__recommended__content'>
@@ -69,12 +68,13 @@ const Recommended = ({ auth: { loading, user }, users }) => {
             <ArrowDown className='auth__recommended__content__footer__item__icon' />
           </Link>
         </div>
-        <Link
-          to='/dev'
+        <a
+          href='https://www.tomaszwirkus.com/'
+          target='_blanc'
           className='auth__recommended__content__footer__item auth__recommended__content__footer__item--copyright'
         >
           &copy; 2020 Twitter replica by Wirkus Tomasz
-        </Link>
+        </a>
       </div>
     </nav>
   );

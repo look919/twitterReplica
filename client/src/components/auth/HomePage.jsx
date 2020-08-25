@@ -8,15 +8,13 @@ import NavBar from './sidebars/NavBar';
 import MainContent from './mainContent/MainContent';
 import Recommended from './sidebars/Recommended';
 
-const HomePage = ({ user, logout }) => {
-  return (
-    <section className='auth'>
-      <NavBar user={user} logout={logout} />
-      <MainContent />
-      <Recommended />
-    </section>
-  );
-};
+const HomePage = ({ user, logout }) => (
+  <section className='auth'>
+    <NavBar user={user} logout={logout} />
+    <MainContent />
+    <Recommended />
+  </section>
+);
 
 HomePage.propTypes = {
   logout: PropTypes.func.isRequired,
