@@ -18,8 +18,8 @@
     left: 1rem;
 
     &--big {
-      height: 3.5rem;
-      width: 3.5rem;
+      height: 3rem;
+      width: 3rem;
       top: 0.75rem;
     }
   }
@@ -32,7 +32,7 @@
   background-color: $color-grey-dark;
   border-radius: 2.5rem;
   border: none;
-  color: $color-grey;
+  color: $color-white;
   font-size: 1.5rem;
   padding: 0.5rem 2rem;
   padding-left: 5rem;
@@ -40,7 +40,7 @@
   line-height: 1.4;
 
   &::placeholder {
-    color: inherit;
+    color: $color-grey;
     font-size: 1.5rem;
   }
   &--big {

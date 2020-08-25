@@ -2,7 +2,9 @@ export default (loggedAcc, users) => {
   return users
     .filter(
       (user) =>
-        user.following.length > 5 && !loggedAcc.followers.includes(user._id)
+        user.followers.length > 5 &&
+        !loggedAcc.following.includes(user._id) &&
+        loggedAcc._id !== user._id
     )
     .slice(0, 3);
 };

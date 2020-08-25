@@ -85,7 +85,7 @@ const SingleProfile = ({
               Following
             </button>
           ) : (
-            <button onClick={onFollow} className='btn'>
+            <button onClick={onFollow} className='btn btn--dark'>
               Follow
             </button>
           )}
