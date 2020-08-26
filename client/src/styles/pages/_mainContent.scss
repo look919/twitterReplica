@@ -6,6 +6,10 @@
   border-top: none;
   border-bottom: none;
 
+  @media only screen and (max-width: $bp-500) {
+    border-right: none;
+  }
+
   &__header {
     position: sticky;
     z-index: 100;

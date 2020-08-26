@@ -61,9 +61,9 @@ const sendErrorProd = (err, req, res) => {
     // 1) Log error
     console.error('ERROR 💥', err);
     // 2) Send generic message
-    return res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
+    return res.status(500).json({
+      status: 'error',
+      message: 'Something went very wrong!',
     });
   }
 
