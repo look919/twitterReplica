@@ -147,7 +147,7 @@ const NavBar = ({ user, logout }) => {
                 onClick={closeModal}
                 className='auth__nav__content__createTweet__header__btn'
               >
-                <Exit className='aut1via1qwwkc2ssfu0sy7c6qhr8e4curh64j8vglc0pz0mglc0pz0m__btn__icon' />
+                <Exit className='auth__nav__content__createTweet__header__btn__icon' />
               </button>
             </div>
             <div className='auth__nav__content__createTweet__creator'>

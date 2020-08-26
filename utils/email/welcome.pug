@@ -2,7 +2,7 @@ extends baseEmail
 
 block content
   p Hi #{firstName},
-  p Welcome to my TwitterReplica project feel free to look around.
+  p Welcome to my TwitterReplica project, there is your activation code!
   table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
     tbody
       tr
@@ -11,6 +11,6 @@ block content
             tbody
               tr
                 td
-                  p.code Your activation code: #{url}
-  p If you have any questions don't hesitate to contact me!
+                  span.code Your activation code: #{url}
+  p If you have any questions don't hesitate to contact me at wirkus919@gmail.com.
   p Wirkus Tomasz

@@ -33,13 +33,13 @@ if (process.env.NODE_ENV === 'development') {
 
 if (process.env.NODE_ENV === 'production') {
   //redirect to https
-  app.use(function (req, res, next) {
-    if (req.secure) {
-      next();
-    } else {
-      res.redirect('https://' + req.headers.host + req.url); // request was via http, so redirect to https
-    }
-  });
+  // app.use(function (req, res, next) {
+  //   if (req.secure) {
+  //     next();
+  //   } else {
+  //     res.redirect('https://' + req.headers.host + req.url); // request was via http, so redirect to https
+  //   }
+  // });
 }
 
 // Limit requests from same API

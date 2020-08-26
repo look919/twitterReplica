@@ -32,7 +32,7 @@ export const getAllUsers = () => async (dispatch) => {
       payload: res.data.data.data,
     });
   } catch (err) {
-    dispatch(setAlert(err.response.data.message, 'danger'));
+    dispatch(setAlert('There was an error while loading users', 'danger'));
     dispatch({
       type: GET_ALL_USERS_FAIL,
       payload: err.message,

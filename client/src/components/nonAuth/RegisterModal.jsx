@@ -93,7 +93,6 @@ const RegisterModal = ({
       `${formData.year}-${formData.monthValue}-${formData.day}T10:00:00`,
       ['YYYY-MMMM-DD', 'DD-MM-YYYY']
     );
-    console.log(confirmationStage);
 
     if (!confirmationStage) {
       //registration stage
