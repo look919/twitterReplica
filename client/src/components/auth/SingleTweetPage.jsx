@@ -5,13 +5,21 @@ import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
 import NavBar from './sidebars/NavBar';
+import MobileBottomNav from './sidebars/MobileBottomNav';
 import SingleTweetView from './SingleTweetView/SingleTweetView';
 import Recommended from './sidebars/Recommended';
+import { useMediaQuery } from 'react-responsive';
 
 const SingleTweetPage = ({ user, logout, ...props }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
+
   return (
     <section className='auth'>
-      <NavBar user={user} logout={logout} />
+      {!isMobile ? (
+        <NavBar user={user} logout={logout} />
+      ) : (
+        <MobileBottomNav user={user} />
+      )}
       <SingleTweetView user={user} paramTweet={props.match.params.tweetId} />
       <Recommended />
     </section>

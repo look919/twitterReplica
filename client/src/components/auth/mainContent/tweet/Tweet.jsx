@@ -268,10 +268,9 @@ const Tweet = ({
             <HoverTweetBox
               styles={{ display: `${options.hoverBoxText}` }}
               user={tweet.user}
-              idClass='t1VznyypTWrzvnje2KeKD12USGUkQ6P1erD'
+              idClass='tweet__content__author__name__hover'
             />
           )}
-
           <span className='tweet__content__author__at'>{tweet.user.at}</span>
           <span className='tweet__content__author__dot'>{' · '}</span>
           <span className='tweet__content__author__time'>
