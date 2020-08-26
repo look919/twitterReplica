@@ -39,6 +39,9 @@
 
     border-top: 1px solid $color-line;
   }
+  @media only screen and (max-width: $bp-400) {
+    height: 6rem;
+  }
 
   &__content {
     width: 30rem;
@@ -56,6 +59,9 @@
       width: 100%;
       background-color: $color-background;
       padding: 0;
+    }
+    @media only screen and (max-width: $bp-400) {
+      height: 6rem;
     }
 
     &__logo {
@@ -135,6 +141,10 @@
             height: 3.2rem;
             width: 3.2rem;
           }
+          @media only screen and (max-width: $bp-400) {
+            height: 2.4rem;
+            width: 2.4rem;
+          }
         }
         &__text {
           color: inherit;
@@ -157,6 +167,9 @@
 
             height: 5rem;
             width: 5rem;
+          }
+          @media only screen and (max-width: $bp-400) {
+            bottom: 7.5rem;
           }
 
           &__icon {

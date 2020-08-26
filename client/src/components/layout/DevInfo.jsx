@@ -16,7 +16,7 @@ const DevInfo = () => {
         that I didn't create just yet or not plan to implement at all.
       </p>
       <Link to='/' className='btn-inline'>
-        Go back &rarr;
+        Main page &rarr;
       </Link>
     </div>
   );

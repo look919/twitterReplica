@@ -11,5 +11,9 @@
   &__p {
     margin: 3rem 0;
     text-align: center;
+
+    @media only screen and (max-width: $bp-500) {
+      margin: 3rem;
+    }
   }
 }

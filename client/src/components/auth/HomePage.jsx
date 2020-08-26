@@ -22,7 +22,7 @@ const HomePage = ({ user, logout }) => {
         <MobileBottomNav user={user} />
       )}
       <MainContent />
-      <Recommended />
+      {!isMobile && <Recommended />}
     </section>
   );
 };
