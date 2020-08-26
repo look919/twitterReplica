@@ -333,7 +333,7 @@
     }
     &__text {
       position: relative;
-      z-index: 50;
+      z-index: 5;
       &:link,
       &:visited {
         color: $color-primary !important;

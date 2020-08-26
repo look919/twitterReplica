@@ -5,7 +5,6 @@ import CreateTweet from '../mainContent/tweet/CreateTweet';
 import defaultUser from '../../../utils/defaultUser.js';
 
 import {
-  TwitterLogo,
   Home,
   Explore,
   Profile,

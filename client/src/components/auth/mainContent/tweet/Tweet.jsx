@@ -18,6 +18,8 @@ import AddCommentTweet from './AddCommentTweet';
 import HoverTweetBox from './HoverTweetBox';
 import ReportBox from './ReportBox';
 
+import { useMediaQuery } from 'react-responsive';
+
 import {
   Comments,
   Retweets,
@@ -36,6 +38,7 @@ const Tweet = ({
   deleteLikeFromTweet,
   history,
 }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
   const [options, setOptions] = useState({
     addCommentChecked: false,
     reportChecked: false,
@@ -226,12 +229,13 @@ const Tweet = ({
             onMouseLeave={onHoverImg}
           />
         </Link>
-
-        <HoverTweetBox
-          user={tweet.user}
-          idClass='tweet__img__photo__hover'
-          styles={{ display: `${options.hoverBoxImg}` }}
-        />
+        {!isMobile && (
+          <HoverTweetBox
+            user={tweet.user}
+            idClass='tweet__img__photo__hover'
+            styles={{ display: `${options.hoverBoxImg}` }}
+          />
+        )}
       </div>
       <div className='tweet__content' id='tweetRedirect'>
         {tweet.retweet && (
@@ -260,11 +264,14 @@ const Tweet = ({
           >
             {tweet.user.name}
           </Link>
-          <HoverTweetBox
-            styles={{ display: `${options.hoverBoxText}` }}
-            user={tweet.user}
-            idClass='tweet__content__author__name__hover'
-          />
+          {!isMobile && (
+            <HoverTweetBox
+              styles={{ display: `${options.hoverBoxText}` }}
+              user={tweet.user}
+              idClass='t1VznyypTWrzvnje2KeKD12USGUkQ6P1erD'
+            />
+          )}
+
           <span className='tweet__content__author__at'>{tweet.user.at}</span>
           <span className='tweet__content__author__dot'>{' · '}</span>
           <span className='tweet__content__author__time'>

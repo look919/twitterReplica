@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { animateScroll as scroll } from 'react-scroll';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CreateTweet from './tweet/CreateTweet';
 import GetTweets from './tweet/GetTweets';
+import { useMediaQuery } from 'react-responsive';
 
 import { Star } from '../../../img/Svgs';
 
 const MainContent = ({ user: { user } }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
+
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
@@ -26,8 +29,16 @@ const MainContent = ({ user: { user } }) => {
           <Star className='mainContent__header__content__icon' />
         </div>
       </div>
-      <CreateTweet placeholder='Whats happening?' fileUploadId='mainContent' />
-      <div className='breakline'>&nbsp;</div>
+      {!isMobile && (
+        <Fragment>
+          <CreateTweet
+            placeholder='Whats happening?'
+            fileUploadId='mainContent'
+          />
+          <div className='breakline'>&nbsp;</div>
+        </Fragment>
+      )}
+
       <GetTweets user={user} />
     </main>
   );
