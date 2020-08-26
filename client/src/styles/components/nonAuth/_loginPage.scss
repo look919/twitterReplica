@@ -8,6 +8,25 @@
   align-items: center;
   justify-content: space-around;
 
+  @media only screen and (max-width: $bp-500) {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    height: 55rem;
+  }
+
+  &__p {
+    &:first-child {
+      margin-top: 2rem;
+    }
+
+    color: $color-grey;
+    text-align: center;
+    font-size: 1.5rem;
+
+    @media only screen and (max-width: $bp-500) {
+      font-size: 1.4rem;
+    }
+  }
   &__link {
     font-size: 1.5rem !important;
     color: $color-primary !important;

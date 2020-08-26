@@ -4,6 +4,8 @@ import Modal from 'react-modal';
 import CreateTweet from '../mainContent/tweet/CreateTweet';
 import defaultUser from '../../../utils/defaultUser.js';
 
+import { useMediaQuery } from 'react-responsive';
+
 import {
   TwitterLogo,
   Home,
@@ -16,11 +18,13 @@ import {
   More,
   ArrowDown,
   Approved,
+  CreateTweetIcon,
   Exit,
 } from '../../../img/Svgs';
 
 const NavBar = ({ user, logout }) => {
   if (!user) user = defaultUser;
+  const isLaptopMDPI = useMediaQuery({ query: '(max-width: 1280px)' });
 
   const [userBox, setUserBox] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,9 +62,11 @@ const NavBar = ({ user, logout }) => {
             exact={true}
           >
             <Home className='auth__nav__content__nav__item__icon' />{' '}
-            <h2 className='heading-2 auth__nav__content__nav__item__text'>
-              Home
-            </h2>
+            {!isLaptopMDPI && (
+              <h2 className='heading-2 auth__nav__content__nav__item__text'>
+                Home
+              </h2>
+            )}
           </NavLink>
           <NavLink
             to='/dev'
@@ -68,9 +74,11 @@ const NavBar = ({ user, logout }) => {
             activeClassName='auth__nav__content__nav__item--active'
           >
             <Explore className='auth__nav__content__nav__item__icon' />{' '}
-            <h2 className='heading-2 auth__nav__content__nav__item__text'>
-              Explore
-            </h2>
+            {!isLaptopMDPI && (
+              <h2 className='heading-2 auth__nav__content__nav__item__text'>
+                Explore
+              </h2>
+            )}
           </NavLink>
           <NavLink
             to='/dev'
@@ -78,9 +86,11 @@ const NavBar = ({ user, logout }) => {
             activeClassName='auth__nav__content__nav__item--active'
           >
             <Notifications className='auth__nav__content__nav__item__icon' />{' '}
-            <h2 className='heading-2 auth__nav__content__nav__item__text'>
-              Notifications
-            </h2>
+            {!isLaptopMDPI && (
+              <h2 className='heading-2 auth__nav__content__nav__item__text'>
+                Notifications
+              </h2>
+            )}
           </NavLink>
           <NavLink
             to='/dev'
@@ -88,9 +98,11 @@ const NavBar = ({ user, logout }) => {
             activeClassName='auth__nav__content__nav__item--active'
           >
             <Messages className='auth__nav__content__nav__item__icon' />{' '}
-            <h2 className='heading-2 auth__nav__content__nav__item__text'>
-              Messages
-            </h2>
+            {!isLaptopMDPI && (
+              <h2 className='heading-2 auth__nav__content__nav__item__text'>
+                Messages
+              </h2>
+            )}
           </NavLink>
           <NavLink
             to='/dev'
@@ -98,9 +110,11 @@ const NavBar = ({ user, logout }) => {
             activeClassName='auth__nav__content__nav__item--active'
           >
             <Bookmarks className='auth__nav__content__nav__item__icon' />{' '}
-            <h2 className='heading-2 auth__nav__content__nav__item__text'>
-              Bookmarks
-            </h2>
+            {!isLaptopMDPI && (
+              <h2 className='heading-2 auth__nav__content__nav__item__text'>
+                Bookmarks
+              </h2>
+            )}
           </NavLink>
           <NavLink
             to='/dev'
@@ -108,9 +122,11 @@ const NavBar = ({ user, logout }) => {
             activeClassName='auth__nav__content__nav__item--active'
           >
             <Lists className='auth__nav__content__nav__item__icon' />{' '}
-            <h2 className='heading-2 auth__nav__content__nav__item__text'>
-              Lists
-            </h2>
+            {!isLaptopMDPI && (
+              <h2 className='heading-2 auth__nav__content__nav__item__text'>
+                Lists
+              </h2>
+            )}
           </NavLink>
           <NavLink
             to={`/${user.at}`}
@@ -118,9 +134,11 @@ const NavBar = ({ user, logout }) => {
             activeClassName='auth__nav__content__nav__item--active'
           >
             <Profile className='auth__nav__content__nav__item__icon' />{' '}
-            <h2 className='heading-2 auth__nav__content__nav__item__text'>
-              Profile
-            </h2>
+            {!isLaptopMDPI && (
+              <h2 className='heading-2 auth__nav__content__nav__item__text'>
+                Profile
+              </h2>
+            )}
           </NavLink>
           <NavLink
             to='/dev'
@@ -128,14 +146,25 @@ const NavBar = ({ user, logout }) => {
             activeClassName='auth__nav__content__nav__item--active'
           >
             <More className='auth__nav__content__nav__item__icon' />{' '}
-            <h2 className='heading-2 auth__nav__content__nav__item__text'>
-              More
-            </h2>
+            {!isLaptopMDPI && (
+              <h2 className='heading-2 auth__nav__content__nav__item__text'>
+                More
+              </h2>
+            )}
           </NavLink>
+          {!isLaptopMDPI ? (
+            <button onClick={openModal} className='btn btn--wide'>
+              Tweet
+            </button>
+          ) : (
+            <button
+              onClick={openModal}
+              className='btn btn--wide auth__nav__content__nav__item__btn'
+            >
+              <CreateTweetIcon className='auth__nav__content__nav__item__btn__icon' />
+            </button>
+          )}
 
-          <button onClick={openModal} className='btn btn--wide btn--'>
-            Tweet
-          </button>
           <Modal
             isOpen={isModalOpen}
             onRequestClose={closeModal}
@@ -159,7 +188,7 @@ const NavBar = ({ user, logout }) => {
             </div>
           </Modal>
         </nav>
-        {userBox && (
+        {userBox && !isLaptopMDPI && (
           <div className='auth__nav__content__userBox'>
             <Link
               className='auth__nav__content__user auth__nav__content__user--box'
@@ -192,19 +221,26 @@ const NavBar = ({ user, logout }) => {
             </button>
           </div>
         )}
-        <button className='auth__nav__content__user' onClick={handleSetUserBox}>
+        <button
+          className='auth__nav__content__user'
+          onClick={!isLaptopMDPI ? handleSetUserBox : handleLogout}
+        >
           <img
             src={user.photo}
             className='auth__nav__content__user__photo'
             alt='profile'
           />
-          <div className='auth__nav__content__user__text'>
-            <h3 className='heading-3 auth__nav__content__user__text__name'>
-              {user.name}
-            </h3>
-            <p className='auth__nav__content__user__text__p'>{user.at}</p>
-          </div>
-          <ArrowDown className='auth__nav__content__user__icon' />
+          {!isLaptopMDPI && (
+            <div className='auth__nav__content__user__text'>
+              <h3 className='heading-3 auth__nav__content__user__text__name'>
+                {user.name}
+              </h3>
+              <p className='auth__nav__content__user__text__p'>{user.at}</p>
+            </div>
+          )}
+          {!isLaptopMDPI && (
+            <ArrowDown className='auth__nav__content__user__icon' />
+          )}
         </button>
       </div>
     </section>

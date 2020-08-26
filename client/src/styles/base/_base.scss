@@ -8,6 +8,10 @@
 
 html {
   font-size: 62.5%;
+
+  @media only screen and (max-width: $bp-500) {
+    font-size: 50%;
+  }
 }
 
 body {
@@ -28,11 +32,6 @@ body {
   margin-top: 0.5rem;
   text-align: center;
   font-size: 1.5rem;
-
-  ::selection {
-    background-color: $color-primary-dark;
-    color: $color-primary-light;
-  }
 }
 //svgs
 .logo {

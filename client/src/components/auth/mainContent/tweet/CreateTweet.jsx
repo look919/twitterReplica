@@ -10,6 +10,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { connect } from 'react-redux';
 import { createTweet } from '../../../../actions/tweets';
 import PropTypes from 'prop-types';
+import { useMediaQuery } from 'react-responsive';
 
 import LoadingGif from '../../../../img/loading.gif';
 import defaultUser from '../../../../utils/defaultUser';
@@ -30,6 +31,7 @@ const CreateTweet = ({
   reply = '',
 }) => {
   if (!user) user = defaultUser;
+  const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
 
   const [tweet, setTweet] = useState({
     message: '',
@@ -173,13 +175,19 @@ const CreateTweet = ({
           />
         )}
 
-        <button className='createTweet__options__iconHandler' disabled>
-          <AddPool className='createTweet__options__icon createTweet__options__icon--disabled' />
-        </button>
+        {!isMobile && (
+          <button className='createTweet__options__iconHandler' disabled>
+            <AddPool className='createTweet__options__icon createTweet__options__icon--disabled' />
+          </button>
+        )}
         {!tweet.emojiPicker ? (
           <button
             onClick={openEmojiPicker}
-            className='createTweet__options__icon__btn createTweet__options__iconHandler'
+            className={
+              !isMobile
+                ? 'createTweet__options__icon__btn createTweet__options__iconHandler'
+                : 'createTweet__options__icon__btn createTweet__options__iconHandler createTweet__options__iconHandler--last'
+            }
           >
             <AddEmoji className='createTweet__options__icon' />
           </button>
@@ -189,12 +197,14 @@ const CreateTweet = ({
             onSelect={(emoji) => addToMessage(emoji.native)}
           />
         )}
-        <button
-          className='createTweet__options__iconHandler createTweet__options__iconHandler--last'
-          disabled
-        >
-          <AddSchedule className='createTweet__options__icon createTweet__options__icon--disabled' />
-        </button>
+        {!isMobile && (
+          <button
+            className='createTweet__options__iconHandler createTweet__options__iconHandler--last'
+            disabled
+          >
+            <AddSchedule className='createTweet__options__icon createTweet__options__icon--disabled' />
+          </button>
+        )}
         {tweet.message && (
           <Fragment>
             <CircularProgressbar

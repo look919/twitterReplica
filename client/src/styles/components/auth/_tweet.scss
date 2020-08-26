@@ -4,6 +4,12 @@
   grid-template-rows: min-content;
   grid-template-columns: 6rem 1fr;
 
+  @media only screen and (max-width: $bp-500) {
+    &:last-child {
+      margin-bottom: 3rem;
+    }
+  }
+
   border-bottom: 1px solid $color-line;
   cursor: pointer;
 
@@ -78,6 +84,14 @@
         position: relative;
         color: $color-white;
 
+        @media only screen and (max-width: $bp-500) {
+          font-size: 1.8rem;
+        }
+        @media only screen and (max-width: $bp-400) {
+          font-size: 1.4rem;
+          line-height: 1.4;
+        }
+
         &__hover {
           display: none;
           top: 0;
@@ -96,6 +110,14 @@
       &__time {
         color: $color-grey;
         font-size: 1.5rem;
+
+        @media only screen and (max-width: $bp-500) {
+          font-size: 1.6rem;
+        }
+        @media only screen and (max-width: $bp-400) {
+          font-size: 1.2rem;
+          line-height: 1.4;
+        }
       }
       &__time {
         margin-right: auto;
@@ -214,8 +236,24 @@
         font-size: 1.5rem;
         line-height: 1.3125;
 
+        @media only screen and (max-width: $bp-500) {
+          font-size: 1.8rem;
+          margin-top: 0.5rem;
+          margin-bottom: 2px;
+        }
+
         &--singleTweet {
           font-size: 2.4rem;
+
+          @media only screen and (max-width: $bp-500) {
+            font-size: 2.6rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.6rem;
+          }
+          @media only screen and (max-width: $bp-400) {
+            font-size: 2.2rem;
+            margin-top: 1.2rem;
+          }
         }
 
         &:link,
@@ -296,15 +334,29 @@
         fill: $color-grey;
         margin-right: 2px;
 
+        @media only screen and (max-width: $bp-500) {
+          height: 3.5rem;
+          width: 3.5rem;
+        }
+
         &--singleTweet {
           height: 3.75rem;
           width: 3.75rem;
           padding: 0.75rem;
+
+          @media only screen and (max-width: $bp-500) {
+            height: 4.2rem;
+            width: 4.2rem;
+          }
         }
       }
       &__amount {
         color: $color-grey;
         font-size: 1.3rem;
+
+        @media only screen and (max-width: $bp-500) {
+          font-size: 1.8rem;
+        }
       }
     }
 
@@ -320,6 +372,10 @@
         color: $color-grey;
         font-size: 1.5rem;
 
+        @media only screen and (max-width: $bp-500) {
+          font-size: 2rem;
+        }
+
         &:last-of-type {
           margin-left: 2rem;
         }
@@ -333,7 +389,7 @@
     }
     &__text {
       position: relative;
-      z-index: 50;
+      z-index: 5;
       &:link,
       &:visited {
         color: $color-primary !important;
@@ -355,6 +411,12 @@
     padding-left: 6rem;
     font-size: 1.5rem;
     color: $color-primary !important;
+
+    @media only screen and (max-width: $bp-500) {
+      font-size: 2rem;
+      padding: 1rem 0;
+      padding-left: 10rem;
+    }
 
     &:hover {
       background-color: lighten($color-background-input, 5%);

@@ -17,6 +17,10 @@
     top: 0.25rem;
     left: 1rem;
 
+    @media only screen and (max-width: $bp-400) {
+      display: none;
+    }
+
     &--big {
       height: 3rem;
       width: 3rem;
@@ -39,9 +43,24 @@
   padding-bottom: 0.2rem;
   line-height: 1.4;
 
+  @media only screen and (max-width: $bp-1280) {
+    width: 35rem;
+  }
+  @media only screen and (max-width: $bp-800) {
+    width: 20rem;
+    font-size: 1.3rem;
+  }
+  @media only screen and (max-width: $bp-400) {
+    display: none;
+  }
+
   &::placeholder {
     color: $color-grey;
     font-size: 1.5rem;
+
+    @media only screen and (max-width: $bp-800) {
+      font-size: 1.3rem;
+    }
   }
   &--big {
     height: 4.5rem;
