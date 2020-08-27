@@ -29,6 +29,8 @@ const CreateTweet = ({
   placeholder,
   fileUploadId,
   reply = '',
+  modal = false,
+  closeModal,
 }) => {
   if (!user) user = defaultUser;
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
@@ -81,7 +83,6 @@ const CreateTweet = ({
       });
     }
   };
-
   const openEmojiPicker = () => {
     setTweet({
       ...tweet,
@@ -112,15 +113,20 @@ const CreateTweet = ({
 
     await createTweet(tweet);
 
-    setTweet({
-      ...tweet,
-      loading: false,
-      message: '',
-      emojiPicker: false,
-      imgOrGifName: '',
-      gifPicker: false,
-      imgOrGif: '',
-    });
+    if (!modal) {
+      setTweet({
+        ...tweet,
+        loading: false,
+        message: '',
+        emojiPicker: false,
+        imgOrGifName: '',
+        gifPicker: false,
+        imgOrGif: '',
+      });
+    } else {
+      //in the case of comments I close component itself and dont pass closeModal prop
+      if (closeModal) closeModal();
+    }
   };
 
   return (

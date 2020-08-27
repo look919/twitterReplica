@@ -7,11 +7,13 @@ import RegisterModal from './RegisterModal';
 
 import Input from '../smallParts/Input';
 import { TwitterLogo } from '../../img/Svgs';
+import LoadingGif from '../../img/loading-dark.gif';
 
 const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    loading: false,
   });
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -30,8 +32,10 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    setFormData({ ...formData, loading: true });
     await login(formData);
+
+    setFormData({ ...formData, loading: false });
   };
   if (isAuthenticated && !loading) return <Redirect to='/home' />;
 
@@ -56,13 +60,24 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
         onChange={onChange}
         lengthMin={8}
       />
-      <button
-        className='btn btn--wide'
-        disabled={!formData.email || !formData.password ? true : false}
-        onClick={(e) => handleLogin(e)}
-      >
-        Log in
-      </button>
+      {!formData.loading ? (
+        <button
+          className='btn btn--wide'
+          disabled={!formData.email || !formData.password ? true : false}
+          onClick={(e) => handleLogin(e)}
+        >
+          Log in
+        </button>
+      ) : (
+        <button
+          className='btn btn--wide'
+          disabled={!formData.email || !formData.password ? true : false}
+          onClick={(e) => handleLogin(e)}
+        >
+          <img src={LoadingGif} alt='loading...' className='loading' />
+        </button>
+      )}
+
       <div className='loginPage__links'>
         <Link to='/forget' className='btn-inline loginPage__link'>
           Forgot password?

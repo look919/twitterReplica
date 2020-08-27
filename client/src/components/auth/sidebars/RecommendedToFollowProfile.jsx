@@ -16,13 +16,6 @@ const RecommendedToFollowProfile = ({ user, profile, follow, unFollow }) => {
     await follow(profile);
     setActionLoading(false);
   };
-  const onUnFollow = async (e) => {
-    e.preventDefault();
-
-    setActionLoading(true);
-    await unFollow(profile);
-    setActionLoading(false);
-  };
 
   return (
     <Link
@@ -48,10 +41,6 @@ const RecommendedToFollowProfile = ({ user, profile, follow, unFollow }) => {
           className='editProfile__heading__btn__loading'
           alt='loading...'
         />
-      ) : user.following.includes(profile._id) ? (
-        <button onClick={onUnFollow} className='btn'>
-          Following
-        </button>
       ) : (
         <button onClick={onFollow} className='btn btn--dark'>
           Follow

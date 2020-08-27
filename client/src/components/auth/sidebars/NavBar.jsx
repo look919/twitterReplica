@@ -29,21 +29,12 @@ const NavBar = ({ user, logout }) => {
   const [userBox, setUserBox] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = (e) => {
-    e.preventDefault();
-    setIsModalOpen(true);
-  };
-  const closeModal = (e) => {
-    e.preventDefault();
-    setIsModalOpen(false);
-  };
   const handleSetUserBox = () => {
     userBox ? setUserBox(false) : setUserBox(true);
   };
-  const handleLogout = (e) => {
+  const handleLogout = async (e) => {
     e.preventDefault();
-
-    logout();
+    await logout();
   };
 
   return (
@@ -153,12 +144,15 @@ const NavBar = ({ user, logout }) => {
             )}
           </NavLink>
           {!isLaptopMDPI ? (
-            <button onClick={openModal} className='btn btn--wide'>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className='btn btn--wide'
+            >
               Tweet
             </button>
           ) : (
             <button
-              onClick={openModal}
+              onClick={() => setIsModalOpen(true)}
               className='btn btn--wide auth__nav__content__nav__item__btn'
             >
               <CreateTweetIcon className='auth__nav__content__nav__item__btn__icon' />
@@ -167,13 +161,13 @@ const NavBar = ({ user, logout }) => {
 
           <Modal
             isOpen={isModalOpen}
-            onRequestClose={closeModal}
+            onRequestClose={() => setIsModalOpen(false)}
             className='auth__nav__content__createTweet'
             ariaHideApp={false}
           >
             <div className='auth__nav__content__createTweet__header'>
               <button
-                onClick={closeModal}
+                onClick={() => setIsModalOpen(false)}
                 className='auth__nav__content__createTweet__header__btn'
               >
                 <Exit className='auth__nav__content__createTweet__header__btn__icon' />
@@ -182,8 +176,9 @@ const NavBar = ({ user, logout }) => {
             <div className='auth__nav__content__createTweet__creator'>
               <CreateTweet
                 placeholder="What's happening?"
-                modal={true}
                 fileUploadId='modal'
+                modal={isModalOpen}
+                closeModal={() => setIsModalOpen(false)}
               />
             </div>
           </Modal>

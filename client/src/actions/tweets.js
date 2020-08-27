@@ -108,7 +108,7 @@ export const deleteTweet = (user, tweetId) => async (dispatch) => {
       payload: res.data.data,
     });
   } catch (err) {
-    dispatch(setAlert('There was a problem while deleting tweet', 'danger'));
+    dispatch(setAlert(err.response.data.message, 'danger'));
     console.log(err.response);
     dispatch({
       type: DELETE_TWEET_FAIL,

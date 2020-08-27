@@ -15,10 +15,10 @@ const MainContent = ({ auth: { user }, logout }) => {
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
-  const handleLogout = (e) => {
+  const handleLogout = async (e) => {
     e.preventDefault();
 
-    logout();
+    await logout();
   };
 
   return (
