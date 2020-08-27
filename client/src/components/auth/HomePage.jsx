@@ -19,9 +19,9 @@ const HomePage = ({ user, logout }) => {
       {!isMobile ? (
         <NavBar user={user} logout={logout} />
       ) : (
-        <MobileBottomNav user={user} />
+        <MobileBottomNav user={user} tweetCreateModalIcon={true} />
       )}
-      <MainContent />
+      <MainContent logout={logout} />
       {!isMobile && <Recommended />}
     </section>
   );

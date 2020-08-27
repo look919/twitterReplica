@@ -18,7 +18,7 @@ const SingleTweetPage = ({ user, logout, ...props }) => {
       {!isMobile ? (
         <NavBar user={user} logout={logout} />
       ) : (
-        <MobileBottomNav user={user} />
+        <MobileBottomNav user={user} tweetCreateModalIcon={false} />
       )}
       <SingleTweetView user={user} paramTweet={props.match.params.tweetId} />
       {!isMobile && <Recommended />}

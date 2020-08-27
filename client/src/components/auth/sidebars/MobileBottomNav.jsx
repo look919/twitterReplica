@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useState, Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
 import CreateTweet from '../mainContent/tweet/CreateTweet';
 import defaultUser from '../../../utils/defaultUser.js';
@@ -13,7 +13,7 @@ import {
   Search,
 } from '../../../img/Svgs';
 
-const MobileBottomNav = ({ user }) => {
+const MobileBottomNav = ({ user, tweetCreateModalIcon }) => {
   if (!user) user = defaultUser;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,36 +61,39 @@ const MobileBottomNav = ({ user }) => {
             <Profile className='auth__nav__content__nav__item__icon' />{' '}
           </NavLink>
         </nav>
-
-        <button
-          onClick={openModal}
-          className='btn btn--wide auth__nav__content__nav__item__btn'
-        >
-          <CreateTweetIcon className='auth__nav__content__nav__item__btn__icon' />
-        </button>
-
-        <Modal
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          className='auth__nav__content__createTweet'
-          ariaHideApp={false}
-        >
-          <div className='auth__nav__content__createTweet__header'>
+        {tweetCreateModalIcon && (
+          <Fragment>
             <button
-              onClick={closeModal}
-              className='auth__nav__content__createTweet__header__btn'
+              onClick={openModal}
+              className='btn btn--wide auth__nav__content__nav__item__btn'
             >
-              <Exit className='auth__nav__content__createTweet__header__btn__icon' />
+              <CreateTweetIcon className='auth__nav__content__nav__item__btn__icon' />
             </button>
-          </div>
-          <div className='auth__nav__content__createTweet__header__creator'>
-            <CreateTweet
-              placeholder="What's happening?"
-              modal={true}
-              fileUploadId='modal'
-            />
-          </div>
-        </Modal>
+
+            <Modal
+              isOpen={isModalOpen}
+              onRequestClose={closeModal}
+              className='auth__nav__content__createTweet'
+              ariaHideApp={false}
+            >
+              <div className='auth__nav__content__createTweet__header'>
+                <button
+                  onClick={closeModal}
+                  className='auth__nav__content__createTweet__header__btn'
+                >
+                  <Exit className='auth__nav__content__createTweet__header__btn__icon' />
+                </button>
+              </div>
+              <div className='auth__nav__content__createTweet__header__creator'>
+                <CreateTweet
+                  placeholder="What's happening?"
+                  modal={true}
+                  fileUploadId='modal'
+                />
+              </div>
+            </Modal>
+          </Fragment>
+        )}
       </div>
     </section>
   );

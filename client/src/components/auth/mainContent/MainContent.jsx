@@ -9,11 +9,16 @@ import { useMediaQuery } from 'react-responsive';
 
 import { Star } from '../../../img/Svgs';
 
-const MainContent = ({ user: { user } }) => {
+const MainContent = ({ auth: { user }, logout }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
 
   const scrollToTop = () => {
     scroll.scrollToTop();
+  };
+  const handleLogout = (e) => {
+    e.preventDefault();
+
+    logout();
   };
 
   return (
@@ -26,7 +31,13 @@ const MainContent = ({ user: { user } }) => {
           >
             Home
           </button>
-          <Star className='mainContent__header__content__icon' />
+          {!isMobile ? (
+            <Star className='mainContent__header__content__icon' />
+          ) : (
+            <button onClick={handleLogout} className='btn btn-inline'>
+              Log out
+            </button>
+          )}
         </div>
       </div>
       {!isMobile && (
@@ -45,10 +56,10 @@ const MainContent = ({ user: { user } }) => {
 };
 
 MainContent.propTypes = {
-  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
-  user: state.auth,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {})(MainContent);
