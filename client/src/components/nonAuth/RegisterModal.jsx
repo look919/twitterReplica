@@ -4,7 +4,7 @@ import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import loadingGif from '../../img/loading-dark.gif';
+import LoadingGif from '../../img/loading-dark.gif';
 
 import { register, activate } from '../../actions/auth';
 import Input from '../smallParts/Input';
@@ -206,7 +206,7 @@ const RegisterModal = ({
             className='btn registerPage__form__btn'
           >
             <img
-              src={loadingGif}
+              src={LoadingGif}
               className='registerPage__form__btn__gif'
               alt='loading...'
             />
@@ -254,7 +254,7 @@ const RegisterModal = ({
             className='btn registerPage__form__btn'
           >
             <img
-              src={loadingGif}
+              src={LoadingGif}
               className='registerPage__form__btn__gif'
               alt='loading...'
             />

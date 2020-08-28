@@ -17,7 +17,7 @@ const ProfilePage = ({ user, logout, ...props }) => {
       {!isMobile ? (
         <NavBar user={user} logout={logout} />
       ) : (
-        <MobileBottomNav user={user} />
+        <MobileBottomNav user={user} tweetCreateModalIcon={false} />
       )}
       <ProfileView
         user={user}

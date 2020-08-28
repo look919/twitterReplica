@@ -36,8 +36,8 @@ export const getSingleTweet = (tweetId) => async (dispatch) => {
       payload: res.data.data,
     });
   } catch (err) {
-    dispatch(setAlert('There was a problem while loading tweet', 'danger'));
-    console.log(err.response);
+    if (err.response.data.message !== 'No document found with that ID')
+      dispatch(setAlert('There was a problem while loading tweet', 'danger'));
     dispatch({
       type: GET_SINGLE_TWEET_FAIL,
       payload: err.message,
@@ -108,7 +108,7 @@ export const deleteTweet = (user, tweetId) => async (dispatch) => {
       payload: res.data.data,
     });
   } catch (err) {
-    dispatch(setAlert('There was a problem while deleting tweet', 'danger'));
+    dispatch(setAlert(err.response.data.message, 'danger'));
     console.log(err.response);
     dispatch({
       type: DELETE_TWEET_FAIL,

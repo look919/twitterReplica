@@ -54,18 +54,13 @@ const Tweet = ({
   const retweetSvg = useRef(0);
   const retweetText = useRef(0);
 
-  const addComment = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
+  const addComment = () => {
     setOptions({
       ...options,
       addCommentChecked: true,
     });
   };
-  const closeModal = (e) => {
-    e.stopPropagation();
-
+  const closeModal = () => {
     setOptions({
       ...options,
       addCommentChecked: false,

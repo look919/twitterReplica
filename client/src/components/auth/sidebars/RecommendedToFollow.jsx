@@ -17,6 +17,8 @@ const RecommendedToFollow = ({ loggedAccount, users }) => {
     }
   };
 
+  if (!loggedAccount) return null;
+
   return (
     <div className='auth__recommended__content__follow'>
       <div className='auth__recommended__content__follow__heading'>

@@ -29,10 +29,7 @@ export default function (state = initialState, action) {
       };
     case GET_TWEETS_SUCCESS:
     case GET_SINGLE_TWEET_SUCCESS:
-      return {
-        ...state,
-        loading: true,
-      };
+      return initialState;
     case UPDATE_USER_FAIL:
     default:
       return state;

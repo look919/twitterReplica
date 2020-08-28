@@ -7,13 +7,15 @@ import RegisterModal from './RegisterModal';
 
 import Input from '../smallParts/Input';
 import { TwitterLogo } from '../../img/Svgs';
+import LoadingGif from '../../img/loading-dark.gif';
 
 const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    loading: false,
   });
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const onChange = (e) => {
     setFormData({
@@ -21,7 +23,6 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
       [e.target.name]: e.target.value,
     });
   };
-
   //modalfunc
   function openModal(e) {
     e.preventDefault();
@@ -30,9 +31,11 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    setFormData({ ...formData, loading: true });
     await login(formData);
+    setFormData({ ...formData, loading: false });
   };
+
   if (isAuthenticated && !loading) return <Redirect to='/home' />;
 
   return (
@@ -56,13 +59,24 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
         onChange={onChange}
         lengthMin={8}
       />
-      <button
-        className='btn btn--wide'
-        disabled={!formData.email || !formData.password ? true : false}
-        onClick={(e) => handleLogin(e)}
-      >
-        Log in
-      </button>
+      {!formData.loading ? (
+        <button
+          className='btn btn--wide'
+          disabled={!formData.email || !formData.password ? true : false}
+          onClick={(e) => handleLogin(e)}
+        >
+          Log in
+        </button>
+      ) : (
+        <button
+          className='btn btn--wide'
+          disabled={!formData.email || !formData.password ? true : false}
+          onClick={(e) => handleLogin(e)}
+        >
+          <img src={LoadingGif} alt='loading...' className='loading' />
+        </button>
+      )}
+
       <div className='loginPage__links'>
         <Link to='/forget' className='btn-inline loginPage__link'>
           Forgot password?
@@ -74,7 +88,8 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
       </div>
       <span className='loginPage__p'>
         If you want to login to a test user account and skip registration
-        process you can use one of the test users
+        process you can use one of the test users (deleting tweets and editing
+        profile funcionalities are disabled).
       </span>
       <span className='loginPage__p'>
         E-mail: user[1-13]@test.com / Example: user7@test.com

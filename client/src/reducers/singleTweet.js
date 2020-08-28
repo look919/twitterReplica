@@ -1,6 +1,8 @@
 import {
   GET_SINGLE_TWEET_SUCCESS,
   GET_SINGLE_TWEET_FAIL,
+  GET_TWEETS_SUCCESS,
+  GET_PROFILE_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
@@ -17,11 +19,11 @@ export default function (state = initialState, action) {
         tweet: payload.data,
         loading: false,
       };
+
     case GET_SINGLE_TWEET_FAIL:
-      return {
-        tweet: null,
-        loading: false,
-      };
+    case GET_TWEETS_SUCCESS:
+    case GET_PROFILE_SUCCESS:
+      return initialState;
 
     default:
       return state;

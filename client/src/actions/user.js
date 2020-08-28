@@ -84,7 +84,10 @@ export const updateUser = ({
     });
     dispatch(setAlert('Profile updated', 'success'));
   } catch (err) {
-    dispatch(setAlert(err.response.data.message, 'danger'));
+    if (err.response.hasOwnProperty('data'))
+      dispatch(setAlert(err.response.data.message, 'danger'));
+    else dispatch(setAlert('There was a problem while editing user', 'danger'));
+
     dispatch({
       type: UPDATE_USER_FAIL,
       payload: err.message,

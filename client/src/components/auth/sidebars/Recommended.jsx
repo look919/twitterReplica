@@ -29,7 +29,7 @@ const Recommended = ({ auth: { loading, user }, users }) => {
           <Search className='input-search-container__icon input-search-container__icon--big' />
         </form>
         {search.length > 2 && searchedUsers.length > 0 ? (
-          <div className='auth__recommended__content__search-results'>
+          <div className='auth__recommended__content__search-results__empty'>
             {searchedUsers.map((profile) => (
               <SearchResult user={user} profile={profile} key={profile._id} />
             ))}

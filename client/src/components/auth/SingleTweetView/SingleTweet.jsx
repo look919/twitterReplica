@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -27,7 +27,16 @@ import {
   LikesFilled,
 } from '../../../img/Svgs';
 
-const SingleTweet = ({ auth: { user, loading }, tweet }) => {
+const SingleTweet = ({
+  auth: { user, loading },
+  tweet,
+  likeTweet,
+  deleteLikeFromTweet,
+  retweet,
+  deleteRetweet,
+  deleteTweet,
+  history,
+}) => {
   const [options, setOptions] = useState({
     addCommentChecked: false,
     reportChecked: false,
@@ -54,9 +63,7 @@ const SingleTweet = ({ auth: { user, loading }, tweet }) => {
       addCommentChecked: true,
     });
   };
-  const closeModal = (e) => {
-    e.stopPropagation();
-
+  const closeModal = () => {
     setOptions({
       ...options,
       addCommentChecked: false,
@@ -72,13 +79,14 @@ const SingleTweet = ({ auth: { user, loading }, tweet }) => {
       reportChecked: true,
     });
   };
-  const onTweetDelete = (e) => {
+  const onTweetDelete = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    deleteTweet(user._id, tweet._id);
+    await deleteTweet(user._id, tweet._id);
+    return history.push('/home');
   };
-  const onTweetLike = (e) => {
+  const onTweetLike = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -141,53 +149,40 @@ const SingleTweet = ({ auth: { user, loading }, tweet }) => {
     });
   };
   const onHoverName = () => {
-    let unmounted = false;
-
     if (options.hoverBoxText === 'none') {
       setOptions({
         ...options,
         hoverBoxText: 'flex',
       });
-      if (!unmounted) {
-        setTimeout(() => {
-          setOptions({
-            ...options,
-            hoverBoxImg: 'none',
-          });
-        }, 300);
-      }
-    } else {
-      if (!unmounted) {
-        setTimeout(() => {
-          setOptions({
-            ...options,
-            hoverBoxText: 'none',
-          });
-        }, 100);
-      }
-    }
 
-    return () => {
-      unmounted = true;
-    };
+      setTimeout(() => {
+        setOptions({
+          ...options,
+          hoverBoxImg: 'none',
+        });
+      }, 300);
+    } else {
+      setTimeout(() => {
+        setOptions({
+          ...options,
+          hoverBoxText: 'none',
+        });
+      }, 100);
+    }
   };
   const onHoverImg = () => {
-    let unmounted = false;
-
     if (options.hoverBoxImg === 'none') {
       setOptions({
         ...options,
         hoverBoxImg: 'flex',
       });
     } else {
-      if (!unmounted) {
-        setTimeout(() => {
-          setOptions({
-            ...options,
-            hoverBoxImg: 'none',
-          });
-        }, 100);
-      }
+      setTimeout(() => {
+        setOptions({
+          ...options,
+          hoverBoxImg: 'none',
+        });
+      }, 100);
     }
   };
   return (
@@ -389,10 +384,23 @@ const SingleTweet = ({ auth: { user, loading }, tweet }) => {
 
 SingleTweet.propTypes = {
   auth: PropTypes.object.isRequired,
+  deleteTweet: PropTypes.func.isRequired,
+  likeTweet: PropTypes.func.isRequired,
+  deleteLikeFromTweet: PropTypes.func.isRequired,
+  retweet: PropTypes.func.isRequired,
+  deleteRetweet: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {})(SingleTweet);
+export default withRouter(
+  connect(mapStateToProps, {
+    deleteTweet,
+    likeTweet,
+    deleteLikeFromTweet,
+    retweet,
+    deleteRetweet,
+  })(SingleTweet)
+);

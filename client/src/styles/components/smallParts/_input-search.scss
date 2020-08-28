@@ -5,6 +5,17 @@
   flex: 1 0 0;
   width: 100%;
 
+  &--singlePage {
+    width: 80%;
+    margin: 4rem auto;
+    margin-bottom: 3rem;
+
+    @media only screen and (max-width: $bp-400) {
+      display: flex;
+      width: 90%;
+    }
+  }
+
   &__icon {
     align-self: center;
     width: 2.8rem;
@@ -19,6 +30,12 @@
 
     @media only screen and (max-width: $bp-400) {
       display: none;
+    }
+
+    &--singlePage {
+      @media only screen and (max-width: $bp-400) {
+        display: flex;
+      }
     }
 
     &--big {
@@ -52,6 +69,12 @@
   }
   @media only screen and (max-width: $bp-400) {
     display: none;
+  }
+
+  &--singlePage {
+    @media only screen and (max-width: $bp-400) {
+      display: flex;
+    }
   }
 
   &::placeholder {

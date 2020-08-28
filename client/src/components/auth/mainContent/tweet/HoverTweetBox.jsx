@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { follow, unFollow } from '../../../../actions/user';
-
+import LoadingGif from '../../../../img/loading.gif';
 import PropTypes from 'prop-types';
 
 const HoverTweetBox = ({ auth, user, follow, unFollow, idClass, styles }) => {
-  if (typeof user !== 'object' || (!auth.user && !auth.loading)) return null;
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (loading) setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const onFollow = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    setLoading(true);
 
     await follow(user);
     user.followers.push(auth.user._id);
@@ -19,10 +25,13 @@ const HoverTweetBox = ({ auth, user, follow, unFollow, idClass, styles }) => {
   const onUnFollow = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    setLoading(true);
 
     await unFollow(user);
     user.followers.filter((id) => id !== auth.user._id);
   };
+
+  if (typeof user !== 'object' || (!auth.user && !auth.loading)) return null;
 
   return (
     <div style={styles} className={`tweetHoverBox ${idClass}`}>
@@ -36,7 +45,9 @@ const HoverTweetBox = ({ auth, user, follow, unFollow, idClass, styles }) => {
         </Link>
         {auth.user._id === user._id ? (
           <div>&nbsp;</div>
-        ) : auth.user.following.includes(user._id) ? (
+        ) : loading ? (
+          <img src={LoadingGif} className='loading' alt='loading...' />
+        ) : !loading && auth.user.following.includes(user._id) ? (
           <button
             onClick={onUnFollow}
             className='btn tweetHoverBox__header__btn btn--dark'
