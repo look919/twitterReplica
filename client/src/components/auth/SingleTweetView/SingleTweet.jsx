@@ -63,9 +63,7 @@ const SingleTweet = ({
       addCommentChecked: true,
     });
   };
-  const closeModal = (e) => {
-    e.stopPropagation();
-
+  const closeModal = () => {
     setOptions({
       ...options,
       addCommentChecked: false,

@@ -9,6 +9,7 @@ import {
   DELETE_LIKE_TWEET_FAIL,
   DELETE_TWEET_SUCCESS,
   DELETE_TWEET_FAIL,
+  LOGOUT,
 } from '../actions/types';
 
 const initialState = {
@@ -53,6 +54,7 @@ export default function (state = initialState, action) {
     case LIKE_TWEET_FAIL:
     case DELETE_LIKE_TWEET_SUCCESS:
     case DELETE_LIKE_TWEET_FAIL:
+    case LOGOUT:
     default:
       return state;
   }

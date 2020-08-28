@@ -58,6 +58,7 @@ const AddCommentTweet = ({ isOpen, closeModal, tweet }) => {
           reply={tweet._id}
           fileUploadId='comment'
           modal={isOpen}
+          closeModal={closeModal}
         />
       </div>
     </Modal>

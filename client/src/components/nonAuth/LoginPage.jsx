@@ -88,7 +88,8 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
       </div>
       <span className='loginPage__p'>
         If you want to login to a test user account and skip registration
-        process you can use one of the test users
+        process you can use one of the test users (deleting tweets and editing
+        profile funcionalities are disabled).
       </span>
       <span className='loginPage__p'>
         E-mail: user[1-13]@test.com / Example: user7@test.com

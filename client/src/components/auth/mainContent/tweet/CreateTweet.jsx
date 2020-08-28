@@ -124,7 +124,6 @@ const CreateTweet = ({
         imgOrGif: '',
       });
     } else {
-      //in the case of comments I close component itself and dont pass closeModal prop
       if (closeModal) closeModal();
     }
   };
