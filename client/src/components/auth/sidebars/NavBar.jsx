@@ -10,6 +10,7 @@ import {
   TwitterLogo,
   Home,
   Explore,
+  Search,
   Notifications,
   Messages,
   Bookmarks,
@@ -25,6 +26,9 @@ import {
 const NavBar = ({ user, logout }) => {
   if (!user) user = defaultUser;
   const isLaptopMDPI = useMediaQuery({ query: '(max-width: 1280px)' });
+  const isRecommendedNotDisplayed = useMediaQuery({
+    query: '(max-width: 1020px)',
+  });
 
   const [userBox, setUserBox] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,6 +75,20 @@ const NavBar = ({ user, logout }) => {
               </h2>
             )}
           </NavLink>
+          {isRecommendedNotDisplayed && (
+            <NavLink
+              to='/search'
+              className='auth__nav__content__nav__item'
+              activeClassName='auth__nav__content__nav__item--active'
+            >
+              <Search className='auth__nav__content__nav__item__icon' />{' '}
+              {!isLaptopMDPI && (
+                <h2 className='heading-2 auth__nav__content__nav__item__text'>
+                  Search
+                </h2>
+              )}
+            </NavLink>
+          )}
           <NavLink
             to='/dev'
             className='auth__nav__content__nav__item'

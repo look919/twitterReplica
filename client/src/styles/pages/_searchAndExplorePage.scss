@@ -1,0 +1,96 @@
+.searchPage,
+.explorePage {
+  position: relative;
+  width: 100%;
+  height: max-content;
+  border: 1px solid $color-line;
+  border-top: none;
+  border-bottom: none;
+
+  &--search {
+    height: 100vh;
+    overflow: hidden;
+  }
+  @media only screen and (max-width: $bp-500) {
+    border: none;
+  }
+
+  &__header {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    left: 0;
+
+    height: 5.5rem;
+    border-bottom: 1px solid $color-line;
+    background-color: $color-background;
+
+    @media only screen and (max-width: $bp-500) {
+      height: 7rem;
+    }
+
+    &__content {
+      height: 100%;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+    &__btn {
+      height: 4.4rem;
+      width: 4.4rem;
+      margin-right: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      @media only screen and (max-width: $bp-500) {
+        height: 5rem;
+        width: 5rem;
+      }
+    }
+    &__icon {
+      height: 4.4rem;
+      width: 4.4rem;
+      fill: $color-primary;
+      padding: 1rem;
+
+      @media only screen and (max-width: $bp-500) {
+        width: 5rem;
+        height: 5rem;
+      }
+
+      &:hover {
+        border-radius: 50%;
+        background-color: $color-background-input;
+      }
+    }
+    &__heading {
+      cursor: pointer;
+      background: none;
+      border: none;
+
+      @media only screen and (max-width: $bp-500) {
+        font-size: 2.4rem;
+        letter-spacing: 1px;
+      }
+    }
+  }
+  &__footer {
+    margin-top: 25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__icon {
+      width: 20rem;
+      height: 20rem;
+      fill: $color-primary;
+      margin-bottom: 2rem;
+    }
+    &__text {
+      font-size: 1.5rem;
+      color: $color-grey;
+    }
+  }
+}

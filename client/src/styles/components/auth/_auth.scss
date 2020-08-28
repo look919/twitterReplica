@@ -371,7 +371,13 @@
       z-index: 100;
       top: 5.8rem;
       left: 0;
-      width: 100%;
+
+      &--singlePage {
+        position: relative;
+        width: 90%;
+        margin: 0 auto;
+        margin-top: -5rem;
+      }
 
       display: flex;
       flex-direction: column;

@@ -6,6 +6,7 @@ import LoginPage from '../nonAuth/LoginPage';
 import ExploreNonAuth from '../nonAuth/ExploreNonAuth';
 import HomePage from '../auth/HomePage';
 import ExplorePage from '../auth/ExplorePage';
+import SearchPage from '../auth/SearchPage';
 import SingleTweetPage from '../auth/SingleTweetPage';
 import ProfilePage from '../auth/ProfilePage.jsx';
 import EditProfilePage from '../auth/EditProfilePage';
@@ -21,6 +22,7 @@ const App = () => (
       <Route path='/dev' component={DevInfo} exact />
       <PrivateRoute path='/home' component={HomePage} />
       <PrivateRoute path='/explore' component={ExplorePage} />
+      <PrivateRoute path='/search' component={SearchPage} />
       <PrivateRoute
         path='/:at/status/:tweetId'
         render={(props) => <SingleTweetPage {...props} isAuthed={true} />}

@@ -27,18 +27,18 @@ const ExplorePage = ({ user, logout, history }) => {
       ) : (
         <MobileBottomNav user={user} />
       )}
-      <main className='singleTweetView'>
-        <div className='singleTweetView__header'>
-          <div className='singleTweetView__header__content'>
+      <main className='explorePage'>
+        <div className='explorePage__header'>
+          <div className='explorePage__header__content'>
             <button
-              className='singleTweetView__header__btn'
+              className='explorePage__header__btn'
               onClick={history.goBack}
             >
-              <GoBack className='singleTweetView__header__icon' />
+              <GoBack className='explorePage__header__icon' />
             </button>
             <button
               onClick={scrollToTop}
-              className='heading-2 singleTweetView__header__heading'
+              className='heading-2 explorePage__header__heading'
             >
               Explore
             </button>

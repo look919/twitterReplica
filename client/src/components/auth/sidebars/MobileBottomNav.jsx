@@ -47,7 +47,7 @@ const MobileBottomNav = ({ user, tweetCreateModalIcon }) => {
             <Explore className='auth__nav__content__nav__item__icon' />{' '}
           </NavLink>
           <NavLink
-            to={`/${user.at}`}
+            to='/search'
             className='auth__nav__content__nav__item'
             activeClassName='auth__nav__content__nav__item--active'
           >
