@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { logout } from '../../actions/auth';
+import { logout, setInitialStates } from '../../actions/auth';
 
 import NavBar from './sidebars/NavBar';
 import MobileBottomNav from './sidebars/MobileBottomNav';
@@ -13,13 +13,14 @@ import { GoBack, Search, SadFace, Profile } from '../../img/Svgs';
 import findUsers from '../../selectors/findUsers';
 import SearchResult from './sidebars/SearchResult';
 
-const ExplorePage = ({ user, users, logout, history }) => {
+const ExplorePage = ({ user, users, logout, setInitialStates, history }) => {
   if (!users) users = [];
+  useEffect(() => {
+    setInitialStates();
+  }, []);
 
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
-
   const [search, setSearch] = useState('');
-
   const searchedUsers = findUsers(users, search);
 
   return (
@@ -83,6 +84,7 @@ const ExplorePage = ({ user, users, logout, history }) => {
 
 ExplorePage.propTypes = {
   logout: PropTypes.func.isRequired,
+  setInitialStates: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
 };
 const mapStateToProps = (state) => ({
@@ -90,4 +92,6 @@ const mapStateToProps = (state) => ({
   users: state.users.data,
 });
 
-export default withRouter(connect(mapStateToProps, { logout })(ExplorePage));
+export default withRouter(
+  connect(mapStateToProps, { logout, setInitialStates })(ExplorePage)
+);

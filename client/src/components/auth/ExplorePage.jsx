@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { animateScroll as scroll } from 'react-scroll';
 import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { logout } from '../../actions/auth';
+import { logout, setInitialStates } from '../../actions/auth';
 
 import NavBar from './sidebars/NavBar';
 import MobileBottomNav from './sidebars/MobileBottomNav';
@@ -14,7 +14,11 @@ import Recommended from './sidebars/Recommended';
 import { useMediaQuery } from 'react-responsive';
 import { GoBack } from '../../img/Svgs';
 
-const ExplorePage = ({ user, logout, history }) => {
+const ExplorePage = ({ user, logout, setInitialStates, history }) => {
+  useEffect(() => {
+    setInitialStates();
+  }, []);
+
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
   const scrollToTop = () => {
     scroll.scrollToTop();
@@ -53,9 +57,12 @@ const ExplorePage = ({ user, logout, history }) => {
 
 ExplorePage.propTypes = {
   logout: PropTypes.func.isRequired,
+  setInitialStates: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default withRouter(connect(mapStateToProps, { logout })(ExplorePage));
+export default withRouter(
+  connect(mapStateToProps, { logout, setInitialStates })(ExplorePage)
+);

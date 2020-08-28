@@ -5,6 +5,7 @@ import {
   UPDATE_USER_FAIL,
   GET_SINGLE_TWEET_SUCCESS,
   GET_TWEETS_SUCCESS,
+  SET_INITIAL_STATE,
 } from '../actions/types';
 
 const initialState = {
@@ -27,8 +28,10 @@ export default function (state = initialState, action) {
         data: null,
         loading: false,
       };
+
     case GET_TWEETS_SUCCESS:
     case GET_SINGLE_TWEET_SUCCESS:
+    case SET_INITIAL_STATE:
       return initialState;
     case UPDATE_USER_FAIL:
     default:

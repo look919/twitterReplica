@@ -12,6 +12,7 @@ import {
   AUTH_SUCCESS,
   AUTH_FAIL,
   LOGOUT,
+  SET_INITIAL_STATE,
 } from './types';
 
 const config = {
@@ -124,6 +125,16 @@ export const logout = () => async (dispatch) => {
     dispatch(setAlert('Successfully logout', 'success'));
   } catch (err) {
     dispatch(setAlert(err.response.data.message, 'danger'));
+  }
+};
+
+export const setInitialStates = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: SET_INITIAL_STATE,
+    });
+  } catch (err) {
+    dispatch(setAlert('Something went wrong!', 'danger'));
   }
 };
 

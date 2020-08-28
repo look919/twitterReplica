@@ -37,7 +37,8 @@ const GetAllTweets = ({
     </div>
   ) : !loading && loadedTweets.length === 0 ? (
     <h2 className='heading-3 getTweets__endMessage'>
-      For more tweets follow more users!
+      For more tweets follow more users! I recommend you to follow some users
+      from whoToFollow component and then refresh the page.
     </h2>
   ) : (
     <Fragment>

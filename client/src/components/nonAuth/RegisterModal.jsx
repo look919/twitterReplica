@@ -77,10 +77,11 @@ const RegisterModal = ({
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    await setFormData({
+    setFormData({
       ...formData,
       loading: true,
     });
+
     const {
       name,
       email,
@@ -99,14 +100,23 @@ const RegisterModal = ({
       await register(name, email, password, passwordConfirm, dateOfBirth);
 
       if (refContainer.current) {
-        await setFormData({
+        setFormData({
           ...formData,
           confirmationStage: true,
+          loading: false,
+        });
+      } else {
+        setFormData({
+          ...formData,
           loading: false,
         });
       }
     } else {
       await activate({ email, activationCode });
+      setFormData({
+        ...formData,
+        loading: false,
+      });
     }
   };
 
