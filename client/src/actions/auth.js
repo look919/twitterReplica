@@ -178,32 +178,3 @@ export const logout = () => async (dispatch) => {
 //     });
 //   }
 // };
-// //TODO:
-// //updatePassword
-// export const updatePassword = (
-//   currentPassword,
-//   password,
-//   passwordConfirm
-// ) => async (dispatch) => {
-//   const body = JSON.stringify({ currentPassword, password, passwordConfirm });
-
-//   const config = {
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   };
-//   try {
-//     const res = await axios.patch('/api/v1/users/updatepassword', body, config);
-//     dispatch({
-//       type: UPDATE_PASSWORD_SUCCESS,
-//       payload: res.data.data,
-//     });
-//     dispatch(setAlert('Password changed successfully', 'success'));
-//   } catch (err) {
-//     dispatch(setAlert(err.response.data.message, 'danger'));
-//     dispatch({
-//       type: UPDATE_PASSWORD_FAIL,
-//       payload: err.message,
-//     });
-//   }
-// };

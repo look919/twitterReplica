@@ -198,7 +198,7 @@ exports.deleteTweet = catchAsync(async (req, res, next) => {
   const doc = await Tweet.findByIdAndDelete(req.params.tweetId);
 
   const updateUserTweets = await User.findByIdAndUpdate(
-    req.user.id,
+    req.user._id,
     {
       tweets: req.user.tweets.filter(
         (tweet) => tweet.id !== req.params.tweetId

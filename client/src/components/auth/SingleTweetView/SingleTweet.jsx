@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -35,6 +35,7 @@ const SingleTweet = ({
   retweet,
   deleteRetweet,
   deleteTweet,
+  history,
 }) => {
   const [options, setOptions] = useState({
     addCommentChecked: false,
@@ -85,6 +86,7 @@ const SingleTweet = ({
     e.stopPropagation();
 
     await deleteTweet(user._id, tweet._id);
+    return history.push('/home');
   };
   const onTweetLike = async (e) => {
     e.preventDefault();
@@ -395,10 +397,12 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {
-  deleteTweet,
-  likeTweet,
-  deleteLikeFromTweet,
-  retweet,
-  deleteRetweet,
-})(SingleTweet);
+export default withRouter(
+  connect(mapStateToProps, {
+    deleteTweet,
+    likeTweet,
+    deleteLikeFromTweet,
+    retweet,
+    deleteRetweet,
+  })(SingleTweet)
+);

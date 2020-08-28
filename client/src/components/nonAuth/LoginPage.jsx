@@ -15,7 +15,7 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
     password: '',
     loading: false,
   });
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const onChange = (e) => {
     setFormData({
@@ -23,7 +23,6 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
       [e.target.name]: e.target.value,
     });
   };
-
   //modalfunc
   function openModal(e) {
     e.preventDefault();
@@ -34,9 +33,9 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
     e.preventDefault();
     setFormData({ ...formData, loading: true });
     await login(formData);
-
     setFormData({ ...formData, loading: false });
   };
+
   if (isAuthenticated && !loading) return <Redirect to='/home' />;
 
   return (

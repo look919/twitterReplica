@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -9,12 +9,16 @@ import LoadingGif from '../../../img/loading.gif';
 const RecommendedToFollowProfile = ({ user, profile, follow, unFollow }) => {
   const [actionLoading, setActionLoading] = useState(false);
 
+  useEffect(() => {
+    if (actionLoading) setActionLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile]);
+
   const onFollow = async (e) => {
     e.preventDefault();
 
     setActionLoading(true);
     await follow(profile);
-    setActionLoading(false);
   };
 
   return (
