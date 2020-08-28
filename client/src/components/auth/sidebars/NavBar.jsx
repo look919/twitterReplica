@@ -60,7 +60,7 @@ const NavBar = ({ user, logout }) => {
             )}
           </NavLink>
           <NavLink
-            to='/dev'
+            to='/explore'
             className='auth__nav__content__nav__item'
             activeClassName='auth__nav__content__nav__item--active'
           >

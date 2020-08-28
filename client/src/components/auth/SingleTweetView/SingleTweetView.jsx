@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-// import CreateTweet from './tweet/CreateTweet';
 import GetTweet from './GetTweet';
 
 import { GoBack } from '../../../img/Svgs';
