@@ -48,6 +48,10 @@ body {
   background: var(--light-color);
   text-align: center;
   transform: translateX(50%);
+
+  @media only screen and (max-width: $bp-500) {
+    width: 80%;
+  }
 }
 
 .alert-danger {

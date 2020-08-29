@@ -11,7 +11,11 @@
   }
   &__endMessage {
     text-align: center;
-    margin-top: 2rem;
+    margin: 2rem 1rem;
     margin-bottom: 1.2rem;
+
+    @media only screen and (max-width: $bp-500) {
+      margin: 5rem 3rem;
+    }
   }
 }

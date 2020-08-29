@@ -12,11 +12,13 @@ import { useMediaQuery } from 'react-responsive';
 import { GoBack, Search, SadFace, Profile } from '../../img/Svgs';
 import findUsers from '../../selectors/findUsers';
 import SearchResult from './sidebars/SearchResult';
+import RecommendedToFollow from './sidebars/RecommendedToFollow';
 
 const ExplorePage = ({ user, users, logout, setInitialStates, history }) => {
   if (!users) users = [];
   useEffect(() => {
     setInitialStates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
@@ -76,6 +78,7 @@ const ExplorePage = ({ user, users, logout, setInitialStates, history }) => {
             Type at least 3 letters to search for a user.
           </span>
         </div>
+        <RecommendedToFollow loggedAccount={user} users={users} />
       </main>
       {!isMobile && <Recommended />}
     </section>

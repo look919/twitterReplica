@@ -17,6 +17,7 @@ import { GoBack } from '../../img/Svgs';
 const ExplorePage = ({ user, logout, setInitialStates, history }) => {
   useEffect(() => {
     setInitialStates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });

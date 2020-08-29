@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import Modal from 'react-modal';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import LoadingGif from '../../img/loading-dark.gif';
-
+import { useMediaQuery } from 'react-responsive';
 import { register, activate } from '../../actions/auth';
 import Input from '../smallParts/Input';
 import DateSelector from '../smallParts/DateSelector';
@@ -31,6 +31,7 @@ const RegisterModal = ({
   modalIsOpen,
   closeModal,
 }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
   let refContainer = useRef(activationStage);
   refContainer.current = activationStage;
   const [formData, setFormData] = useState({
@@ -167,34 +168,43 @@ const RegisterModal = ({
           onChange={onChange}
           lengthMin={8}
         />
-        <h3 className='heading-3 registerPage__heading'>Date of birth</h3>
-        <p className='registerPage__p'>
-          This will not be shown publicly. Confirm your own age, even if this
-          account is for a business, a pet, or something else.
-        </p>
-        <div className='registerPage__form__date'>
-          <DateSelector
-            value={{ value: formData.monthValue, label: formData.monthLabel }}
-            text='Month'
-            onChange={onMonthChange}
-            options={dates.optionMonth}
-            type='month'
-          />
-          <DateSelector
-            value={{ value: formData.day, label: formData.day }}
-            text='Day'
-            onChange={onDayChange}
-            options={dates.optionDay}
-            type='day'
-          />
-          <DateSelector
-            value={{ value: formData.year, label: formData.year }}
-            text='Year'
-            onChange={onYearChange}
-            options={dates.optionYear}
-            type='year'
-          />
-        </div>
+        {!isMobile && (
+          <Fragment>
+            <h3 className='heading-3 registerPage__heading'>Date of birth</h3>
+
+            <p className='registerPage__p'>
+              This will not be shown publicly. Confirm your own age, even if
+              this account is for a business, a pet, or something else.
+            </p>
+            <div className='registerPage__form__date'>
+              <DateSelector
+                value={{
+                  value: formData.monthValue,
+                  label: formData.monthLabel,
+                }}
+                text='Month'
+                onChange={onMonthChange}
+                options={dates.optionMonth}
+                type='month'
+              />
+              <DateSelector
+                value={{ value: formData.day, label: formData.day }}
+                text='Day'
+                onChange={onDayChange}
+                options={dates.optionDay}
+                type='day'
+              />
+              <DateSelector
+                value={{ value: formData.year, label: formData.year }}
+                text='Year'
+                onChange={onYearChange}
+                options={dates.optionYear}
+                type='year'
+              />
+            </div>
+          </Fragment>
+        )}
+
         {!formData.loading ? (
           <button
             className='btn registerPage__form__btn '

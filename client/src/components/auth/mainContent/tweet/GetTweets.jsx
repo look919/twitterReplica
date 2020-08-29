@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getTweets } from '../../../../actions/tweets';
 import { v4 as uuidv4 } from 'uuid';
-
+import { useMediaQuery } from 'react-responsive';
 import loadTweets from '../../../../selectors/selectTweets';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -19,6 +19,7 @@ const GetAllTweets = ({
     getTweets();
   }, [getTweets]);
 
+  const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
   const [isMore, setIsMore] = useState(true);
   const [renderedAmount, setRenderedAmount] = useState(10);
 
@@ -37,8 +38,9 @@ const GetAllTweets = ({
     </div>
   ) : !loading && loadedTweets.length === 0 ? (
     <h2 className='heading-3 getTweets__endMessage'>
-      For more tweets follow more users! I recommend you to follow some users
-      from whoToFollow component and then refresh the page.
+      {!isMobile
+        ? 'For more tweets follow more users! I recommend you to follow some users from whoToFollow component and then refresh the page.'
+        : 'For more tweets follow more users! I recommend you to go to the search page, add some users from whoToFollow component and then refresh the page.'}
     </h2>
   ) : (
     <Fragment>

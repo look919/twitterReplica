@@ -56,6 +56,9 @@ const CreateTweet = ({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+  useEffect(() => {
+    setFillPercentage((tweet.message.length / 240) * 100);
+  }, [tweet.message]);
 
   const addToMessage = (emoji) => {
     setTweet({
@@ -64,7 +67,7 @@ const CreateTweet = ({
       emojiPicker: false,
       gifPicker: false,
     });
-    setFillPercentage((tweet.message.length / 240) * 100);
+    //setFillPercentage((tweet.message.length / 240) * 100);
   };
   const addGifToTweet = (item) => {
     setTweet({

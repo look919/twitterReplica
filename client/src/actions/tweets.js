@@ -131,7 +131,6 @@ export const retweet = (tweet) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch(setAlert('There was a problem with retweeting', 'danger'));
     console.log(err.response);
     dispatch({
       type: RETWEET_FAIL,
@@ -154,7 +153,6 @@ export const deleteRetweet = (tweet) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch(setAlert('There was a problem with deleting retweet', 'danger'));
     console.log(err.response);
     dispatch({
       type: DELETE_RETWEET_FAIL,
@@ -178,7 +176,6 @@ export const likeTweet = (tweet) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch(setAlert('There was a problem with liking tweet', 'danger'));
     console.log(err.response);
     dispatch({
       type: LIKE_TWEET_FAIL,
@@ -201,7 +198,6 @@ export const deleteLikeFromTweet = (tweet) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch(setAlert('There was a problem with unliking tweet', 'danger'));
     console.log(err.response);
     dispatch({
       type: DELETE_LIKE_TWEET_FAIL,

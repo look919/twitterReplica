@@ -22,8 +22,7 @@ const MobileBottomNav = ({ user, tweetCreateModalIcon }) => {
     e.preventDefault();
     setIsModalOpen(true);
   };
-  const closeModal = (e) => {
-    e.preventDefault();
+  const closeModal = () => {
     setIsModalOpen(false);
   };
 
@@ -89,6 +88,7 @@ const MobileBottomNav = ({ user, tweetCreateModalIcon }) => {
                   placeholder="What's happening?"
                   modal={true}
                   fileUploadId='modal'
+                  closeModal={closeModal}
                 />
               </div>
             </Modal>
