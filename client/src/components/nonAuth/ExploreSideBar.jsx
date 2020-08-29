@@ -13,7 +13,17 @@ const ExploreSideBar = ({ login }) => {
     email: '',
     password: '',
   });
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  //modalfunc
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = (e) => {
+    e.preventDefault();
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   const onChange = (e) => {
     setFormData({
@@ -26,12 +36,6 @@ const ExploreSideBar = ({ login }) => {
 
     login(formData);
   };
-
-  //modalfunc
-  function openModal(e) {
-    e.preventDefault();
-    setIsOpen(true);
-  }
 
   return (
     <form className='nonAuth__content__sidebar'>
@@ -71,7 +75,8 @@ const ExploreSideBar = ({ login }) => {
       <button onClick={openModal} className='btn btn--wide'>
         Sign up
       </button>
-      <RegisterModal modalIsOpen={modalIsOpen} />
+
+      <RegisterModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
     </form>
   );
 };

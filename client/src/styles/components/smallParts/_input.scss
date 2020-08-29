@@ -11,6 +11,11 @@
   height: 6rem;
   font-size: 1.4rem;
   color: $color-grey;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
 }
 .input {
   margin: 0 -1rem;

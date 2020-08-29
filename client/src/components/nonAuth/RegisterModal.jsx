@@ -11,6 +11,7 @@ import Input from '../smallParts/Input';
 import DateSelector from '../smallParts/DateSelector';
 import { TwitterLogo } from '../../img/Svgs';
 import dates from '../smallParts/dates.json';
+import FocusLock from 'react-focus-lock';
 
 //Register modal styles
 const customStyles = {
@@ -47,7 +48,6 @@ const RegisterModal = ({
     confirmationStage: false,
     loading: false,
   });
-
   const onChange = (e) => {
     setFormData({
       ...formData,
@@ -131,108 +131,111 @@ const RegisterModal = ({
       contentLabel='Example Modal'
       ariaHideApp={false}
       className='registerPage'
+      tabIndex='0'
     >
-      <Link to='/' className='logo-link '>
+      <Link to='/' className='logo-link'>
         <TwitterLogo className='logo' />
       </Link>
       <h1 className='heading-1 registerPage__heading'>Create your account</h1>
-      <form className='registerPage__form'>
-        <Input
-          type='text'
-          name='name'
-          text={'Name'}
-          value={formData.name}
-          onChange={onChange}
-          length={50}
-        />
-        <Input
-          type='email'
-          name='email'
-          text={'E-mail'}
-          value={formData.email}
-          onChange={onChange}
-        />
-        <Input
-          type='password'
-          name='password'
-          text={'Password'}
-          value={formData.password}
-          onChange={onChange}
-          lengthMin={8}
-        />
-        <Input
-          type='password'
-          name='passwordConfirm'
-          text={'Password confirm'}
-          value={formData.passwordConfirm}
-          onChange={onChange}
-          lengthMin={8}
-        />
-        {!isMobile && (
-          <Fragment>
-            <h3 className='heading-3 registerPage__heading'>Date of birth</h3>
+      <FocusLock>
+        <form className='registerPage__form'>
+          <Input
+            type='text'
+            name='name'
+            text={'Name'}
+            value={formData.name}
+            onChange={onChange}
+            length={50}
+          />
+          <Input
+            type='email'
+            name='email'
+            text={'E-mail'}
+            value={formData.email}
+            onChange={onChange}
+          />
+          <Input
+            type='password'
+            name='password'
+            text={'Password'}
+            value={formData.password}
+            onChange={onChange}
+            lengthMin={8}
+          />
+          <Input
+            type='password'
+            name='passwordConfirm'
+            text={'Password confirm'}
+            value={formData.passwordConfirm}
+            onChange={onChange}
+            lengthMin={8}
+          />
+          {!isMobile && (
+            <Fragment>
+              <h3 className='heading-3 registerPage__heading'>Date of birth</h3>
 
-            <p className='registerPage__p'>
-              This will not be shown publicly. Confirm your own age, even if
-              this account is for a business, a pet, or something else.
-            </p>
-            <div className='registerPage__form__date'>
-              <DateSelector
-                value={{
-                  value: formData.monthValue,
-                  label: formData.monthLabel,
-                }}
-                text='Month'
-                onChange={onMonthChange}
-                options={dates.optionMonth}
-                type='month'
-              />
-              <DateSelector
-                value={{ value: formData.day, label: formData.day }}
-                text='Day'
-                onChange={onDayChange}
-                options={dates.optionDay}
-                type='day'
-              />
-              <DateSelector
-                value={{ value: formData.year, label: formData.year }}
-                text='Year'
-                onChange={onYearChange}
-                options={dates.optionYear}
-                type='year'
-              />
-            </div>
-          </Fragment>
-        )}
+              <p className='registerPage__p'>
+                This will not be shown publicly. Confirm your own age, even if
+                this account is for a business, a pet, or something else.
+              </p>
+              <div className='registerPage__form__date'>
+                <DateSelector
+                  value={{
+                    value: formData.monthValue,
+                    label: formData.monthLabel,
+                  }}
+                  text='Month'
+                  onChange={onMonthChange}
+                  options={dates.optionMonth}
+                  type='month'
+                />
+                <DateSelector
+                  value={{ value: formData.day, label: formData.day }}
+                  text='Day'
+                  onChange={onDayChange}
+                  options={dates.optionDay}
+                  type='day'
+                />
+                <DateSelector
+                  value={{ value: formData.year, label: formData.year }}
+                  text='Year'
+                  onChange={onYearChange}
+                  options={dates.optionYear}
+                  type='year'
+                />
+              </div>
+            </Fragment>
+          )}
 
-        {!formData.loading ? (
-          <button
-            className='btn registerPage__form__btn '
-            onClick={handleRegister}
-            disabled={
-              !(
-                formData.name &&
-                formData.email &&
-                formData.password &&
-                formData.passwordConfirm
-              )
-            }
-          >
-            Sign up
-          </button>
-        ) : (
-          <button
-            onClick={(e) => e.preventDefault()}
-            className='btn registerPage__form__btn'
-          >
-            <img
-              src={LoadingGif}
-              className='registerPage__form__btn__gif'
-              alt='loading...'
-            />
-          </button>
-        )}
-      </form>
+          {!formData.loading ? (
+            <button
+              className='btn registerPage__form__btn '
+              onClick={handleRegister}
+              disabled={
+                !(
+                  formData.name &&
+                  formData.email &&
+                  formData.password &&
+                  formData.passwordConfirm
+                )
+              }
+            >
+              Sign up
+            </button>
+          ) : (
+            <button
+              onClick={(e) => e.preventDefault()}
+              className='btn registerPage__form__btn'
+            >
+              <img
+                src={LoadingGif}
+                className='registerPage__form__btn__gif'
+                alt='loading...'
+              />
+            </button>
+          )}
+        </form>
+      </FocusLock>
     </Modal>
   ) : (
     <Modal

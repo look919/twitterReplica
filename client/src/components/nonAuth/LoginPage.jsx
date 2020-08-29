@@ -15,7 +15,17 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
     password: '',
     loading: false,
   });
+
+  //modalfunc
   const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = (e) => {
+    e.preventDefault();
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   const onChange = (e) => {
     setFormData({
@@ -23,12 +33,6 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
       [e.target.name]: e.target.value,
     });
   };
-  //modalfunc
-  function openModal(e) {
-    e.preventDefault();
-    setIsOpen(true);
-  }
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setFormData({ ...formData, loading: true });
@@ -96,7 +100,7 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
       </span>
       <span className='loginPage__p'>Password: qwer1234</span>
 
-      <RegisterModal modalIsOpen={modalIsOpen} />
+      <RegisterModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
     </form>
   );
 };

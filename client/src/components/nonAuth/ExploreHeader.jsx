@@ -12,6 +12,9 @@ const ExploreHeader = () => {
     e.preventDefault();
     setIsOpen(true);
   }
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <header className='nonAuth__header'>
@@ -29,7 +32,7 @@ const ExploreHeader = () => {
         Sign up
       </button>
       <Settings className='nonAuth__settings' />
-      <RegisterModal modalIsOpen={modalIsOpen} />
+      <RegisterModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
     </header>
   );
 };
