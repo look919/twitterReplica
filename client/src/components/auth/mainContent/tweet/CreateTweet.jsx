@@ -6,6 +6,7 @@ import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import FocusLock from 'react-focus-lock';
 
 import { connect } from 'react-redux';
 import { createTweet } from '../../../../actions/tweets';
@@ -136,7 +137,8 @@ const CreateTweet = ({
       <div className='createTweet__img'>
         <img src={user.photo} className='createTweet__img__photo' alt='user' />
       </div>
-      <div className='createTweet__tweet'>
+
+      <FocusLock className='createTweet__tweet'>
         <div className='createTweet__tweet__text'>
           <TextareaAutosize
             autoComplete='off'
@@ -153,7 +155,7 @@ const CreateTweet = ({
             </span>
           )}
         </div>
-      </div>
+      </FocusLock>
       <div className='createTweet__options'>
         <input
           type='file'
