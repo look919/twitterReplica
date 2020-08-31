@@ -104,6 +104,9 @@
         color: $color-white;
         cursor: pointer;
 
+        @media only screen and (max-width: $bp-1440) {
+          margin-bottom: 1.2rem;
+        }
         @media only screen and (max-width: $bp-500) {
           padding: 0;
           margin-bottom: 0;
@@ -512,6 +515,11 @@
             color: $color-white;
           }
         }
+      }
+    }
+    &__trends {
+      @media only screen and (max-width: $bp-1440) {
+        display: none;
       }
     }
     //styles for follow component that are not inherited from trends
