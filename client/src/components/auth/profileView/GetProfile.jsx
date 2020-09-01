@@ -24,6 +24,7 @@ const GetProfile = ({
 }) => {
   useEffect(() => {
     getProfile(paramUser);
+    window.scrollTo(0, 0);
   }, [loadedTweets, getProfile, editProfile, paramUser]);
 
   const [isMore, setIsMore] = useState(true);
@@ -68,11 +69,15 @@ const GetProfile = ({
             <Tweet tweet={tweet} user={user} key={uuidv4()} />
           ))}
         </InfiniteScroll>
-      ) : paramUser === user.at ? (
+      ) : editProfile && paramUser === user.at ? (
         <EditProfile profile={data} updateUser={updateUser} />
-      ) : (
+      ) : editProfile ? (
         <span className='heading-3 getTweets__endMessage'>
           You can edit only your own profile
+        </span>
+      ) : (
+        <span className='heading-3 getTweets__endMessage'>
+          No more tweets connected to this user
         </span>
       )}
     </Fragment>

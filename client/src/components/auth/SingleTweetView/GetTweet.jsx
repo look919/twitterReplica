@@ -21,6 +21,7 @@ const GetTweet = ({
 }) => {
   useEffect(() => {
     getSingleTweet(paramTweet);
+    window.scrollTo(0, 0);
   }, [loadedTweets, getSingleTweet, paramTweet]);
 
   const [isMore, setIsMore] = useState(true);

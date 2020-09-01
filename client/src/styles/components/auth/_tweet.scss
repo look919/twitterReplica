@@ -390,12 +390,16 @@
     &__text {
       position: relative;
       z-index: 5;
-      &:link,
-      &:visited {
-        color: $color-primary !important;
-      }
-      &:hover {
-        text-decoration: underline !important;
+
+      &__link {
+        &:link,
+        &:visited {
+          color: $color-primary !important;
+        }
+
+        &:hover {
+          text-decoration: underline !important;
+        }
       }
     }
   }

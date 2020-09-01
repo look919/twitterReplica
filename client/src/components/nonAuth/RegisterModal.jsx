@@ -131,7 +131,6 @@ const RegisterModal = ({
       contentLabel='Example Modal'
       ariaHideApp={false}
       className='registerPage'
-      tabIndex='0'
     >
       <Link to='/' className='logo-link'>
         <TwitterLogo className='logo' />

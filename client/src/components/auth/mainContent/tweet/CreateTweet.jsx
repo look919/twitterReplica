@@ -136,6 +136,7 @@ const CreateTweet = ({
       <div className='createTweet__img'>
         <img src={user.photo} className='createTweet__img__photo' alt='user' />
       </div>
+
       <div className='createTweet__tweet'>
         <div className='createTweet__tweet__text'>
           <TextareaAutosize

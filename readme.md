@@ -2,6 +2,7 @@
 
 This project is a replica of Twitter written in MERN stack. It has all the main features of this portal. The project is under development and its test version may contain errors.
 
+First test deploy of the application: [Online](https://twitterreplica.herokuapp.com/)
 Video from the status of the project as of 22/08/20: [Youtube link](https://www.youtube.com/watch?v=ZYlMCxW5iRI&)
 
 #### Running

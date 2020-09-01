@@ -9,6 +9,7 @@ import emoji from 'react-easy-emoji';
 import { Exit } from '../../../../img/Svgs';
 
 const AddCommentTweet = ({ isOpen, closeModal, tweet }) => {
+  if (!isOpen) return null;
   return (
     <Modal
       isOpen={isOpen}

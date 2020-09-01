@@ -133,16 +133,13 @@ exports.unFollowUser = catchAsync(async (req, res, next) => {
 
 exports.getProfile = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ at: req.params.userAt })
+    .populate('tweets')
     .populate('likes')
-    .populate('retweets')
-    .populate('tweets');
+    .populate('retweets');
 
   if (user) {
     //organising data
-    //removing comments to another tweets
-    user.tweets = user.tweets.filter((tweet) => {
-      return !tweet.ref;
-    });
+
     //setting up retweets
     user.retweets.forEach((retweet) => {
       retweet.retweet = true;

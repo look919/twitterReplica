@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import findLinksInText from '../../../utils/findLinksInText';
 import emoji from 'react-easy-emoji';
-
 import LoadingGif from '../../../img/loading.gif';
 import { follow, unFollow } from '../../../actions/user';
 
