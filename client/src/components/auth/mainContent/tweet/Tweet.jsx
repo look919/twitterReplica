@@ -27,6 +27,7 @@ import {
   ArrowDown,
   LikesFilled,
 } from '../../../../img/Svgs';
+import { useEffect } from 'react';
 
 const Tweet = ({
   tweet,
@@ -38,7 +39,13 @@ const Tweet = ({
   deleteLikeFromTweet,
   history,
 }) => {
+  useEffect(() => {
+    return () => {
+      setUnmounted(true);
+    };
+  }, []);
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
+  const [unmounted, setUnmounted] = useState(false);
   const [options, setOptions] = useState({
     addCommentChecked: false,
     reportChecked: false,
@@ -145,23 +152,19 @@ const Tweet = ({
     });
   };
   const onHoverName = () => {
-    let unmounted = false;
-
-    if (options.hoverBoxText === 'none') {
-      setOptions({
-        ...options,
-        hoverBoxText: 'flex',
-      });
-      if (!unmounted) {
+    if (!unmounted) {
+      if (options.hoverBoxText === 'none') {
+        setOptions({
+          ...options,
+          hoverBoxText: 'flex',
+        });
         setTimeout(() => {
           setOptions({
             ...options,
             hoverBoxImg: 'none',
           });
-        }, 100);
-      }
-    } else {
-      if (!unmounted) {
+        }, 2000);
+      } else {
         setTimeout(() => {
           setOptions({
             ...options,
@@ -170,21 +173,15 @@ const Tweet = ({
         }, 100);
       }
     }
-
-    return () => {
-      unmounted = true;
-    };
   };
   const onHoverImg = () => {
-    let unmounted = false;
-
-    if (options.hoverBoxImg === 'none') {
-      setOptions({
-        ...options,
-        hoverBoxImg: 'flex',
-      });
-    } else {
-      if (!unmounted) {
+    if (!unmounted) {
+      if (options.hoverBoxImg === 'none') {
+        setOptions({
+          ...options,
+          hoverBoxImg: 'flex',
+        });
+      } else {
         setTimeout(() => {
           setOptions({
             ...options,

@@ -12,6 +12,7 @@ const ProfileView = ({ auth: { user }, history, paramUser, editProfile }) => {
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
+
   return (
     <main className='profile'>
       <div className='profile__header'>
