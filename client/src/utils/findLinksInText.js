@@ -7,7 +7,7 @@ let config = [
     fn: (key, result) => (
       <span key={key}>
         <a
-          className='tweet__content__text'
+          className='tweet__content__text__link'
           target='_blank'
           rel='noopener noreferrer'
           id='randomlinkintext'
