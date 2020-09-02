@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
 import LoginPage from '../nonAuth/LoginPage';
+import PasswordResetPage from '../nonAuth/PasswordResetPage';
 import ExploreNonAuth from '../nonAuth/ExploreNonAuth';
 import HomePage from '../auth/HomePage';
 import ExplorePage from '../auth/ExplorePage';
@@ -19,6 +20,16 @@ const App = () => (
     <Switch>
       <Route path='/' component={ExploreNonAuth} exact />
       <Route path='/login' component={LoginPage} exact />
+      <Route
+        path='/forgot-password'
+        render={() => <PasswordResetPage forgotten={true} />}
+      />
+      <Route
+        path='/resetPassword/:token'
+        render={(props) => (
+          <PasswordResetPage forgotten={false} {...props} isAuthed={true} />
+        )}
+      />
       <Route path='/dev' component={DevInfo} exact />
       <PrivateRoute path='/home' component={HomePage} />
       <PrivateRoute path='/explore' component={ExplorePage} />
