@@ -13,6 +13,8 @@ router.post('/signup', authController.signup);
 router.patch('/activate', authController.activate);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
+router.post('/forgotPassword', authController.forgotPassword);
+router.patch('/resetPassword/:token', authController.resetPassword);
 
 //USERS AUTHENTICATED
 router.use(authController.protect);
@@ -25,7 +27,6 @@ router.patch(
   tweetController.uploadUserPhotos,
   userController.updateMe
 );
-router.patch('/updatepassword', authController.updatePassword);
 
 //RESTRICTED TO ADMIN
 router.use(authController.restrictTo('admin'));
