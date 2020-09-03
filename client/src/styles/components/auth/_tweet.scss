@@ -83,6 +83,7 @@
         margin-right: 5px;
         position: relative;
         color: $color-white;
+        white-space: nowrap;
 
         @media only screen and (max-width: $bp-500) {
           font-size: 1.8rem;
@@ -118,6 +119,9 @@
           font-size: 1.2rem;
           line-height: 1.4;
         }
+      }
+      &__at {
+        white-space: nowrap;
       }
       &__time {
         margin-right: auto;
@@ -235,6 +239,10 @@
       &__text {
         font-size: 1.5rem;
         line-height: 1.3125;
+
+        &--large {
+          font-size: 2.2rem;
+        }
 
         @media only screen and (max-width: $bp-500) {
           font-size: 1.8rem;

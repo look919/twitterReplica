@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { getSingleTweet } from '../../../../actions/tweets.js';
 import { v4 as uuidv4 } from 'uuid';
 
+import SingleTweet from '../../SingleTweetView/SingleTweet';
 import Tweet from './Tweet';
 import Modal from 'react-modal';
 import { Exit } from '../../../../img/Svgs';
@@ -32,7 +33,7 @@ const FullScreenTweet = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!tweet || loading) return null;
+  if (!tweet || loading || !fullScreen) return null;
 
   return (
     <Modal
@@ -68,7 +69,7 @@ const FullScreenTweet = ({
         )
       )}
       <section className='tweet__fullscreen__content'>
-        <Tweet
+        <SingleTweet
           tweet={tweet}
           user={user}
           key={uuidv4()}

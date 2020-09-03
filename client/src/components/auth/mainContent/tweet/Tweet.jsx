@@ -77,10 +77,13 @@ const Tweet = ({
       addCommentChecked: false,
     });
   };
-  const openFullScreen = () => {
+  const openFullScreen = (e) => {
+    e.preventDefault();
+
     setFullScreen(true);
   };
-  const closeFullScreen = () => {
+  const closeFullScreen = (e) => {
+    e.preventDefault();
     setFullScreen(false);
   };
 
@@ -299,14 +302,7 @@ const Tweet = ({
           )}
         </div>
         <div className='tweet__content__message' id='tweetRedirect'>
-          <div
-            id='tweetRedirect'
-            className={
-              !displayedFullScreen
-                ? 'tweet__content__message__text'
-                : 'tweet__content__message__text--large'
-            }
-          >
+          <div id='tweetRedirect' className='tweet__content__message__text'>
             <div id='tweetRedirect'>
               {findLinksInText(emoji(tweet.message))}
             </div>
@@ -322,7 +318,6 @@ const Tweet = ({
                     src={tweet.imgOrGif}
                     className='tweet__content__message__img'
                     alt='user input data'
-                    id='tweetImgRedirect'
                   />
                 </button>
               )}
@@ -335,7 +330,6 @@ const Tweet = ({
                     src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
                     className='tweet__content__message__img'
                     alt='user input data'
-                    id='tweetImgRedirect'
                   />
                 </button>
               )}
