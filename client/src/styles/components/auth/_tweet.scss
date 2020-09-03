@@ -263,6 +263,13 @@
       }
       &__img,
       &__gif {
+        &__btn {
+          width: 100%;
+          background: none;
+          border: none;
+          cursor: pointer;
+        }
+
         width: 100%;
         border-radius: 2.5rem;
         padding: 1rem 0.5rem;
@@ -403,6 +410,55 @@
       }
     }
   }
+  &__fullscreen {
+    position: fixed;
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: 1fr 40rem;
+    justify-items: center;
+
+    &__loading {
+      grid-column: 1 / 2;
+      align-self: center;
+      justify-self: center;
+      height: 4rem;
+      width: 4rem;
+    }
+    &__closeBtn {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        border-radius: 50%;
+        background-color: rgba($color-white, 0.2);
+      }
+
+      &__icon {
+        padding: 0.5rem;
+        height: 4.5rem;
+        width: 4.5rem;
+        fill: $color-white;
+      }
+    }
+    &__img {
+      grid-column: 1 / 2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      transition: all 1s;
+    }
+    &__content {
+      grid-column: 2 / 3;
+      width: 100%;
+      background-color: $color-background;
+    }
+  }
+
   &__ref {
     grid-row: 2 / 3;
     grid-column: 1 / 3;

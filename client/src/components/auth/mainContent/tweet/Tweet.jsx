@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,6 +17,7 @@ import emoji from 'react-easy-emoji';
 import AddCommentTweet from './AddCommentTweet';
 import HoverTweetBox from './HoverTweetBox';
 import ReportBox from './ReportBox';
+import FullScreenTweet from './FullScreenTweet';
 
 import { useMediaQuery } from 'react-responsive';
 
@@ -38,6 +39,7 @@ const Tweet = ({
   likeTweet,
   deleteLikeFromTweet,
   history,
+  displayedFullScreen = false,
 }) => {
   useEffect(() => {
     return () => {
@@ -55,6 +57,7 @@ const Tweet = ({
     hoverBoxText: 'none',
     hoverBoxImg: 'none',
   });
+  const [fullScreen, setFullScreen] = useState(false);
 
   const likeSvg = useRef(0);
   const likeText = useRef(0);
@@ -67,11 +70,18 @@ const Tweet = ({
       addCommentChecked: true,
     });
   };
+
   const closeModal = () => {
     setOptions({
       ...options,
       addCommentChecked: false,
     });
+  };
+  const openFullScreen = () => {
+    setFullScreen(true);
+  };
+  const closeFullScreen = () => {
+    setFullScreen(false);
   };
 
   const onReportChange = (e) => {
@@ -196,8 +206,6 @@ const Tweet = ({
 
     if (e.target.id === 'tweetRedirect') {
       return history.push(`/${tweet.user.at}/status/${tweet._id}`);
-    } else if (e.target.id === 'tweetImgRedirect') {
-      return history.push(`/${tweet.user.at}/status/${tweet._id}/photo`);
     } else {
       return;
     }
@@ -291,26 +299,54 @@ const Tweet = ({
           )}
         </div>
         <div className='tweet__content__message' id='tweetRedirect'>
-          <div id='tweetRedirect' className='tweet__content__message__text'>
+          <div
+            id='tweetRedirect'
+            className={
+              !displayedFullScreen
+                ? 'tweet__content__message__text'
+                : 'tweet__content__message__text--large'
+            }
+          >
             <div id='tweetRedirect'>
               {findLinksInText(emoji(tweet.message))}
             </div>
           </div>
-          {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (
-            <img
-              src={tweet.imgOrGif}
-              className='tweet__content__message__img'
-              alt='user input data'
-              id='tweetImgRedirect'
-            />
-          )}
-          {tweet.imgOrGif && !tweet.imgOrGif.startsWith('https://') && (
-            <img
-              src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
-              className='tweet__content__message__img'
-              alt='user input data'
-              id='tweetImgRedirect'
-            />
+          {!displayedFullScreen && (
+            <Fragment>
+              {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (
+                <button
+                  onClick={openFullScreen}
+                  className='tweet__content__message__img__btn'
+                >
+                  <img
+                    src={tweet.imgOrGif}
+                    className='tweet__content__message__img'
+                    alt='user input data'
+                    id='tweetImgRedirect'
+                  />
+                </button>
+              )}
+              {tweet.imgOrGif && !tweet.imgOrGif.startsWith('https://') && (
+                <button
+                  onClick={openFullScreen}
+                  className='tweet__content__message__img__btn'
+                >
+                  <img
+                    src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
+                    className='tweet__content__message__img'
+                    alt='user input data'
+                    id='tweetImgRedirect'
+                  />
+                </button>
+              )}
+              {fullScreen && (
+                <FullScreenTweet
+                  tweetId={tweet._id}
+                  fullScreen={fullScreen}
+                  close={closeFullScreen}
+                />
+              )}
+            </Fragment>
           )}
         </div>
 
