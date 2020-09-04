@@ -19,6 +19,7 @@ import {
   RETWEET_FAIL,
   DELETE_RETWEET_SUCCESS,
   DELETE_RETWEET_FAIL,
+  CLOSE_FULL_SCREEN,
 } from './types';
 
 const config = {
@@ -204,4 +205,9 @@ export const deleteLikeFromTweet = (tweet) => async (dispatch) => {
       payload: err.message,
     });
   }
+};
+export const setInitialValues = () => async (dispatch) => {
+  dispatch({
+    type: CLOSE_FULL_SCREEN,
+  });
 };

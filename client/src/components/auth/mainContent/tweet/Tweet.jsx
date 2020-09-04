@@ -8,6 +8,7 @@ import {
   deleteRetweet,
   likeTweet,
   deleteLikeFromTweet,
+  setInitialValues,
 } from '../../../../actions/tweets';
 
 import moment from 'moment';
@@ -40,6 +41,8 @@ const Tweet = ({
   deleteLikeFromTweet,
   history,
   displayedFullScreen = false,
+  openFullScreenOption = true,
+  setInitialValues,
 }) => {
   useEffect(() => {
     return () => {
@@ -78,13 +81,16 @@ const Tweet = ({
     });
   };
   const openFullScreen = (e) => {
-    e.preventDefault();
+    if (openFullScreenOption) {
+      e.preventDefault();
 
-    setFullScreen(true);
+      setFullScreen(true);
+    }
   };
   const closeFullScreen = (e) => {
     e.preventDefault();
     setFullScreen(false);
+    setInitialValues();
   };
 
   const onReportChange = (e) => {
@@ -318,6 +324,7 @@ const Tweet = ({
                     src={tweet.imgOrGif}
                     className='tweet__content__message__img'
                     alt='user input data'
+                    id={openFullScreenOption ? 'tweetImg' : 'tweetRedirect'}
                   />
                 </button>
               )}
@@ -330,6 +337,7 @@ const Tweet = ({
                     src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
                     className='tweet__content__message__img'
                     alt='user input data'
+                    id={openFullScreenOption ? 'tweetGif' : 'tweetRedirect'}
                   />
                 </button>
               )}
@@ -338,6 +346,7 @@ const Tweet = ({
                   tweetId={tweet._id}
                   fullScreen={fullScreen}
                   close={closeFullScreen}
+                  defaultTweet={tweet}
                 />
               )}
             </Fragment>
@@ -439,6 +448,7 @@ Tweet.propTypes = {
   deleteLikeFromTweet: PropTypes.func.isRequired,
   retweet: PropTypes.func.isRequired,
   deleteRetweet: PropTypes.func.isRequired,
+  setInitialValues: PropTypes.func.isRequired,
 };
 
 export default withRouter(
@@ -448,5 +458,6 @@ export default withRouter(
     deleteRetweet,
     likeTweet,
     deleteLikeFromTweet,
+    setInitialValues,
   })(Tweet)
 );

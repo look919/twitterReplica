@@ -66,7 +66,12 @@ const GetProfile = ({
           }
         >
           {loadTweets(renderedAmount, data.tweets).map((tweet) => (
-            <Tweet tweet={tweet} user={user} key={uuidv4()} />
+            <Tweet
+              tweet={tweet}
+              user={user}
+              key={uuidv4()}
+              openFullScreenOption={false}
+            />
           ))}
         </InfiniteScroll>
       ) : editProfile && paramUser === user.at ? (

@@ -23,6 +23,7 @@ const customStyles = {
 const FullScreenTweet = ({
   tweetId,
   singleTweet: { loading, tweet },
+  defaultTweet,
   user,
   getSingleTweet,
   fullScreen,
@@ -32,8 +33,9 @@ const FullScreenTweet = ({
     getSingleTweet(tweetId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (!tweet || loading || !fullScreen) return null;
+  console.log(tweet, loading);
+  if (!fullScreen || !defaultTweet) return null;
+  else if (!tweet || loading) tweet = defaultTweet;
 
   return (
     <Modal
@@ -53,17 +55,18 @@ const FullScreenTweet = ({
           className='loading tweet__fullscreen__loading'
           alt='loading...'
         />
-      ) : tweet.imgOrGif.startsWith('https://') ? (
+      ) : tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') ? (
         <img
           src={tweet.imgOrGif}
           className='tweet__fullscreen__img'
           alt='tweet img'
         />
       ) : (
+        tweet.imgOrGif &&
         !tweet.imgOrGif.startsWith('https://') && (
           <img
             src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
-            className='tweet__fullscreen__img'
+            className='tweet__fullscreen__gif'
             alt='tweet gif'
           />
         )
@@ -75,8 +78,8 @@ const FullScreenTweet = ({
           key={uuidv4()}
           displayedFullScreen={true}
         />
-
-        {tweet.comments.length > 0 &&
+        {!loading &&
+          tweet.comments.length > 0 &&
           tweet.comments.map((tweet) => (
             <Tweet tweet={tweet} user={user} key={uuidv4()} />
           ))}
