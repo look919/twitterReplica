@@ -68,6 +68,7 @@ const GetTweet = ({
               user={user}
               key={uuidv4()}
               openFullScreenOption={false}
+              showThreadButton={false}
             />
           ))}
         </InfiniteScroll>

@@ -105,18 +105,12 @@
         cursor: pointer;
 
         @media only screen and (max-width: $bp-1440) {
-          margin-bottom: 1.2rem;
+          margin-bottom: 1rem;
         }
         @media only screen and (max-width: $bp-500) {
           padding: 0;
           margin-bottom: 0;
           fill: $color-grey;
-        }
-
-        &--active {
-          fill: $color-primary;
-          color: $color-primary;
-          font-weight: 400;
         }
 
         &:hover {
@@ -130,6 +124,28 @@
             color: $color-primary;
           }
         }
+
+        &--active {
+          fill: $color-primary;
+          color: $color-primary;
+          font-weight: 400;
+        }
+        &--disabled {
+          fill: $color-grey;
+          color: $color-grey;
+          cursor: default;
+
+          &:hover {
+            svg {
+              fill: $color-grey;
+            }
+            h2 {
+              color: $color-grey;
+            }
+          }
+        }
+
+    
 
         &__icon {
           height: 2.4rem;

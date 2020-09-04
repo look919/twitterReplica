@@ -230,7 +230,7 @@ const CreateTweet = ({
               }}
             />
             <div className='createTweet__options__line'>&nbsp;</div>
-            <Plus className='createTweet__options__icon' />
+            <Plus className='createTweet__options__icon createTweet__options__icon--disabled' />
           </Fragment>
         )}
         {!tweet.loading ? (

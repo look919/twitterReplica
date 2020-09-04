@@ -39,10 +39,11 @@ const Tweet = ({
   deleteRetweet,
   likeTweet,
   deleteLikeFromTweet,
+  setInitialValues,
   history,
   displayedFullScreen = false,
   openFullScreenOption = true,
-  setInitialValues,
+  showThreadButton = true,
 }) => {
   useEffect(() => {
     return () => {
@@ -426,7 +427,8 @@ const Tweet = ({
           </div>
         </div>
       </div>
-      {tweet.ref &&
+      {showThreadButton &&
+        tweet.ref &&
         typeof tweet.ref === 'object' &&
         tweet.user._id === user._id && (
           <Link
