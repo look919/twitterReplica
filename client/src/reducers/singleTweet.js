@@ -4,6 +4,7 @@ import {
   GET_TWEETS_SUCCESS,
   GET_PROFILE_SUCCESS,
   SET_INITIAL_STATE,
+  CLOSE_FULL_SCREEN,
 } from '../actions/types';
 
 const initialState = {
@@ -25,6 +26,7 @@ export default function (state = initialState, action) {
     case GET_TWEETS_SUCCESS:
     case GET_PROFILE_SUCCESS:
     case SET_INITIAL_STATE:
+    case CLOSE_FULL_SCREEN:
       return initialState;
 
     default:

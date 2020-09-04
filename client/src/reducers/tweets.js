@@ -49,7 +49,6 @@ export default function (state = initialState, action) {
       };
 
     case LOGOUT:
-      return initialState;
     case CREATE_TWEET_FAIL:
     case DELETE_TWEET_FAIL:
     case LIKE_TWEET_SUCCESS:

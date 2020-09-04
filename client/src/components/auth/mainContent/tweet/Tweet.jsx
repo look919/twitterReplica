@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,6 +8,7 @@ import {
   deleteRetweet,
   likeTweet,
   deleteLikeFromTweet,
+  setInitialValues,
 } from '../../../../actions/tweets';
 
 import moment from 'moment';
@@ -17,6 +18,7 @@ import emoji from 'react-easy-emoji';
 import AddCommentTweet from './AddCommentTweet';
 import HoverTweetBox from './HoverTweetBox';
 import ReportBox from './ReportBox';
+import FullScreenTweet from './FullScreenTweet';
 
 import { useMediaQuery } from 'react-responsive';
 
@@ -37,7 +39,11 @@ const Tweet = ({
   deleteRetweet,
   likeTweet,
   deleteLikeFromTweet,
+  setInitialValues,
   history,
+  displayedFullScreen = false,
+  openFullScreenOption = true,
+  showThreadButton = true,
 }) => {
   useEffect(() => {
     return () => {
@@ -55,6 +61,7 @@ const Tweet = ({
     hoverBoxText: 'none',
     hoverBoxImg: 'none',
   });
+  const [fullScreen, setFullScreen] = useState(false);
 
   const likeSvg = useRef(0);
   const likeText = useRef(0);
@@ -67,11 +74,24 @@ const Tweet = ({
       addCommentChecked: true,
     });
   };
+
   const closeModal = () => {
     setOptions({
       ...options,
       addCommentChecked: false,
     });
+  };
+  const openFullScreen = (e) => {
+    if (openFullScreenOption) {
+      e.preventDefault();
+
+      setFullScreen(true);
+    }
+  };
+  const closeFullScreen = (e) => {
+    e.preventDefault();
+    setFullScreen(false);
+    setInitialValues();
   };
 
   const onReportChange = (e) => {
@@ -196,8 +216,6 @@ const Tweet = ({
 
     if (e.target.id === 'tweetRedirect') {
       return history.push(`/${tweet.user.at}/status/${tweet._id}`);
-    } else if (e.target.id === 'tweetImgRedirect') {
-      return history.push(`/${tweet.user.at}/status/${tweet._id}/photo`);
     } else {
       return;
     }
@@ -296,21 +314,43 @@ const Tweet = ({
               {findLinksInText(emoji(tweet.message))}
             </div>
           </div>
-          {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (
-            <img
-              src={tweet.imgOrGif}
-              className='tweet__content__message__img'
-              alt='user input data'
-              id='tweetImgRedirect'
-            />
-          )}
-          {tweet.imgOrGif && !tweet.imgOrGif.startsWith('https://') && (
-            <img
-              src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
-              className='tweet__content__message__img'
-              alt='user input data'
-              id='tweetImgRedirect'
-            />
+          {!displayedFullScreen && (
+            <Fragment>
+              {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (
+                <button
+                  onClick={openFullScreen}
+                  className='tweet__content__message__img__btn'
+                >
+                  <img
+                    src={tweet.imgOrGif}
+                    className='tweet__content__message__img'
+                    alt='user input data'
+                    id={openFullScreenOption ? 'tweetImg' : 'tweetRedirect'}
+                  />
+                </button>
+              )}
+              {tweet.imgOrGif && !tweet.imgOrGif.startsWith('https://') && (
+                <button
+                  onClick={openFullScreen}
+                  className='tweet__content__message__img__btn'
+                >
+                  <img
+                    src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
+                    className='tweet__content__message__img'
+                    alt='user input data'
+                    id={openFullScreenOption ? 'tweetGif' : 'tweetRedirect'}
+                  />
+                </button>
+              )}
+              {fullScreen && (
+                <FullScreenTweet
+                  tweetId={tweet._id}
+                  fullScreen={fullScreen}
+                  close={closeFullScreen}
+                  defaultTweet={tweet}
+                />
+              )}
+            </Fragment>
           )}
         </div>
 
@@ -387,7 +427,8 @@ const Tweet = ({
           </div>
         </div>
       </div>
-      {tweet.ref &&
+      {showThreadButton &&
+        tweet.ref &&
         typeof tweet.ref === 'object' &&
         tweet.user._id === user._id && (
           <Link
@@ -409,6 +450,7 @@ Tweet.propTypes = {
   deleteLikeFromTweet: PropTypes.func.isRequired,
   retweet: PropTypes.func.isRequired,
   deleteRetweet: PropTypes.func.isRequired,
+  setInitialValues: PropTypes.func.isRequired,
 };
 
 export default withRouter(
@@ -418,5 +460,6 @@ export default withRouter(
     deleteRetweet,
     likeTweet,
     deleteLikeFromTweet,
+    setInitialValues,
   })(Tweet)
 );

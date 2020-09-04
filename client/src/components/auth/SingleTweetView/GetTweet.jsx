@@ -63,7 +63,13 @@ const GetTweet = ({
           }
         >
           {loadTweets(renderedAmount, tweet.comments).map((tweet) => (
-            <Tweet tweet={tweet} user={user} key={uuidv4()} />
+            <Tweet
+              tweet={tweet}
+              user={user}
+              key={uuidv4()}
+              openFullScreenOption={false}
+              showThreadButton={false}
+            />
           ))}
         </InfiniteScroll>
       )}

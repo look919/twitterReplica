@@ -91,7 +91,7 @@ const NavBar = ({ user, logout }) => {
           )}
           <NavLink
             to='/dev'
-            className='auth__nav__content__nav__item'
+            className='auth__nav__content__nav__item auth__nav__content__nav__item--disabled'
             activeClassName='auth__nav__content__nav__item--active'
           >
             <Notifications className='auth__nav__content__nav__item__icon' />{' '}
@@ -103,7 +103,7 @@ const NavBar = ({ user, logout }) => {
           </NavLink>
           <NavLink
             to='/dev'
-            className='auth__nav__content__nav__item'
+            className='auth__nav__content__nav__item auth__nav__content__nav__item--disabled'
             activeClassName='auth__nav__content__nav__item--active'
           >
             <Messages className='auth__nav__content__nav__item__icon' />{' '}
@@ -115,7 +115,7 @@ const NavBar = ({ user, logout }) => {
           </NavLink>
           <NavLink
             to='/dev'
-            className='auth__nav__content__nav__item'
+            className='auth__nav__content__nav__item auth__nav__content__nav__item--disabled'
             activeClassName='auth__nav__content__nav__item--active'
           >
             <Bookmarks className='auth__nav__content__nav__item__icon' />{' '}
@@ -127,7 +127,7 @@ const NavBar = ({ user, logout }) => {
           </NavLink>
           <NavLink
             to='/dev'
-            className='auth__nav__content__nav__item'
+            className='auth__nav__content__nav__item auth__nav__content__nav__item--disabled'
             activeClassName='auth__nav__content__nav__item--active'
           >
             <Lists className='auth__nav__content__nav__item__icon' />{' '}
@@ -151,7 +151,7 @@ const NavBar = ({ user, logout }) => {
           </NavLink>
           <NavLink
             to='/dev'
-            className='auth__nav__content__nav__item'
+            className='auth__nav__content__nav__item auth__nav__content__nav__item--disabled'
             activeClassName='auth__nav__content__nav__item--active'
           >
             <More className='auth__nav__content__nav__item__icon' />{' '}

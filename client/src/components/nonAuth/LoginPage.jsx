@@ -82,7 +82,7 @@ const LoginPage = ({ auth: { isAuthenticated, loading }, login }) => {
       )}
 
       <div className='loginPage__links'>
-        <Link to='/forget' className='btn-inline loginPage__link'>
+        <Link to='/forgot-password' className='btn-inline loginPage__link'>
           Forgot password?
         </Link>
         {' · '}

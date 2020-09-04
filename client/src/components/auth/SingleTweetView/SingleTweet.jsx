@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -36,6 +36,7 @@ const SingleTweet = ({
   deleteRetweet,
   deleteTweet,
   history,
+  displayedFullScreen = false,
 }) => {
   const [options, setOptions] = useState({
     addCommentChecked: false,
@@ -264,21 +265,25 @@ const SingleTweet = ({
           <div className='tweet__content__message__text tweet__content__message__text--singleTweet'>
             <div>{findLinksInText(emoji(tweet.message))}</div>
           </div>
-          {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (
-            <img
-              src={tweet.imgOrGif}
-              className='tweet__content__message__img'
-              alt='user input data'
-              id='tweetImgRedirect'
-            />
-          )}
-          {tweet.imgOrGif && !tweet.imgOrGif.startsWith('https://') && (
-            <img
-              src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
-              className='tweet__content__message__img'
-              alt='user input data'
-              id='tweetImgRedirect'
-            />
+          {!displayedFullScreen && (
+            <Fragment>
+              {tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') && (
+                <img
+                  src={tweet.imgOrGif}
+                  className='tweet__content__message__img'
+                  alt='user input data'
+                  id='tweetImgRedirect'
+                />
+              )}
+              {tweet.imgOrGif && !tweet.imgOrGif.startsWith('https://') && (
+                <img
+                  src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
+                  className='tweet__content__message__img'
+                  alt='user input data'
+                  id='tweetImgRedirect'
+                />
+              )}
+            </Fragment>
           )}
         </div>
         <div className='tweet__content__author__time tweet__content__author__time--singleTweet'>
