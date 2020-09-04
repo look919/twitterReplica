@@ -424,7 +424,11 @@
     overflow: hidden;
     grid-template-columns: 1fr 40rem;
     justify-items: center;
-    background-color: rgba($color-background, 0.7);
+    background-color: rgba($color-background-input, 1);
+
+    @media only screen and (max-width: $bp-1020) {
+      grid-template-columns: 100%;
+    }
 
     &__loading {
       grid-column: 1 / 2;
@@ -432,8 +436,14 @@
       justify-self: center;
       height: 4rem !important;
       width: 4rem !important;
+
+      @media only screen and (max-width: $bp-1020) {
+        height: 3rem !important;
+        width: 3rem !important;
+      }
     }
-    &__closeBtn {
+    &__closeBtn,
+    &__settings {
       position: absolute;
       top: 1rem;
       left: 1rem;
@@ -441,9 +451,24 @@
       border: none;
       cursor: pointer;
 
+      @media only screen and (max-width: $bp-1020) {
+        top: 2rem;
+        left: 2rem;
+      }
+
       &:hover {
         border-radius: 50%;
         background-color: rgba($color-white, 0.2);
+      }
+
+      &--mobile {
+        display: none;
+
+        @media only screen and (max-width: $bp-1020) {
+          display: block;
+          left: unset;
+          right: 2rem;
+        }
       }
 
       &__icon {
@@ -451,6 +476,38 @@
         height: 4.5rem;
         width: 4.5rem;
         fill: $color-white;
+      }
+      &__box {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 12rem;
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-top-right-radius: 2.5rem;
+        border-top-left-radius: 2.5rem;
+
+        background-color: $color-background;
+        padding: 1rem;
+
+        &__link {
+          &:link,
+          &:visited {
+            color: $color-white;
+            padding: 0 2rem;
+            padding-top: 0.5rem;
+            cursor: pointer;
+          }
+        }
+        &__cancel {
+          background-color: $color-background-input;
+          margin: 0.5rem 2rem;
+          padding: 1rem !important;
+          border: none !important;
+        }
       }
     }
     &__img {
@@ -460,8 +517,9 @@
       object-fit: contain;
     }
     &__gif {
-      min-width: 30%;
       grid-column: 1 / 2;
+      min-width: 40rem;
+
       align-self: center;
       object-fit: contain;
     }
@@ -470,6 +528,10 @@
       width: 100%;
       background-color: $color-background;
       border-left: 1px solid $color-line;
+
+      @media only screen and (max-width: $bp-1020) {
+        display: none;
+      }
     }
   }
 

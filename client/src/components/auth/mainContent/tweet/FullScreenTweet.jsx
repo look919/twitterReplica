@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getSingleTweet } from '../../../../actions/tweets.js';
 import { v4 as uuidv4 } from 'uuid';
+import { useMediaQuery } from 'react-responsive';
 
 import SingleTweet from '../../SingleTweetView/SingleTweet';
 import Tweet from './Tweet';
 import Modal from 'react-modal';
-import { Exit } from '../../../../img/Svgs';
+import { Exit, Settings } from '../../../../img/Svgs';
 import LoadingGif from '../../../../img/loading.gif';
 
 //modal styles
@@ -33,7 +35,18 @@ const FullScreenTweet = ({
     getSingleTweet(tweetId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(tweet, loading);
+  const [optionsOpened, setOptionsOpened] = useState(false);
+  const isMobileOrIPad = useMediaQuery({ query: '(max-width: 1020px)' });
+
+  const handleOpenOptions = (e) => {
+    e.preventDefault();
+    setOptionsOpened(true);
+  };
+  const handleCloseOptions = (e) => {
+    e.preventDefault();
+    setOptionsOpened(false);
+  };
+
   if (!fullScreen || !defaultTweet) return null;
   else if (!tweet || loading) tweet = defaultTweet;
 
@@ -49,6 +62,28 @@ const FullScreenTweet = ({
       <button onClick={close} className='tweet__fullscreen__closeBtn'>
         <Exit className='tweet__fullscreen__closeBtn__icon' />
       </button>
+      <button
+        onClick={handleOpenOptions}
+        className='tweet__fullscreen__settings tweet__fullscreen__settings--mobile'
+      >
+        <Settings className='tweet__fullscreen__settings__icon' />
+      </button>
+      {optionsOpened && (
+        <div className='tweet__fullscreen__settings__box'>
+          <Link
+            to={`/${tweet.user.at}/status/${tweet._id}`}
+            className='tweet__fullscreen__settings__box__link'
+          >
+            View Tweet
+          </Link>
+          <button
+            onClick={handleCloseOptions}
+            className='btn tweet__fullscreen__settings__box__cancel'
+          >
+            Cancel
+          </button>
+        </div>
+      )}
       {loading ? (
         <img
           src={LoadingGif}
@@ -71,19 +106,21 @@ const FullScreenTweet = ({
           />
         )
       )}
-      <section className='tweet__fullscreen__content'>
-        <SingleTweet
-          tweet={tweet}
-          user={user}
-          key={uuidv4()}
-          displayedFullScreen={true}
-        />
-        {!loading &&
-          tweet.comments.length > 0 &&
-          tweet.comments.map((tweet) => (
-            <Tweet tweet={tweet} user={user} key={uuidv4()} />
-          ))}
-      </section>
+      {!isMobileOrIPad && (
+        <section className='tweet__fullscreen__content'>
+          <SingleTweet
+            tweet={tweet}
+            user={user}
+            key={uuidv4()}
+            displayedFullScreen={true}
+          />
+          {!loading &&
+            tweet.comments.length > 0 &&
+            tweet.comments.map((tweet) => (
+              <Tweet tweet={tweet} user={user} key={uuidv4()} />
+            ))}
+        </section>
+      )}
     </Modal>
   );
 };
