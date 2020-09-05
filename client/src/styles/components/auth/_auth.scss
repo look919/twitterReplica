@@ -26,6 +26,7 @@
   @media only screen and (max-width: $bp-1280) {
     width: 10rem;
   }
+
   @media only screen and (max-width: $bp-500) {
     grid-column: 1 / 2;
     height: 8rem;
@@ -144,8 +145,6 @@
             }
           }
         }
-
-    
 
         &__icon {
           height: 2.4rem;

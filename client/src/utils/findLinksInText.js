@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import processString from 'react-process-string';
 
 let config = [
@@ -20,6 +21,20 @@ let config = [
           {result[4]}
         </a>
         {result[5]}
+      </span>
+    ),
+  },
+  {
+    regex: /(^|\s)(#[a-z\d-]+)/,
+    fn: (key, result) => (
+      <span key={key}>
+        <Link
+          className='tweet__content__text__link'
+          id='randomlinkintext'
+          to={`/search?text=${result[2].substring(1)}`}
+        >
+          {result[0]}
+        </Link>
       </span>
     ),
   },
