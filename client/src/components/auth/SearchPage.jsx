@@ -18,11 +18,12 @@ const ExplorePage = ({ user, users, logout, setInitialStates, history }) => {
   if (!users) users = [];
   useEffect(() => {
     setInitialStates();
+    window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(history.location.hash.substring(1));
   const searchedUsers = findUsers(users, search);
 
   return (
@@ -67,7 +68,7 @@ const ExplorePage = ({ user, users, logout, setInitialStates, history }) => {
             <div className='auth__recommended__content__search-results__empty'>
               <SadFace className='auth__recommended__content__search-results__empty__icon' />
               <span className='auth__recommended__content__search-results__empty__text'>
-                No such user found
+                {`No results for "${search}"`}
               </span>
             </div>
           )

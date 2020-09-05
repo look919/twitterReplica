@@ -17,6 +17,7 @@ import { GoBack } from '../../img/Svgs';
 const ExplorePage = ({ user, logout, setInitialStates, history }) => {
   useEffect(() => {
     setInitialStates();
+    window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

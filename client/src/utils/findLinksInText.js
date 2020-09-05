@@ -31,7 +31,7 @@ let config = [
         <Link
           className='tweet__content__text__link'
           id='randomlinkintext'
-          to={`/search?text=${result[2].substring(1)}`}
+          to={`/search#${result[2].substring(1)}`}
         >
           {result[0]}
         </Link>
