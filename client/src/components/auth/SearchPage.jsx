@@ -23,12 +23,14 @@ const ExplorePage = ({ user, users, logout, setInitialStates, history }) => {
   }, []);
 
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
+  const isMobileLandscape = useMediaQuery({ query: '(max-height: 500px)' });
+
   const [search, setSearch] = useState(history.location.hash.substring(1));
   const searchedUsers = findUsers(users, search);
 
   return (
     <section className='auth'>
-      {!isMobile ? (
+      {!isMobile && !isMobileLandscape ? (
         <NavBar user={user} logout={logout} />
       ) : (
         <MobileBottomNav user={user} />
@@ -76,7 +78,7 @@ const ExplorePage = ({ user, users, logout, setInitialStates, history }) => {
         <div className='searchPage__footer'>
           <Profile className='searchPage__footer__icon' />
           <span className='searchPage__footer__text'>
-            Type at least 3 letters to search for a user.
+            Type at least 3 letters to search for a user. No hashtags support.
           </span>
         </div>
         <RecommendedToFollow loggedAccount={user} users={users} />

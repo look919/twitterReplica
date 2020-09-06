@@ -22,13 +22,15 @@ const ExplorePage = ({ user, logout, setInitialStates, history }) => {
   }, []);
 
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
+  const isMobileLandscape = useMediaQuery({ query: '(max-height: 500px)' });
+
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
 
   return (
     <section className='auth'>
-      {!isMobile ? (
+      {!isMobile && !isMobileLandscape ? (
         <NavBar user={user} logout={logout} />
       ) : (
         <MobileBottomNav user={user} />
