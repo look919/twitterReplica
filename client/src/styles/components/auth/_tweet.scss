@@ -276,6 +276,11 @@
           background: none;
           border: none;
           cursor: pointer;
+
+          @media only screen and (max-height: $bp-500) {
+            width: 60%;
+            align-self: flex-start;
+          }
         }
 
         width: 100%;

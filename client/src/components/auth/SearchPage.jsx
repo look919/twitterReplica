@@ -18,16 +18,19 @@ const ExplorePage = ({ user, users, logout, setInitialStates, history }) => {
   if (!users) users = [];
   useEffect(() => {
     setInitialStates();
+    window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
-  const [search, setSearch] = useState('');
+  const isMobileLandscape = useMediaQuery({ query: '(max-height: 500px)' });
+
+  const [search, setSearch] = useState(history.location.hash.substring(1));
   const searchedUsers = findUsers(users, search);
 
   return (
     <section className='auth'>
-      {!isMobile ? (
+      {!isMobile && !isMobileLandscape ? (
         <NavBar user={user} logout={logout} />
       ) : (
         <MobileBottomNav user={user} />
@@ -67,7 +70,7 @@ const ExplorePage = ({ user, users, logout, setInitialStates, history }) => {
             <div className='auth__recommended__content__search-results__empty'>
               <SadFace className='auth__recommended__content__search-results__empty__icon' />
               <span className='auth__recommended__content__search-results__empty__text'>
-                No such user found
+                {`No results for "${search}"`}
               </span>
             </div>
           )
@@ -75,7 +78,7 @@ const ExplorePage = ({ user, users, logout, setInitialStates, history }) => {
         <div className='searchPage__footer'>
           <Profile className='searchPage__footer__icon' />
           <span className='searchPage__footer__text'>
-            Type at least 3 letters to search for a user.
+            Type at least 3 letters to search for a user. No hashtags support.
           </span>
         </div>
         <RecommendedToFollow loggedAccount={user} users={users} />

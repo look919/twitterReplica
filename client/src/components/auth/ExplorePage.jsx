@@ -17,17 +17,20 @@ import { GoBack } from '../../img/Svgs';
 const ExplorePage = ({ user, logout, setInitialStates, history }) => {
   useEffect(() => {
     setInitialStates();
+    window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
+  const isMobileLandscape = useMediaQuery({ query: '(max-height: 500px)' });
+
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
 
   return (
     <section className='auth'>
-      {!isMobile ? (
+      {!isMobile && !isMobileLandscape ? (
         <NavBar user={user} logout={logout} />
       ) : (
         <MobileBottomNav user={user} />

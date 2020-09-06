@@ -13,10 +13,11 @@ import { useMediaQuery } from 'react-responsive';
 
 const HomePage = ({ user, logout }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
+  const isMobileLandscape = useMediaQuery({ query: '(max-height: 500px)' });
 
   return (
     <section className='auth'>
-      {!isMobile ? (
+      {!isMobile && !isMobileLandscape ? (
         <NavBar user={user} logout={logout} />
       ) : (
         <MobileBottomNav user={user} tweetCreateModalIcon={true} />
