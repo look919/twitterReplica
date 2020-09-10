@@ -73,7 +73,7 @@ const Recommended = ({ auth: { loading, user }, users }) => {
           target='_blanc'
           className='auth__recommended__content__footer__item auth__recommended__content__footer__item--copyright'
         >
-          &copy; 2020 Twitter replica by Wirkus Tomasz
+          2020 - Twitter replica by Wirkus Tomasz,
         </a>
       </div>
     </nav>

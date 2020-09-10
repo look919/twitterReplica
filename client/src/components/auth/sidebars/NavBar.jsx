@@ -205,7 +205,7 @@ const NavBar = ({ user, logout }) => {
           <div className='auth__nav__content__userBox'>
             <Link
               className='auth__nav__content__user auth__nav__content__user--box'
-              to='/dev'
+              to={`/${user.at}`}
             >
               <img
                 src={user.photo}

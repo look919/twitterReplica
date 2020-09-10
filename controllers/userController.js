@@ -132,7 +132,7 @@ exports.unFollowUser = catchAsync(async (req, res, next) => {
 });
 
 exports.getProfile = catchAsync(async (req, res, next) => {
-  const user = await User.findOne({ at: req.params.userAt })
+  const user = await User.findOne({ at: req.params.userAt.toLowerCase() })
     .populate('tweets')
     .populate('likes')
     .populate('retweets');
