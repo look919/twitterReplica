@@ -330,17 +330,17 @@ const Tweet = ({
                 </button>
               )}
               {tweet.imgOrGif && !tweet.imgOrGif.startsWith('https://') && (
-                <button
-                  onClick={openFullScreen}
+                <div
+                  id='tweetRedirect'
                   className='tweet__content__message__img__btn'
                 >
                   <img
                     src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
                     className='tweet__content__message__img'
                     alt='user input data'
-                    id={openFullScreenOption ? 'tweetGif' : 'tweetRedirect'}
+                    id='tweetRedirect'
                   />
-                </button>
+                </div>
               )}
               {fullScreen && (
                 <FullScreenTweet

@@ -521,13 +521,7 @@
       height: 100%;
       object-fit: contain;
     }
-    &__gif {
-      grid-column: 1 / 2;
-      min-width: 40rem;
 
-      align-self: center;
-      object-fit: contain;
-    }
     &__content {
       grid-column: 2 / 3;
       width: 100%;
