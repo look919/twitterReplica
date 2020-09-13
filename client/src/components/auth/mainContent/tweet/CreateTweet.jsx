@@ -21,6 +21,7 @@ import {
   AddEmoji,
   AddSchedule,
   Plus,
+  Exit,
 } from '../../../../img/Svgs';
 
 const CreateTweet = ({
@@ -89,13 +90,24 @@ const CreateTweet = ({
   const openEmojiPicker = () => {
     setTweet({
       ...tweet,
+      gifPicker: false,
       emojiPicker: true,
     });
   };
   const openGifPicker = () => {
     setTweet({
       ...tweet,
+      emojiPicker: false,
       gifPicker: true,
+    });
+  };
+  const closeEmojiOrGifPicker = (e) => {
+    e.stopPropagation();
+
+    setTweet({
+      ...tweet,
+      gifPicker: false,
+      emojiPicker: false,
     });
   };
   const onChange = (e) => {
@@ -178,10 +190,16 @@ const CreateTweet = ({
             <AddGif className='createTweet__options__icon' />
           </button>
         ) : (
-          <ReactGiphySearchbox
-            apiKey='YRLT8egMiEDkhBgx1AR2sQh0CkWYl5kr'
-            onSelect={(gif) => addGifToTweet(gif)}
-          />
+          <div className='gifPicker'>
+            <button className='gifPicker__btn' onClick={closeEmojiOrGifPicker}>
+              <Exit className='createTweet__options__icon' />
+            </button>
+
+            <ReactGiphySearchbox
+              apiKey='YRLT8egMiEDkhBgx1AR2sQh0CkWYl5kr'
+              onSelect={(gif) => addGifToTweet(gif)}
+            />
+          </div>
         )}
 
         {!isMobile && (
@@ -201,10 +219,19 @@ const CreateTweet = ({
             <AddEmoji className='createTweet__options__icon' />
           </button>
         ) : (
-          <Picker
-            className='createTweet__options__emojiPicker'
-            onSelect={(emoji) => addToMessage(emoji.native)}
-          />
+          <div className='emojiMartBox'>
+            <button
+              className='emojiMartBox__btn'
+              onClick={closeEmojiOrGifPicker}
+            >
+              <Exit className='createTweet__options__icon' />
+            </button>
+
+            <Picker
+              className='createTweet__options__emojiPicker'
+              onSelect={(emoji) => addToMessage(emoji.native)}
+            />
+          </div>
         )}
         {!isMobile && (
           <button
