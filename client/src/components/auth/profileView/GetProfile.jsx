@@ -44,7 +44,7 @@ const GetProfile = ({
     </div>
   ) : !loading && data === null ? (
     <h2 className='heading-3 getTweets__endMessage'>
-      Profile that you are looking for is not aviable
+      Profile that you are looking for is not aviable or doesn't exist
     </h2>
   ) : (
     <Fragment>
@@ -71,6 +71,7 @@ const GetProfile = ({
               user={user}
               key={uuidv4()}
               openFullScreenOption={false}
+              sidePageTweet={true}
             />
           ))}
         </InfiniteScroll>

@@ -12,7 +12,7 @@ import moment from 'moment';
 
 import './styles/main.scss';
 
-moment.locale('en', {
+moment.updateLocale('en', {
   relativeTime: {
     future: 'in %s',
     past: '%s',

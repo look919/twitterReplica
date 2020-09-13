@@ -25,15 +25,31 @@ let config = [
     ),
   },
   {
-    regex: /(^|\s)(#[a-z\d-]+)/,
+    regex: /(^|\s)(#[A-Za-z\d-]+)/,
     fn: (key, result) => (
       <span key={key}>
+        {' '}
         <Link
           className='tweet__content__text__link'
-          id='randomlinkintext'
+          id='randomlinkintext-hashtag'
           to={`/search#${result[2].substring(1)}`}
         >
           {result[0]}
+        </Link>
+      </span>
+    ),
+  },
+  {
+    regex: /(^|\s)(@[A-Za-z\d-]+)/,
+    fn: (key, result) => (
+      <span key={key}>
+        {' '}
+        <Link
+          className='tweet__content__text__link'
+          id='randomlinkintext-user'
+          to={`/${result[2].toLowerCase()}`}
+        >
+          {result[2]}
         </Link>
       </span>
     ),

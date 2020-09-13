@@ -124,7 +124,7 @@ userSchema.pre('save', async function (next) {
   // Runs only when create @
   if (this.at) return next();
 
-  (this.at = `@${this.name.replace(/ /g, '')}`), next();
+  (this.at = `@${this.name.toLowerCase().replace(/ /g, '')}`), next();
 });
 userSchema.pre('save', async function (next) {
   // Runs only when password gets modified

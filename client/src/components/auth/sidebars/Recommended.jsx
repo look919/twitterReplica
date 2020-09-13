@@ -9,6 +9,7 @@ import RecommendedTrends from './RecommendedTrends';
 import RecommendedToFollow from './RecommendedToFollow';
 import SearchResult from './SearchResult';
 import findUsers from '../../../selectors/findUsers';
+import LoadingGif from '../../../img/loading.gif';
 
 const Recommended = ({ auth: { loading, user }, users }) => {
   const [search, setSearch] = useState('');
@@ -46,8 +47,18 @@ const Recommended = ({ auth: { loading, user }, users }) => {
           )
         )}
         <RecommendedTrends />
-        {!users.loading && users.data && (
+        {!users.loading && users.data ? (
           <RecommendedToFollow loggedAccount={user} users={users.data} />
+        ) : (
+          users.loading && (
+            <div className='auth__recommended__content__follow__loading'>
+              <img
+                src={LoadingGif}
+                className='auth__recommended__content__follow__loading__gif loading'
+                alt='loading...'
+              />
+            </div>
+          )
         )}
         <div className='auth__recommended__content__footer'>
           <Link to='/dev' className='auth__recommended__content__footer__item'>
@@ -73,7 +84,7 @@ const Recommended = ({ auth: { loading, user }, users }) => {
           target='_blanc'
           className='auth__recommended__content__footer__item auth__recommended__content__footer__item--copyright'
         >
-          &copy; 2020 Twitter replica by Wirkus Tomasz
+          2020 - Twitter replica by Wirkus Tomasz,
         </a>
       </div>
     </nav>

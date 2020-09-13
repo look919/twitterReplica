@@ -90,19 +90,13 @@ const FullScreenTweet = ({
           className='loading tweet__fullscreen__loading'
           alt='loading...'
         />
-      ) : tweet.imgOrGif && tweet.imgOrGif.startsWith('https://') ? (
-        <img
-          src={tweet.imgOrGif}
-          className='tweet__fullscreen__img'
-          alt='tweet img'
-        />
       ) : (
         tweet.imgOrGif &&
-        !tweet.imgOrGif.startsWith('https://') && (
+        tweet.imgOrGif.startsWith('https://') && (
           <img
-            src={`https://media.giphy.com/media/${tweet.imgOrGif}/giphy.gif`}
-            className='tweet__fullscreen__gif'
-            alt='tweet gif'
+            src={tweet.imgOrGif}
+            className='tweet__fullscreen__img'
+            alt='tweet img'
           />
         )
       )}

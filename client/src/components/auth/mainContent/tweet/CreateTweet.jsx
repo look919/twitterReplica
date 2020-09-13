@@ -21,6 +21,7 @@ import {
   AddEmoji,
   AddSchedule,
   Plus,
+  Exit,
 } from '../../../../img/Svgs';
 
 const CreateTweet = ({
@@ -60,14 +61,20 @@ const CreateTweet = ({
     setFillPercentage((tweet.message.length / 240) * 100);
   }, [tweet.message]);
 
-  const addToMessage = (emoji) => {
+  //tweet func
+  const onChange = (e) => {
+    setTweet({
+      ...tweet,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const addEmojiToTweet = (emoji) => {
     setTweet({
       ...tweet,
       message: `${tweet.message}${emoji}`,
       emojiPicker: false,
       gifPicker: false,
     });
-    //setFillPercentage((tweet.message.length / 240) * 100);
   };
   const addGifToTweet = (item) => {
     setTweet({
@@ -89,21 +96,25 @@ const CreateTweet = ({
   const openEmojiPicker = () => {
     setTweet({
       ...tweet,
+      gifPicker: false,
       emojiPicker: true,
     });
   };
   const openGifPicker = () => {
     setTweet({
       ...tweet,
+      emojiPicker: false,
       gifPicker: true,
     });
   };
-  const onChange = (e) => {
+  const closeEmojiOrGifPicker = (e) => {
+    e.stopPropagation();
+
     setTweet({
       ...tweet,
-      [e.target.name]: e.target.value,
+      gifPicker: false,
+      emojiPicker: false,
     });
-    setFillPercentage((tweet.message.length / 240) * 100);
   };
 
   const onSubmit = async (e) => {
@@ -178,10 +189,16 @@ const CreateTweet = ({
             <AddGif className='createTweet__options__icon' />
           </button>
         ) : (
-          <ReactGiphySearchbox
-            apiKey='YRLT8egMiEDkhBgx1AR2sQh0CkWYl5kr'
-            onSelect={(gif) => addGifToTweet(gif)}
-          />
+          <div className='gifPicker'>
+            <button className='gifPicker__btn' onClick={closeEmojiOrGifPicker}>
+              <Exit className='createTweet__options__icon' />
+            </button>
+
+            <ReactGiphySearchbox
+              apiKey='YRLT8egMiEDkhBgx1AR2sQh0CkWYl5kr'
+              onSelect={(gif) => addGifToTweet(gif)}
+            />
+          </div>
         )}
 
         {!isMobile && (
@@ -201,10 +218,19 @@ const CreateTweet = ({
             <AddEmoji className='createTweet__options__icon' />
           </button>
         ) : (
-          <Picker
-            className='createTweet__options__emojiPicker'
-            onSelect={(emoji) => addToMessage(emoji.native)}
-          />
+          <div className='emojiMartBox'>
+            <button
+              className='emojiMartBox__btn'
+              onClick={closeEmojiOrGifPicker}
+            >
+              <Exit className='createTweet__options__icon' />
+            </button>
+
+            <Picker
+              className='createTweet__options__emojiPicker'
+              onSelect={(emoji) => addEmojiToTweet(emoji.native)}
+            />
+          </div>
         )}
         {!isMobile && (
           <button

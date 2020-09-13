@@ -76,13 +76,36 @@
 }
 
 .emoji-mart {
-  margin-top: 40rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
-.es_componentWrapper__3KEkn {
-  margin-top: 30rem;
+.emojiMartBox {
+  position: absolute;
+  margin-top: 40rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+
+  &__btn {
+    background-color: $color-white;
+    border: none;
+    border-radius: 5px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+.gifPicker {
+  margin-top: 35rem;
 
   position: absolute;
-  background-color: $color-white;
 
+  background-color: $color-white;
+  display: flex;
+  flex-direction: column;
   z-index: 200;
+
+  &__btn {
+    background: none;
+    border: none;
+  }
 }

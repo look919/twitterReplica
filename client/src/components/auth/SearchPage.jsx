@@ -15,18 +15,21 @@ import SearchResult from './sidebars/SearchResult';
 import RecommendedToFollow from './sidebars/RecommendedToFollow';
 
 const ExplorePage = ({ user, users, logout, setInitialStates, history }) => {
-  if (!users) users = [];
-  useEffect(() => {
-    setInitialStates();
-    window.scrollTo(0, 0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
   const isMobileLandscape = useMediaQuery({ query: '(max-height: 500px)' });
 
   const [search, setSearch] = useState(history.location.hash.substring(1));
   const searchedUsers = findUsers(users, search);
+
+  useEffect(() => {
+    setInitialStates();
+    window.scrollTo(0, 0);
+    setSearch(history.location.hash.substring(1));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history.location.hash]);
+
+  if (!users) users = [];
 
   return (
     <section className='auth'>
