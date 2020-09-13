@@ -28,6 +28,7 @@ import {
   OtherOptions,
   ArrowDown,
   LikesFilled,
+  CommentsFilled,
 } from '../../../../img/Svgs';
 import { useEffect } from 'react';
 
@@ -44,6 +45,7 @@ const Tweet = ({
   displayedFullScreen = false,
   openFullScreenOption = true,
   showThreadButton = true,
+  sidePageTweet = false,
 }) => {
   useEffect(() => {
     return () => {
@@ -228,8 +230,15 @@ const Tweet = ({
       id='tweetRedirect'
     >
       <div className='tweet__img' id='tweetRedirect'>
-        {tweet.retweet && <Retweets className='tweet__img__icon' />}
-        {tweet.liked && <LikesFilled className='tweet__img__icon' />}
+        {tweet.retweet ? (
+          <Retweets className='tweet__img__icon' />
+        ) : tweet.liked ? (
+          <LikesFilled className='tweet__img__icon' />
+        ) : (
+          showThreadButton &&
+          tweet.ref && <CommentsFilled className='tweet__img__icon' />
+        )}
+
         <Link to={`/${tweet.user.at}`}>
           <img
             src={tweet.user.photo}
@@ -248,19 +257,26 @@ const Tweet = ({
         )}
       </div>
       <div className='tweet__content' id='tweetRedirect'>
-        {tweet.retweet && (
+        {tweet.retweet ? (
           <Link
             to={`/${tweet.actionUserAt}`}
             className='tweet__content__retweeted'
           >
             {tweet.actionUserName + ' Retweeted'}
           </Link>
-        )}
-        {tweet.liked && (
+        ) : tweet.liked ? (
           <span className='tweet__content__retweeted'>
             {tweet.actionUserName + ' liked'}
           </span>
+        ) : (
+          showThreadButton &&
+          tweet.ref && (
+            <span className='tweet__content__retweeted'>
+              {tweet.user.name + ' replied'}
+            </span>
+          )
         )}
+
         <div
           className='tweet__content__author'
           name='tweetRedirect'
@@ -353,7 +369,6 @@ const Tweet = ({
             </Fragment>
           )}
         </div>
-
         <div className='tweet__content__options'>
           <button onClick={addComment} className='tweet__content__option'>
             <Comments className='tweet__content__option__icon' />
@@ -430,7 +445,7 @@ const Tweet = ({
       {showThreadButton &&
         tweet.ref &&
         typeof tweet.ref === 'object' &&
-        tweet.user._id === user._id && (
+        (tweet.user._id === user._id || sidePageTweet) && (
           <Link
             to={`/${tweet.ref.user.at}/status/${tweet.ref._id}`}
             className='tweet__ref'

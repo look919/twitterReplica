@@ -61,14 +61,20 @@ const CreateTweet = ({
     setFillPercentage((tweet.message.length / 240) * 100);
   }, [tweet.message]);
 
-  const addToMessage = (emoji) => {
+  //tweet func
+  const onChange = (e) => {
+    setTweet({
+      ...tweet,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const addEmojiToTweet = (emoji) => {
     setTweet({
       ...tweet,
       message: `${tweet.message}${emoji}`,
       emojiPicker: false,
       gifPicker: false,
     });
-    //setFillPercentage((tweet.message.length / 240) * 100);
   };
   const addGifToTweet = (item) => {
     setTweet({
@@ -109,13 +115,6 @@ const CreateTweet = ({
       gifPicker: false,
       emojiPicker: false,
     });
-  };
-  const onChange = (e) => {
-    setTweet({
-      ...tweet,
-      [e.target.name]: e.target.value,
-    });
-    setFillPercentage((tweet.message.length / 240) * 100);
   };
 
   const onSubmit = async (e) => {
@@ -229,7 +228,7 @@ const CreateTweet = ({
 
             <Picker
               className='createTweet__options__emojiPicker'
-              onSelect={(emoji) => addToMessage(emoji.native)}
+              onSelect={(emoji) => addEmojiToTweet(emoji.native)}
             />
           </div>
         )}

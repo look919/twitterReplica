@@ -71,6 +71,7 @@ const GetProfile = ({
               user={user}
               key={uuidv4()}
               openFullScreenOption={false}
+              sidePageTweet={true}
             />
           ))}
         </InfiniteScroll>
