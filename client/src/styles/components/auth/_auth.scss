@@ -542,6 +542,19 @@
     &__follow {
       padding: 1rem 0;
 
+      &__loading {
+        height: 25rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &__gif {
+          height: 4rem;
+          width: 4rem;
+        }
+      }
+
       &__heading,
       &__more {
         padding: 0 1.4rem;
