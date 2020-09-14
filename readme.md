@@ -5,7 +5,7 @@ This project is a replica of Twitter written in MERN stack. It has all the main 
 First test deploy of the application: [Online](https://twitterreplica.herokuapp.com/)
 Video from the status of the project as of 22/08/20: [Youtube link](https://www.youtube.com/watch?v=ZYlMCxW5iRI&)
 
-#### Running
+#### Running:
 
 If you want to run the project on your own machine in the root directory, add the config.env file and put such variables as config.env in it:
 
@@ -27,9 +27,24 @@ If you want to run the project on your own machine in the root directory, add th
 
 Then install both server and client side dependencies and run the development server with: npm run dev
 
+#### Working funcionalities:
+
+- Responsive pages: Explore page, Search page, Login page, ResetPassword page, MainContent(wall for auth users), SingleTweet page, Profile page, Edit profile page
+- Registration/Login/Login/Reset password func.
+- Follow/Unfollow users
+- Rendering tweets from people that you follow and getting more of them on scrolling
+- Commenting/Retweeting/Liking tweets
+- Finding links/hashtags/user@ in tweets
+- Displaying photos in fullscreen
+- Removing your own tweets
+- Uploading images/gifs, adding emojis to tweets
+- Displaying the activity of a user in his/her profile
+- Profile Editing
+- Searching for users
+
 #### Things I learned during this project:
 
-- Better organize the code,
+- How to better organize the code,
 - Work with 3rd party components such as (emoji-mart, react-easy-emoji, react-textarea-autosize, react-giphy-searchbox, react-process-string, react-infinite-scroll-component, react-circular-progressbar),
 - Work more efficiently with Redux (loadings, more complex structure),
 - I have deepened my knowledge of express and node (I work on the backend at least twice as efficiently as before)
