@@ -391,7 +391,6 @@
       left: 0;
 
       &--singlePage {
-        //position: relative;
         width: 100%;
         top: 20rem;
         margin: 0 auto;
@@ -637,5 +636,12 @@
         }
       }
     }
+  }
+  &__logout {
+    position: fixed;
+    bottom: 2rem;
+    margin: 0 2rem;
+
+    width: 36rem;
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
 import CreateTweet from '../mainContent/tweet/CreateTweet';
@@ -25,7 +25,11 @@ import {
 
 const NavBar = ({ user, logout }) => {
   if (!user) user = defaultUser;
+
+  const isIPad = useMediaQuery({ query: '(max-width: 1020px)' });
   const isLaptopMDPI = useMediaQuery({ query: '(max-width: 1280px)' });
+  const isLaptopHiDPI = useMediaQuery({ query: '(max-width: 1440px)' });
+
   const isRecommendedNotDisplayed = useMediaQuery({
     query: '(max-width: 1020px)',
   });
@@ -234,27 +238,49 @@ const NavBar = ({ user, logout }) => {
             </button>
           </div>
         )}
-        <button
-          className='auth__nav__content__user'
-          onClick={!isLaptopMDPI ? handleSetUserBox : handleLogout}
-        >
-          <img
-            src={user.photo}
-            className='auth__nav__content__user__photo'
-            alt='profile'
-          />
-          {!isLaptopMDPI && (
+        {!isLaptopHiDPI ? (
+          <button
+            className='auth__nav__content__user'
+            onClick={handleSetUserBox}
+          >
+            <img
+              src={user.photo}
+              className='auth__nav__content__user__photo'
+              alt='profile'
+            />
             <div className='auth__nav__content__user__text'>
               <h3 className='heading-3 auth__nav__content__user__text__name'>
                 {user.name}
               </h3>
               <p className='auth__nav__content__user__text__p'>{user.at}</p>
             </div>
-          )}
-          {!isLaptopMDPI && (
             <ArrowDown className='auth__nav__content__user__icon' />
-          )}
-        </button>
+          </button>
+        ) : isLaptopHiDPI && !isIPad ? (
+          <Link to={`/${user.at}`} className='auth__nav__content__user'>
+            <img
+              src={user.photo}
+              className='auth__nav__content__user__photo'
+              alt='profile'
+            />
+            {!isLaptopMDPI && (
+              <div className='auth__nav__content__user__text'>
+                <h3 className='heading-3 auth__nav__content__user__text__name'>
+                  {user.name}
+                </h3>
+                <p className='auth__nav__content__user__text__p'>{user.at}</p>
+              </div>
+            )}
+          </Link>
+        ) : (
+          <button className='auth__nav__content__user' onClick={handleLogout}>
+            <img
+              src={user.photo}
+              className='auth__nav__content__user__photo'
+              alt='profile'
+            />
+          </button>
+        )}
       </div>
     </section>
   );

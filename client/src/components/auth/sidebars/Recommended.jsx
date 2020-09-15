@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { logout } from '../../../actions/auth';
 
 import { Search, ArrowDown, SadFace } from '../../../img/Svgs';
 import RecommendedTrends from './RecommendedTrends';
@@ -11,9 +12,18 @@ import SearchResult from './SearchResult';
 import findUsers from '../../../selectors/findUsers';
 import LoadingGif from '../../../img/loading.gif';
 
-const Recommended = ({ auth: { loading, user }, users }) => {
+import { useMediaQuery } from 'react-responsive';
+
+const Recommended = ({ auth: { loading, user }, users, logout }) => {
+  const isLaptopHiDPI = useMediaQuery({ query: '(max-width: 1440px)' });
+
   const [search, setSearch] = useState('');
   const searchedUsers = findUsers(users.data, search);
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await logout();
+  };
 
   if (!user && !loading) return null;
 
@@ -87,6 +97,14 @@ const Recommended = ({ auth: { loading, user }, users }) => {
           2020 - Twitter replica by Wirkus Tomasz,
         </a>
       </div>
+      {isLaptopHiDPI && (
+        <button
+          onClick={(e) => handleLogout(e)}
+          className='btn btn--dark auth__recommended__logout'
+        >
+          Log out
+        </button>
+      )}
     </nav>
   );
 };
@@ -94,6 +112,7 @@ const Recommended = ({ auth: { loading, user }, users }) => {
 Recommended.propTypes = {
   users: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -101,4 +120,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {})(Recommended);
+export default connect(mapStateToProps, { logout })(Recommended);
