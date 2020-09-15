@@ -1,8 +1,10 @@
 ## Twitter replica
 
-This project is a replica of Twitter written in MERN stack. It has all the main features of this portal. The project is under development and its test version may contain errors.
+This project is a replica of Twitter written in MERN stack. It has all the main features of this portal. The project is under development and it may contain errors.
 
-First test deploy of the application: [Online](https://twitterreplica.herokuapp.com/)
+[AWS Deploy](http://35.158.105.176/) - EC2 instance, runs 24/7, no ssl certificate.
+[Heroku Deploy](https://twitterreplica.herokuapp.com/) - need more time to load website(Dyno sleeping), provides ssl certificate.
+
 Video from the status of the project as of 22/08/20: [Youtube link](https://www.youtube.com/watch?v=ZYlMCxW5iRI&)
 
 #### Running:
