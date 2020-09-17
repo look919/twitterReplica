@@ -86,6 +86,10 @@
   flex-direction: column;
   z-index: 200;
 
+  @media only screen and (max-width: $bp-500) {
+    margin-top: 0;
+  }
+
   &__btn {
     background-color: $color-white;
     border: none;
@@ -96,13 +100,16 @@
 }
 .gifPicker {
   margin-top: 35rem;
-
   position: absolute;
 
   background-color: $color-white;
   display: flex;
   flex-direction: column;
   z-index: 200;
+
+  @media only screen and (max-width: $bp-500) {
+    margin-top: 0;
+  }
 
   &__btn {
     background: none;
