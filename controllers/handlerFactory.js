@@ -2,6 +2,13 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndDelete(req.params.id);
@@ -64,7 +71,7 @@ exports.getOne = (Model, popOptions) =>
     });
   });
 
-exports.getAll = (Model) =>
+exports.getAll = (Model, shuffle = false) =>
   catchAsync(async (req, res, next) => {
     const features = new APIFeatures(Model.find(), req.query)
       .filter()
@@ -72,12 +79,15 @@ exports.getAll = (Model) =>
       .limitFields()
       .paginate();
     // const doc = await features.query.explain();
-    const doc = await features.query;
+    let doc = await features.query;
+
+    if (shuffle) {
+      shuffleArray(doc);
+    }
 
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',
-      results: doc.length,
       data: {
         data: doc,
       },

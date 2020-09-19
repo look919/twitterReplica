@@ -7,7 +7,7 @@ exports.getMe = (req, res, next) => {
   next();
 };
 
-exports.getAllUsers = factory.getAll(User);
+exports.getAllUsers = factory.getAll(User, true);
 exports.getUser = factory.getOne(User, { path: 'room' });
 exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
