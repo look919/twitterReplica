@@ -24,7 +24,7 @@ moment.updateLocale('en', {
     hh: '%dh',
     d: '1d',
     dd: '%dd',
-    M: '1 month',
+    M: '1 mth',
     MM: '%dM',
     y: '1 year',
     yy: '%dY',

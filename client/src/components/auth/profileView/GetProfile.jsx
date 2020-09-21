@@ -52,6 +52,9 @@ const GetProfile = ({
 
       {data.tweets.length > 0 && !editProfile ? (
         <InfiniteScroll
+          style={{
+            overflow: 'visible',
+          }}
           dataLength={renderedAmount}
           next={fetchMoreData}
           hasMore={isMore}

@@ -111,7 +111,12 @@ const FullScreenTweet = ({
           {!loading &&
             tweet.comments.length > 0 &&
             tweet.comments.map((tweet) => (
-              <Tweet tweet={tweet} user={user} key={uuidv4()} />
+              <Tweet
+                tweet={tweet}
+                user={user}
+                key={uuidv4()}
+                fullscreenOptions={true}
+              />
             ))}
         </section>
       )}

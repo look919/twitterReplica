@@ -99,7 +99,7 @@ exports.getTweets = catchAsync(async (req, res, next) => {
     followedPerson.likes.forEach((like) => {
       like.liked = true;
       like.actionUserName = followedPerson.name;
-      like.actionUserNameAt = followedPerson.at;
+      like.actionUserAt = followedPerson.at;
     });
 
     return [

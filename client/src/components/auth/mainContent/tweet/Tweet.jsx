@@ -43,6 +43,7 @@ const Tweet = ({
   setInitialValues,
   history,
   displayedFullScreen = false,
+  fullscreenOptions = false,
   openFullScreenOption = true,
   showThreadButton = true,
   sidePageTweet = false,
@@ -216,10 +217,18 @@ const Tweet = ({
   const onTweetClicked = (e) => {
     e.stopPropagation();
 
-    if (e.target.id === 'tweetRedirect') {
-      return history.push(`/${tweet.user.at}/status/${tweet._id}`);
-    } else {
-      return;
+    switch (e.target.id) {
+      case 'tweetRedirect':
+        return history.push(`/${tweet.user.at}/status/${tweet._id}`);
+      case 'profileRedirect':
+        return history.push(`/${tweet.user.at}`);
+      case 'actionProfileRedirect':
+        //2nd case for users to replies to their own comments
+        return tweet.actionUserAt
+          ? history.push(`/${tweet.actionUserAt}`)
+          : history.push(`/${tweet.user.at}`);
+      default:
+        return;
     }
   };
 
@@ -230,16 +239,17 @@ const Tweet = ({
       id='tweetRedirect'
     >
       <div className='tweet__img' id='tweetRedirect'>
-        {tweet.retweet ? (
+        {!fullscreenOptions && tweet.retweet ? (
           <Retweets className='tweet__img__icon' />
-        ) : tweet.liked ? (
+        ) : !fullscreenOptions && tweet.liked ? (
           <LikesFilled className='tweet__img__icon' />
         ) : (
+          !fullscreenOptions &&
           showThreadButton &&
           tweet.ref && <CommentsFilled className='tweet__img__icon' />
         )}
 
-        <Link to={`/${tweet.user.at}`}>
+        <Link to={`/${tweet.user.at}`} id='profileRedirect'>
           <img
             src={tweet.user.photo}
             className='tweet__img__photo'
@@ -256,22 +266,29 @@ const Tweet = ({
           />
         )}
       </div>
-      <div className='tweet__content' id='tweetRedirect'>
-        {tweet.retweet ? (
-          <Link
-            to={`/${tweet.actionUserAt}`}
+      <div className='tweet__content' id='actionProfileRedirect'>
+        {!fullscreenOptions && tweet.retweet ? (
+          <span
+            id='actionProfileRedirect'
             className='tweet__content__retweeted'
           >
             {tweet.actionUserName + ' Retweeted'}
-          </Link>
-        ) : tweet.liked ? (
-          <span className='tweet__content__retweeted'>
+          </span>
+        ) : !fullscreenOptions && tweet.liked ? (
+          <span
+            className='tweet__content__retweeted'
+            id='actionProfileRedirect'
+          >
             {tweet.actionUserName + ' liked'}
           </span>
         ) : (
+          !fullscreenOptions &&
           showThreadButton &&
           tweet.ref && (
-            <span className='tweet__content__retweeted'>
+            <span
+              className='tweet__content__retweeted'
+              id='actionProfileRedirect'
+            >
               {tweet.user.name + ' replied'}
             </span>
           )
@@ -297,8 +314,14 @@ const Tweet = ({
               idClass='tweet__content__author__name__hover'
             />
           )}
-          <span className='tweet__content__author__at'>{tweet.user.at}</span>
-          <span className='tweet__content__author__dot'>{' · '}</span>
+          {!fullscreenOptions && (
+            <Fragment>
+              <span className='tweet__content__author__at'>
+                {tweet.user.at}
+              </span>
+              <span className='tweet__content__author__dot'>{' · '}</span>
+            </Fragment>
+          )}
           <span className='tweet__content__author__time'>
             {moment(tweet.createdAt).fromNow()}
           </span>

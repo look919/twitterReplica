@@ -2,8 +2,8 @@
 
 This project is a replica of Twitter written in MERN stack. It has all the main features of this portal. The project is under development and it may contain errors.
 
-[AWS Deploy](http://35.158.105.176/) - EC2 instance, runs 24/7, no ssl certificate.
-[Heroku Deploy](https://twitterreplica.herokuapp.com/) - need more time to load website(Dyno sleeping), provides ssl certificate.
+- [AWS Deploy](http://35.158.105.176/) - EC2 instance, runs 24/7, no ssl certificate.
+- [Heroku Deploy](https://twitterreplica.herokuapp.com/) - need more time to load website(Dyno sleeping), provides ssl certificate.
 
 Video from the status of the project as of 22/08/20: [Youtube link](https://www.youtube.com/watch?v=ZYlMCxW5iRI&)
 
@@ -32,12 +32,12 @@ Then install both server and client side dependencies and run the development se
 #### Working funcionalities:
 
 - Responsive pages: Explore page, Search page, Login page, ResetPassword page, MainContent(wall for auth users), SingleTweet page, Profile page, Edit profile page
-- Registration/Login/Login/Reset password func.
-- Follow/Unfollow users
+- Registration/Login/Login/Reset password funcionalities
+- Follow/Unfollow users funcionality
 - Rendering tweets from people that you follow and getting more of them on scrolling
-- Commenting/Retweeting/Liking tweets
-- Finding links/hashtags/user@ in tweets
-- Displaying photos in fullscreen
+- Commenting/Retweeting/Liking tweets or undoing it
+- Finding links/hashtags/@users in tweets
+- Displaying photos in fullscreen page
 - Removing your own tweets
 - Uploading images/gifs, adding emojis to tweets
 - Displaying the activity of a user in his/her profile
