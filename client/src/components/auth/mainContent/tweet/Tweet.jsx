@@ -216,10 +216,18 @@ const Tweet = ({
   const onTweetClicked = (e) => {
     e.stopPropagation();
 
-    if (e.target.id === 'tweetRedirect') {
-      return history.push(`/${tweet.user.at}/status/${tweet._id}`);
-    } else {
-      return;
+    switch (e.target.id) {
+      case 'tweetRedirect':
+        return history.push(`/${tweet.user.at}/status/${tweet._id}`);
+      case 'profileRedirect':
+        return history.push(`/${tweet.user.at}`);
+      case 'actionProfileRedirect':
+        //2nd case for users to replies to their own comments
+        return tweet.actionUserAt
+          ? history.push(`/${tweet.actionUserAt}`)
+          : history.push(`/${tweet.user.at}`);
+      default:
+        return;
     }
   };
 
@@ -239,7 +247,7 @@ const Tweet = ({
           tweet.ref && <CommentsFilled className='tweet__img__icon' />
         )}
 
-        <Link to={`/${tweet.user.at}`}>
+        <Link to={`/${tweet.user.at}`} id='profileRedirect'>
           <img
             src={tweet.user.photo}
             className='tweet__img__photo'
@@ -256,22 +264,28 @@ const Tweet = ({
           />
         )}
       </div>
-      <div className='tweet__content' id='tweetRedirect'>
+      <div className='tweet__content' id='actionProfileRedirect'>
         {tweet.retweet ? (
-          <Link
-            to={`/${tweet.actionUserAt}`}
+          <span
+            id='actionProfileRedirect'
             className='tweet__content__retweeted'
           >
             {tweet.actionUserName + ' Retweeted'}
-          </Link>
+          </span>
         ) : tweet.liked ? (
-          <span className='tweet__content__retweeted'>
+          <span
+            className='tweet__content__retweeted'
+            id='actionProfileRedirect'
+          >
             {tweet.actionUserName + ' liked'}
           </span>
         ) : (
           showThreadButton &&
           tweet.ref && (
-            <span className='tweet__content__retweeted'>
+            <span
+              className='tweet__content__retweeted'
+              id='actionProfileRedirect'
+            >
               {tweet.user.name + ' replied'}
             </span>
           )
