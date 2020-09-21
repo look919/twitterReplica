@@ -45,6 +45,9 @@ const GetAllTweets = ({
   ) : (
     <Fragment>
       <InfiniteScroll
+        style={{
+          overflow: 'visible',
+        }}
         dataLength={renderedAmount}
         next={fetchMoreData}
         hasMore={isMore}

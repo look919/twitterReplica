@@ -49,6 +49,9 @@ const GetTweet = ({
 
       {tweet.comments.length > 0 && (
         <InfiniteScroll
+          style={{
+            overflow: 'visible',
+          }}
           dataLength={renderedAmount}
           next={fetchMoreData}
           hasMore={isMore}
