@@ -43,6 +43,7 @@ const Tweet = ({
   setInitialValues,
   history,
   displayedFullScreen = false,
+  fullscreenOptions = false,
   openFullScreenOption = true,
   showThreadButton = true,
   sidePageTweet = false,
@@ -238,11 +239,12 @@ const Tweet = ({
       id='tweetRedirect'
     >
       <div className='tweet__img' id='tweetRedirect'>
-        {tweet.retweet ? (
+        {!fullscreenOptions && tweet.retweet ? (
           <Retweets className='tweet__img__icon' />
-        ) : tweet.liked ? (
+        ) : !fullscreenOptions && tweet.liked ? (
           <LikesFilled className='tweet__img__icon' />
         ) : (
+          !fullscreenOptions &&
           showThreadButton &&
           tweet.ref && <CommentsFilled className='tweet__img__icon' />
         )}
@@ -265,14 +267,14 @@ const Tweet = ({
         )}
       </div>
       <div className='tweet__content' id='actionProfileRedirect'>
-        {tweet.retweet ? (
+        {!fullscreenOptions && tweet.retweet ? (
           <span
             id='actionProfileRedirect'
             className='tweet__content__retweeted'
           >
             {tweet.actionUserName + ' Retweeted'}
           </span>
-        ) : tweet.liked ? (
+        ) : !fullscreenOptions && tweet.liked ? (
           <span
             className='tweet__content__retweeted'
             id='actionProfileRedirect'
@@ -280,6 +282,7 @@ const Tweet = ({
             {tweet.actionUserName + ' liked'}
           </span>
         ) : (
+          !fullscreenOptions &&
           showThreadButton &&
           tweet.ref && (
             <span
@@ -311,8 +314,14 @@ const Tweet = ({
               idClass='tweet__content__author__name__hover'
             />
           )}
-          <span className='tweet__content__author__at'>{tweet.user.at}</span>
-          <span className='tweet__content__author__dot'>{' · '}</span>
+          {!fullscreenOptions && (
+            <Fragment>
+              <span className='tweet__content__author__at'>
+                {tweet.user.at}
+              </span>
+              <span className='tweet__content__author__dot'>{' · '}</span>
+            </Fragment>
+          )}
           <span className='tweet__content__author__time'>
             {moment(tweet.createdAt).fromNow()}
           </span>
