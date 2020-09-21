@@ -9,21 +9,21 @@ Video from the status of the project as of 22/08/20: [Youtube link](https://www.
 
 #### Running:
 
-If you want to run the project on your own machine in the root directory, add the config.env file and put such variables as config.env in it:
+If you want to run the project on your own machine in the root directory, add the config.env file and put such variables in it:
 
 - NODE_ENV = development
 - PORT = 5000
-- DATABASE = link to mong database
+- DATABASE = link to mongoDB database
 - DATABASE_PASSWORD = db password
 - JWT_SECRET = examplesecret
 - JWT_EXPIRES_IN = 1d
-- JWT_COOKIE_EXPIRES_IN = 5
+- JWT_COOKIE_EXPIRES_IN = 3
 - EMAIL_USERNAME = mailtrap username
 - EMAIL_PASSWORD = mailtrap password
 - EMAIL_HOST = mailtrap host
-- EMAIL_PORT = 2525
+- EMAIL_PORT = mailtrap port
 - EMAIL_FROM = email from which you want to send messanges to website users
-- AWS_SECRET_ACCESS_KEY = AWS secret key
+- AWS_SECRET_ACCESS_KEY = AWS secret key for S3 image storage
 - AWS_ACCESS_KEY_ID = AWS secret key id
 - AWS_REGION = propably eu-central-1
 
@@ -32,7 +32,7 @@ Then install both server and client side dependencies and run the development se
 #### Working funcionalities:
 
 - Responsive pages: Explore page, Search page, Login page, ResetPassword page, MainContent(wall for auth users), SingleTweet page, Profile page, Edit profile page
-- Registration/Login/Login/Reset password funcionalities
+- Registration/login/forget&reset password funcionalities
 - Follow/Unfollow users funcionality
 - Rendering tweets from people that you follow and getting more of them on scrolling
 - Commenting/Retweeting/Liking tweets or undoing it
@@ -50,3 +50,4 @@ Then install both server and client side dependencies and run the development se
 - Work with 3rd party components such as (emoji-mart, react-easy-emoji, react-textarea-autosize, react-giphy-searchbox, react-process-string, react-infinite-scroll-component, react-circular-progressbar),
 - Work more efficiently with Redux (loadings, more complex structure),
 - I have deepened my knowledge of express and node (I work on the backend at least twice as efficiently as before)
+- How to deploy the app with AWS EC2 instance
